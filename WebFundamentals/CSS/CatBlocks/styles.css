@@ -1,0 +1,75 @@
+/*CSS reset settings here*/
+
+*{
+ margin: 0px;
+ padding: 0px;
+}
+
+.wrapper{
+ width: 767px;
+ background-color: #D4D2AE;
+ margin: 0px auto;
+ padding: 20px;
+}
+
+.header{
+ height: 100px;
+ margin-bottom: 5px;
+ position: relative;
+ display: block;
+}
+
+.headericon1 {
+  height: 75px;
+  width: 120px;
+  float: left;
+  margin-top: 15px;
+  margin-left: 100px;
+  display: inline-block;
+}
+
+.headericon2 {
+  height: 75px;
+  width: 120px;
+  float: right;
+  margin-right: 85px;
+  margin-top: 15px;
+  background-color: white;
+  display: inline-block;
+}
+
+h1 {
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 50px;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 40px;
+}
+
+.cat {
+  height: auto;
+  width: auto;
+}
+
+.bluecats {
+  height: 115px;
+  width: 115px;
+  padding: 15px;
+  background-color: #82B4EE;
+  border: 3px solid black;
+}
+
+.redcats {
+  height: 115px;
+  width: 115px;
+  padding: 15px;
+  background-color: #F36870;
+  border: 3px solid black;
+}
+
+.column {
+  width: 150px;
+  height: auto;
+  display: inline-block;
+}
