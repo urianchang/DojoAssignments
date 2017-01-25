@@ -1,0 +1,84 @@
+/*CSS reset settings here*/
+*{
+ margin: 0px;
+ padding: 0px;
+}
+.wrapper{
+  background-color: #1B335D;
+  width: 970px;
+  position: absolute;
+}
+.header {
+  background-color: #CF3036;
+  border-radius: 10px;
+  height: 50px;
+  margin: 10px;
+  padding-top: 5px;
+  padding-left: 10px;
+  display: block;
+  /*position: relative;*/
+}
+.nav-bar{
+  background-color: #2A7D8C;
+  border-radius: 30px;
+  margin: 10px;
+  padding: 20px;
+  width: 160px;
+  height: 180px;
+  display: inline-block;
+  float: left;
+  font-size: 14px;
+}
+.main-content{
+  background-color: #0E1822;
+  border-radius: 30px;
+  margin: 10px;
+  padding-top: 25px;
+  padding-left: 20px;
+  width: 710px;
+  height: 420px;
+  display: inline-block;
+}
+.bottom-bar{
+  background-color: #5D6673;
+  border-radius: 20px;
+  padding-top: 20px;
+  padding-left: 15px;
+  margin: 10px;
+  height: 40px;
+  display: block;
+  position: relative;
+}
+h1{
+  color: #C2D6EC;
+}
+p{
+  color: #C2D6EC;
+}
+a{
+  color: #4ACDDE;
+  font-weight: 600;
+}
+.important{
+  color: #808EFF;
+}
+h2{
+  color: #C2D6EC;
+  margin-bottom: 10px;
+}
+ul{
+  padding-left: 15px;
+  /*list-style-type: none;*/
+}
+li{
+  color: #C2D6EC;
+}
+.intro{
+  margin-bottom: 10px;
+}
+.body{
+  margin-bottom: 10px;
+}
+.list2{
+  list-style-type: none;
+}
