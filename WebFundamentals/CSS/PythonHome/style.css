@@ -1,0 +1,180 @@
+/*CSS reset*/
+*{
+  margin: 0px;
+  padding: 0px;
+}
+.wrapper{
+  background-color: blue;
+  width: 970px;
+}
+.header{
+  background-color: gray;
+  border: 1px solid black;
+  display: block;
+  height: 115px;
+}
+.logo{
+  background-color: green;
+  border: 1px solid black;
+  display: inline-block;
+  height: 75px;
+  width: 50px;
+  margin: 5px;
+}
+.spacer1{
+  background-color: green;
+  border: 1px solid black;
+  display: inline-block;
+  height: 75px;
+  width: 600px;
+  margin: 5px;
+}
+.header-right{
+  background-color: green;
+  border: 1px solid black;
+  display: inline-block;
+  height: 75px;
+  width: 50px;
+  margin: 5px;
+}
+.text-size-selector{
+  background-color: pink;
+  border: 1px solid black;
+  display: block;
+  height: 20px;
+  width: 30px;
+  margin: 5px;
+}
+.search-frame{
+  background-color: pink;
+  border: 1px solid black;
+  display: block;
+  height: 20px;
+  width: 30px;
+  margin: 5px;
+}
+.navbar-area{
+  background-color: gray;
+  border: 1px solid black;
+  display: block;
+  height: 50px;
+}
+.navbar-spacer1{
+  background-color: green;
+  border: 1px solid black;
+  display: inline-block;
+  height: 40px;
+  width: 125px;
+  margin: 5px 0px;
+}
+.navbar{
+  background-color: green;
+  border: 1px solid black;
+  display: inline-block;
+  height: 40px;
+  width: 820px;
+  margin: 5px;
+  position: absolute;
+}
+.nav{
+  background-color: pink;
+  border: 1px solid black;
+  display: inline-block;
+  height: 35px;
+  width: 130px;
+  margin: 1px 0px;
+}
+.main-content{
+  background-color: gray;
+  border: 1px solid black;
+  display: block;
+  height: 320px;
+}
+.shortcuts{
+  background-color: green;
+  border: 1px solid black;
+  display: inline-block;
+  height: 285px;
+  width: 200px;
+  margin-left: 132px;
+  margin-top: 10px;
+  position: absolute;
+  padding-top: 15px;
+}
+.main-shortcuts{
+  background-color: pink;
+  border: 1px solid black;
+  height: 15px;
+  width: 150px;
+  padding: 5px 0px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 30px;
+  text-align: center;
+  color: white;
+  list-style-type: circle;
+  list-style-position: inside;
+}
+.shortcut{
+  font-family: sans-serif;
+  font-size: 14px;
+  color: white;
+}
+.introduction{
+  background-color: green;
+  border: 1px solid black;
+  display: inline-block;
+  height: 300px;
+  width: 615px;
+  margin-left: 337px;
+  margin-top: 10px;
+}
+.highlighted-content{
+  background-color: gray;
+  border: 1px solid black;
+  display: block;
+  height: 220px;
+}
+.getting-started{
+  background-color: green;
+  border: 1px solid black;
+  display: inline-block;
+  height: 200px;
+  width: 400px;
+  margin-left: 132px;
+  margin-top: 10px;
+}
+.applications{
+  background-color: green;
+  border: 1px solid black;
+  display: inline-block;
+  height: 200px;
+  width: 400px;
+  margin-left: 15px;
+  margin-top: 10px;
+}
+.footer{
+  background-color: gray;
+  border: 1px solid black;
+  display: block;
+  height: 100px;
+}
+.footer-links{
+  background-color: green;
+  border: 1px solid black;
+  display: block;
+  height: 30px;
+  margin-top: 30px;
+}
+.copyright{
+  background-color: green;
+  border: 1px solid black;
+  display: block;
+  height: 10px;
+  margin-top: 15px;
+}
+.cp{
+  font-size: xx-small;
+  color: white;
+  text-align: center;
+}
