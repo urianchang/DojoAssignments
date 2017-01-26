@@ -1,0 +1,203 @@
+/*CSS reset*/
+*{
+  margin: 0px;
+  padding: 0px;
+}
+.header{
+  /*background-color: red;*/
+  height: 115px;
+  width: 100%;
+  background: white; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#F1F3EF, white); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#F1F3EF, white); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#F1F3EF, white); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#F1F3EF, white); /* Standard syntax */
+  /*This is for making the motto div more responsive on the right side*/
+  position: relative;
+}
+.logo{
+  height: 100px;
+  width: 20%;
+  display: inline-block;
+  margin: 5px 10px;
+}
+.logo img{
+  height: 100px;
+  width: 100%;
+}
+.motto{
+  /*background-color: black;*/
+  height: 50px;
+  width: 36%;
+  margin: 65px 75px 5px 0px;
+  display: inline-block;
+  /*The bottom two customizations are for making the motto div more responsive on the right side*/
+  position: absolute;
+  right: 0;
+}
+.motto p{
+  color: black;
+  font-size: 20px;
+  font-weight: 900;
+}
+.navbar{
+  /*background-color: blue;*/
+  height: 42px;
+  width: 100%;
+  vertical-align: top;
+}
+.navbar ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #F4F6F3;
+  border: 1px solid black;
+}
+.navbar ul li{
+  height: 40px;
+  width: 130px;
+  border-right: 1px solid black;
+  display: inline-block;
+  text-align: center;
+}
+.navbar ul li a{
+  padding: 12px 14px;
+  display: block;
+  color: blue;
+}
+.main{
+  background: #1D0F16; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#1D0F16, #3C354D, #1D0F16); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#1D0F16, #3C354D, #1D0F16); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#1D0F16, #3C354D, #1D0F16); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#1D0F16, #3C354D, #1D0F16); /* Standard syntax */
+  height: 100%;
+  width: 100%;
+}
+.main-content{
+  /*background-color: purple;*/
+  height: 295px;
+  width: 100%;
+  display: block;
+}
+.main-image-container{
+  background-color: #C0C0C0;
+  height: 250px;
+  width: 55%;
+  margin: 15px 15px 0px 15px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+}
+.main-image-container img{
+  margin: 8px;
+  height: 94%;
+  width: 96%;
+  vertical-align: middle;
+}
+.main-text-container{
+  background: gray; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, #F2FBFE , #DACBD9); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #F2FBFE , #DACBD9); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #F2FBFE , #DACBD9); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #F2FBFE , #DACBD9); /* Standard syntax */
+  height: 250px;
+  width: 40%;
+  display: inline-block;
+  margin: 15px 15px 0px 0px;
+}
+.main-text-container h1{
+  display: block;
+  background: gray; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#C9C5CA, #868492, #C9C5CA); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#C9C5CA, #868492, #C9C5CA); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#C9C5CA, #868492, #C9C5CA); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#C9C5CA, #868492, #C9C5CA); /* Standard syntax */
+  margin-top: 0px;
+  padding: 5px;
+  font-size: 18px;
+}
+.main-text-container h4{
+  display: block;
+  margin: 0px 8px;
+  font-size: 15px;
+}
+.main-text-container p{
+  display: block;
+  margin: 10px 8px;
+  font-size: 12px;
+}
+.main-spacer{
+  /*background-color: blue;*/
+  height: 20px;
+  display: block;
+  margin-top: 5px;
+  text-align: right;
+}
+.main-spacer img{
+  display: inline-block;
+  height: 13px;
+  width: 13px;
+  margin: 3px;
+}
+.main-spacer p{
+  display: inline-block;
+  margin: 3px 40px 0px 0px;
+  color: #3366BB;
+  font-size: 12px;
+  vertical-align: top;
+}
+.main-blocks{
+  /*background-color: black;*/
+  height: 420px;
+  width: 100%;
+  display: block;
+}
+.block1, .block2, .block3, .block4{
+  background: white; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#9DAAC4, #F9FAFB); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#9DAAC4, #F9FAFB); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#9DAAC4, #F9FAFB); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#9DAAC4, #F9FAFB); /* Standard syntax */
+  /*border: 1px solid black;*/
+  height: 400px;
+  width: 22.7%;
+  margin: 0px 0px 0px 15px;
+  display: inline-block
+}
+.block1 h1, .block2 h1, .block3 h1, .block4 h1{
+  display: block;
+  background: gray; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#C9C5CA, #868492, #C9C5CA); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#C9C5CA, #868492, #C9C5CA); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#C9C5CA, #868492, #C9C5CA); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#C9C5CA, #868492, #C9C5CA); /* Standard syntax */
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 5px;
+  font-size: 18px;
+}
+.block1 img, .block2 img, .block3 img, .block4 img{
+  display: block;
+  height: 125px;
+  width: 100%;
+}
+.block1 p, .block2 p, .block3 p, .block4 p{
+  display: block;
+  height: 47%;
+  margin: 10px 8px;
+  font-size: 12px;
+}
+.block1 button, .block2 button, .block3 button, .block4 button{
+  display: block;
+  margin-left: 60%;
+  /*margin-right: 3%;*/
+  border-radius: 4px;
+  border: 3px solid black;
+  background-color: #5C729C;
+  color: white;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 3px 5px;
+}
