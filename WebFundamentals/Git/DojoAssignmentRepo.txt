@@ -1,0 +1,12 @@
+cd Desktop
+cd DojoAssignments
+git init
+git add .
+git commit -m "Created DojoAssignments folder. Added files and subfolders."
+git remote add origin https://github.com/urianchang/DojoAssignments.git
+git push -u origin master
+touch readme.md
+git status
+git add .
+git commit -m "Created readme.md file to explain the folder's contents."
+git push origin master
