@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <!--Head section-->
+  <head>
+    <meta charset="utf-8">
+    <title>Urian's Registration Form</title>
+    <meta name="description" content="Registration form created for Coding Dojo on 01/23/17.">
+    <!--CSS and JS not included.-->
+  </head>
+  <!--Body section-->
+  <body>
+    <h1>My Registration Form</h1>
+    <!--
+    **Form area:
+    **  1. First name, last name, email
+    **  2. Password (and confirmation)
+    **  3. Birthday
+    **  4. Gender (radio)
+    **  5. Short description (text area)
+    **  6. Favorite language (drop-down)
+    **  7. Submit button
+    -->
+    <form action="register.php" method="post">
+      <!-- Section 1 -->
+      <label for="first_name">First Name:</label>
+      <input type="text" id="first_name" name="fname">
+      <br>
+      <br>
+      <label for="last_name">Last Name:</label>
+      <input type="text" id="last_name" name="lname">
+      <br>
+      <br>
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email">
+      <br>
+      <br>
+      <!-- Section 2 -->
+      <label for="password_set">Password:</label>
+      <input type="password" id="password_set" name="password_set">
+      <br>
+      <br>
+      <label for="password_confirm">Confirm Password:</label>
+      <input type="password" id="password_confirm" name="password_confirm">
+      <br>
+      <br>
+      <!-- Section 3 -->
+      <label for="birthday">Birthday:</label>
+      <input type="date" id="birthday" name="birthday">
+      <br>
+      <!-- Section 4 -->
+      <p>Gender:</p>
+      <input type="radio" id="male" name="gender" value="male">
+      <label for="male">Male</label>
+      <input type="radio" id="female" name="gender" value="female">
+      <label for="female">Female</label>
+      <input type="radio" id="other" name="gender" value="other">
+      <label for="other">Other</label>
+      <br>
+      <!-- Section 5 -->
+      <p>A short description about yourself:</p>
+      <textarea name="description"></textarea>
+      <br>
+      <br>
+      <!-- Section 6 -->
+      <label for="language">Favorite Language:</label>
+      <select name="language" id="language">
+        <option value="javascript">JavaScript</option>
+        <option value="python">Python</option>
+        <option value="ruby">Ruby</option>
+        <option value="java">Java</option>
+        <option value="swift">Swift</option>
+      </select>
+      <br>
+      <br>
+      <!-- Section 7 -->
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

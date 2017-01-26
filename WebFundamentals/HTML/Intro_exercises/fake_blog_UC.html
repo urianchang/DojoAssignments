@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Michael Jordan</title>
+    <meta name="description" content="Michael Jeffrey Jordan (born Februrary 17, 1963),
+    also known by his initials, MJ, is an American retired professional basketball player,
+    businessman, and principal owner and chairman of the Charlotte Hornets. Jordan played
+    15 seasons in the National Basketball Association (NBA) for the Chicago Bulls and Washington
+    Wizards.">
+    <!--CSS and JS not included.-->
+  </head>
+  <body>
+      <h1>Michael Jordan</h1>
+      <img src="Michael_Jordan_in_2014.jpg"
+      alt="Michael Jordan in 2014"
+      style="width:220px;height:276px;">
+      <div id="biography">
+        <p>Michael Jeffrey Jordan (born Februrary 17, 1963), also known by his initials, MJ,
+          is an American retired professional basketball player, businessman, and principal owner
+          and chairman of the Charlotte Hornets. Jordan played 15 seasons in the National Basketball
+          Association (NBA) for the Chicago Bulls and Washington Wizards.His biography on the NBA
+          website states: "By acclamation, Michael Jordan is the greatest basketball player of all
+          time." Jordan was one of the most effectively marketed athletes of his generation and was
+          considered instrumental in popularizing the NBA around the world in the 1980s and 1990s.</p>
+      </div>
+      <div id="career_statistics">
+        <h3>NBA Career Statistics - Number of Games Played (GP) in the Regular Season (90's - 00's)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Team</th>
+              <th>GP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1989 - 90</td>
+              <td>Chicago</td>
+              <td>82</td>
+            </tr>
+            <tr>
+              <td>1990 - 91</td>
+              <td>Chicago</td>
+              <td>82</td>
+            </tr>
+            <tr>
+              <td>1991 - 92</td>
+              <td>Chicago</td>
+              <td>80</td>
+            </tr>
+            <tr>
+              <td>1992 - 93</td>
+              <td>Chicago</td>
+              <td>70</td>
+            </tr>
+            <tr>
+              <td>1994 - 95</td>
+              <td>Chicago</td>
+              <td>17</td>
+            </tr>
+            <tr>
+              <td>1995 - 96</td>
+              <td>Chicago</td>
+              <td>82</td>
+            </tr>
+            <tr>
+              <td>1996 - 97</td>
+              <td>Chicago</td>
+              <td>82</td>
+            </tr>
+            <tr>
+              <td>1997 - 98</td>
+              <td>Chicago</td>
+              <td>82</td>
+            </tr>
+            <tr>
+              <td>2001 - 02</td>
+              <td>Washington</td>
+              <td>60</td>
+            </tr>
+            <tr>
+              <td>2002 - 03</td>
+              <td>Washington</td>
+              <td>82</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="career_highlights_awards">
+        <h3>Career highlights and awards</h3>
+        <ul>
+          <li>6x NBA champion (1991-1993, 1996-1998)</li>
+          <li>6x NBA Finals MVP (1991-1993, 1996-1998)</li>
+          <li>5x NBA Most Valuable Player (1988, 1991, 1992, 1996, 1998)</li>
+          <li>14x NBA All-Star (1985-1993, 1996-1998, 2002-2003)</li>
+        </ul>
+      </div>
+      <a href="https://en.wikipedia.org/wiki/Michael_Jordan">Click here to go
+        to Michael Jordan's Wikipedia page
+      </a>
+      <!-- Insert line breaks to separate factual content from survey. -->
+      <br>
+      <br>
+      <div id="survey">
+        <h1> Please fill out this short survey</h1>
+        <form action="survey.php" method="post">
+          <label for="email">Email:</label>
+          <input type="text" id="email" name="email">
+          <br>
+          <br>
+          <input type="radio" id="yes" name="spam" value="yes">
+          <label for="yes">Yes, please spam my inbox</label>
+          <input type="radio" id="no" name="spam" value="no">
+          <label for="no">No, please do not send me any emails.</label>
+          <br>
+          <br>
+          <label for="gender">Gender:</label>
+          <select name="gender" id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+          <br>
+          <p>How did you hear about us?</p>
+          <input type="checkbox" id="facebook" name="how" value="facebook">
+          <label for="facebook">Facebook</label>
+          <br>
+          <input type="checkbox" id="newspaper" name="how" value="newspaper">
+          <label for="newspaper">Newspaper</label>
+          <br>
+          <input type="checkbox" id="referral" name="how" value="referral">
+          <label for="referral">Referral</label>
+          <br>
+          <br>
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+  </body>
+</html>
