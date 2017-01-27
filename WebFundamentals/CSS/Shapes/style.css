@@ -1,0 +1,70 @@
+/*CSS reset*/
+*{
+  margin: 0px;
+  padding: 0px;
+}
+.square{
+  width: 140px;
+  height: 140px;
+  background: blue;
+  display: block;
+  margin: 10px;
+}
+.circle{
+  display: block;
+  margin: 10px;
+  width: 140px;
+  height: 140px;
+  background: blue;
+  border-radius: 140px;
+}
+.triangle{
+  display: block;
+  margin: 30px 10px;
+}
+.tri1{
+  width:140px;
+  height:157px;
+  background: white;
+  display:inline-block;
+  transform: rotate(27deg);
+  margin-bottom: 23px;
+}
+.sq{
+  width:140px;
+  height:140px;
+  background: blue;
+  display: inline-block;
+  margin-left: -47px;
+  margin-right: -47px;
+}
+.tri2{
+  width:140px;
+  height:157px;
+  background: white;
+  display:inline-block;
+  transform: rotate(-27deg);
+  margin-bottom: 23px;
+}
+.pacman{
+  display: block;
+  margin: 30px 10px;
+}
+.pac{
+  width:140px;
+  height: 140px;
+  background: blue;
+  border-radius: 140px;
+  display: inline-block;
+  margin-right: -59px;
+}
+
+.tri-1{
+  width: 70px;
+  height: 70px;
+  background: white;
+  border-radius: 0px 70px 0px 0px;
+  display: inline-block;
+  transform: rotate(45deg);
+  margin-bottom: 35px;
+}
