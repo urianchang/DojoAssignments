@@ -1,0 +1,21 @@
+var number1 = 3.14;
+var number2 = 5;
+var number3 = -9;
+var number4 = 100000;
+var string1 = "hello";
+var string2 = "good-bye";
+var string3 = "82i3kmccne";
+var boolean1 = true;
+var boolean2 = false;
+var undfined;
+
+console.log("The First String:", string1);
+console.log("The Second String:", string2);
+console.log("The Third String:", string3);
+console.log("The First Number:", number1);
+console.log("The Second Number:", number2);
+console.log("The Third Number:", number3);
+console.log("The Fourth Number:", number4);
+console.log("The First Boolean:", boolean1);
+console.log("The Second Boolean:", boolean2);
+console.log("The Undefined variable:", undfined);
