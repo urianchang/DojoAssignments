@@ -1,0 +1,110 @@
+/*CSS reset*/
+*{
+  margin: 0px;
+  padding: 0px;
+}
+body{
+  background-color: #DDDFD4;
+  font-family: cursive;
+  color: white;
+}
+h1{
+  margin: 10px 10px;
+  font-size: 20px;
+}
+h2{
+  margin: 5px 10px;
+  font-size: 17px;
+}
+p{
+  font-size: 13px;
+  margin-left: 20px;
+  margin-right: 25px;
+}
+span{
+  color: #4DDCCB;
+}
+.header, .main, .footer {
+  background-color: #38B0AD;
+  display: block;
+  width: 900px;
+  margin: 15px;
+}
+.header{
+  height: 50px;
+}
+.header img, .header h1, .header a {
+  display: inline-block;
+  color: black;
+}
+.header img{
+  width: 30px;
+  height: 30px;
+  margin: 10px 0px 10px 10px;
+}
+.header a{
+  color: white;
+  margin: 15px 15px;
+  font-size: 13px;
+  vertical-align: top;
+}
+.header h1{
+  vertical-align: top;
+  font-size: 24px;
+  margin: 7px 135px 0px 0px;
+}
+.main{
+  height: 500px;
+  background-color: #FBE691;
+}
+.sidebar{
+  height: 470px;
+  width: 250px;
+  background-color: #153F43;
+  display: inline-block;
+  margin: 15px;
+}
+.cluster{
+  display: inline-block;
+  height: 470px;
+  width: 600px;
+  /*background-color: red;*/
+  margin: 15px 0px 15px 15px;
+  vertical-align: top;
+}
+.row{
+  display: block;
+}
+.top .block{
+  display: inline-block;
+  height: 170px;
+  width: 165px;
+  margin-right: 30px;
+  vertical-align: top;
+}
+.middle .block{
+  display: inline-block;
+  height: 120px;
+  width: 265px;
+  margin: 30px 30px 15px 0px;
+}
+.bottom {
+  display: block;
+  height: 120px;
+  width: 565px;
+  margin: 15px 15px 0px 0px;
+}
+.block{
+  background-color: #153F43;
+}
+.footer{
+  text-align: center;
+  padding-top: 15px;
+  height: 35px;
+}
+.footer p{
+  color: black;
+}
+.footer a{
+  color: purple;
+}
