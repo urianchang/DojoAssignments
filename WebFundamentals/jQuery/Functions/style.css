@@ -1,0 +1,66 @@
+/*CSS reset*/
+*{
+  margin: 0px;
+  padding: 0px;
+}
+body{
+  font-family: sans-serif;
+}
+h2{
+  text-align: center;
+  margin: 10px;
+  text-decoration: underline;
+  color: blue;
+}
+.row{
+  display: block;
+  border-top: 1px solid black;
+  /*border-bottom: 1px solid black;*/
+  width: 100%;
+  height: 80px;
+}
+.row button{
+  display: inline-block;
+  vertical-align: top;
+  margin: 25px 5%;
+  padding: 5px;
+}
+.description{
+  display: inline-block;
+  width: 70%;
+  height: 100%;
+  /*background-color: blue;*/
+  text-align: center;
+}
+.description h1{
+  margin: 5px;
+  font-size: 28px;
+}
+.description p{
+  font-size: 14px;
+}
+#fadein-text{
+  display: none;
+  font-weight: bold;
+}
+#fadeout-text{
+  color: red;
+}
+.section-title{
+  color: purple;
+  font-family: cursive;
+}
+.special{
+  color: blue;
+  font-family: monospace;
+}
+p{
+  display: inline-block;
+}
+input{
+  display: inline-block;
+  margin-right: 10px;
+}
+span{
+  color: green;
+}
