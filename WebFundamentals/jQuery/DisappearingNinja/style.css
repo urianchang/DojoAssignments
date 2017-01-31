@@ -1,0 +1,20 @@
+/*CSS Reset*/
+*{
+  margin: 0px;
+  padding: 0px;
+}
+h1{
+  margin-bottom: 10px;
+}
+.img{
+  display: inline-block;
+  height: 250px;
+  width: 250px;
+}
+button{
+  display: block;
+  background-color: green;
+  color: white;
+  font-family: cursive;
+  padding: 8px;
+}
