@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>on() practice</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+       $('button').click(function(){
+        $('div').append('<h3>I am a new content</h3>');
+       });
+/*
+The .on() function takes up to 4 parameters and we will show you how they mesh with our example above:
+  1. The event: Are you waiting for a click? A submit? Keydown? In this case, we are looking for a click.
+  2. Data you wish to pass to the handler (this is not required and seldom used). We're not using it here!
+  3. The target: i.e. the element you are trying to target. Here we are targeting a button. So now our search is narrowed down listening for a button to be clicked.
+  4. The function you want to run: Just the stuff you want to attach! In our case, we are just going to alert to the screen that we clicked a button-- every time a button is clicked.
+*/
+       $('div.a').on('mouseover', 'h3', function(){
+        $(this).css('color', 'pink');
+       });
+       
+      });
+    </script>
+  </head>
+  <body>
+    <button>Click me</button>
+    <div class="a">
+     <h3>I am old content</h3>
+    </div>
+    <div class="b">
+     <h3>I am old content</h3>
+    </div>
+  </body>
+</html>

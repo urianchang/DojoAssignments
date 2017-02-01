@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>forms practice</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    //return false doesn't allow page to refresh
+    //.submit works in two ways: 1) listener; 2) used to hard submit (e.g. from another button)
+    //.serialize preps forms being handled by a computer
+      $(document).ready(function(){
+        // alert('hello!');
+        $('form').submit(function(){
+          console.log($(this).serialize());
+          //alert('You are submitting me!');
+          return false;
+        })
+
+        $('.btn').click(function(){
+          $('form').submit();
+        })
+      });
+    </script>
+  </head>
+  <body>
+    <div>
+      <form action='process.php' method='post'>
+        First name <input type='text' name ='first_name'>
+        Last name <input type='text' name='last_name'>
+        Email <input type='text' name='email'>
+        <input type='submit' value='submit!'>
+      </form>
+
+      <button class='btn'>Click me to use .submit differently</button>
+    </div>
+  </body>
+</html>

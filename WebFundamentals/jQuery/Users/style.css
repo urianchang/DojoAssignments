@@ -1,0 +1,45 @@
+/*CSS Reset*/
+*{
+  margin: 0px;
+  padding: 0px;
+}
+table {
+    display: block;
+    width: 100%;
+    /*border: 1px solid black;*/
+    /*table-layout: fixed;*/
+    border-collapse: collapse;
+}
+th, td {
+  padding: 5px 5px;
+  border: 1px solid black;
+  width: 25%;
+}
+.data {
+  width: 100%;
+  margin-bottom: 35px;
+  /*background-color: red;*/
+}
+tr {
+  border: 1px solid black;
+}
+form {
+  /*background-color: red;*/
+  width: 350px;
+}
+h1 {
+  border-bottom: 1px solid black;
+  margin-bottom: 15px;
+  line-height: 90%;
+}
+section {
+  /*background-color: purple;*/
+  text-align: right;
+  line-height: 175%;
+  margin-right: 2px;
+}
+.button {
+  padding: 4px;
+  margin-top: 30px;
+  border-radius: 5px;
+}

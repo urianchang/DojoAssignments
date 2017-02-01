@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Users</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="data">
+      <table>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email Address</th>
+          <th>Contact #</th>
+        </tr>
+        <!-- <tr>
+          <td>hello</td>
+          <td>this is</td>
+          <td>a test for auto spacing</td>
+          <td>test stes tes</td>
+        </tr> -->
+      </table>
+    </div>
+    <form method="post">
+      <h1>Add User</h1>
+      <section>
+        <p>
+          <label for="first-name">
+            <span>First Name: </span>
+            <input type="text" name="firstname">
+          </label>
+        </p>
+        <p>
+          <label for="last-name">
+            <span>Last Name: </span>
+            <input type="text" name="lastname">
+          </label>
+        </p>
+        <p>
+          <label for="email-addr">
+            <span>Email Address: </span>
+            <input type="email" name="email">
+          </label>
+        </p>
+        <p>
+          <label for="contact-num">
+            <span>Contact No.: </span>
+            <input type="text" name="phone">
+          </label>
+        </p>
+      </section>
+      <section>
+        <input type="submit" value="Add User" class="button">
+      </section>
+    </form>
+  </body>
+</html>
