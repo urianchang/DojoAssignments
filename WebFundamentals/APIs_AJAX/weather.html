@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Weather</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+      //Helper function: Convert number from Kelvins to Fahrenheit
+      function kToF(num) {
+        var x = num;
+        x = Math.ceil((x * (9/5)) - 459.67);
+        return x;
+      }
+
+      $(document).ready(function() {
+        $('form').submit(function(){
+
+          var loc = $("input[name='cityinfo']").val();
+
+          //Encode location into URI (e.g. convert spaces)
+          loc = encodeURIComponent(loc);
+
+          var api_key = "1ccd852aeaec6a934f91275b8a5ea363";
+          var loc_url = "http://api.openweathermap.org/data/2.5/weather?q="+loc+"&&appid="+api_key;
+          $.get(loc_url, function(res) {
+            console.log(res);
+            var name = res.name;
+            var curtemp = res.main.temp;
+            curtemp = kToF(curtemp);
+            var html_str = "<h1>"+name+"</h1><h3>Current temperature: "+curtemp+" Fahrenheit</h3>";
+            $('.results').html(html_str);
+          }, "json");
+          return false;
+        })
+      });
+    </script>
+  </head>
+  <body>
+    <div class="input">
+      <form method="post">
+        <label for="city">
+          <span>City: </span>
+          <input type="text" name="cityinfo">
+        </label>
+        <input type="submit" value="Find Weather" class="button">
+      </form>
+    </div>
+    <div class="results">
+    </div>
+  </body>
+</html>

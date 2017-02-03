@@ -1,0 +1,24 @@
+/*CSS reset*/
+*{
+  padding: 0px;
+  margin: 0px;
+}
+
+.houses img {
+  display: inline-block;
+  margin: 5px;
+  width: 225px;
+  height: 125px;
+}
+
+.details{
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 50%;
+  height: auto;
+}
+
+.details p {
+  margin: 3px 0px 3px 10px;
+  line-height: 125%;
+}

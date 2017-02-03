@@ -1,0 +1,55 @@
+/*CSS Reset*/
+* {
+  padding: 0px;
+  margin: 0px;
+}
+body{
+  white-space: nowrap;
+}
+.title{
+  text-align: center;
+}
+.mon-list{
+  white-space: normal;
+  width: 70%;
+  height: auto;
+  display: inline-block;
+  background-color: blue;
+  margin: 5px;
+}
+.mon-list img{
+  margin: 3px;
+}
+.pokedex{
+  white-space: normal;
+  display: inline-block;
+  vertical-align: top;
+  position: fixed;
+  width: 30%;
+  height: 400px;
+  background-color: red;
+  margin: 5px;
+  text-align: center;
+  font-family: sans-serif;
+}
+.pokedex h1{
+  margin-top: 10px;
+
+}
+.pokedex img{
+  border: 1px solid black;
+  background-color: white;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.pokedex h2{
+  font-size: 18px;
+  margin: 3px;
+}
+.pokedex ul{
+  list-style-position: inside;
+  font-style: italic;
+}
+.pokedex p{
+  font-style: italic;
+}
