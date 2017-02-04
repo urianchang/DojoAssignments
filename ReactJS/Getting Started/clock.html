@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Clock with ReactJS</title>
+    <script src="scripts/react.js"></script>
+    <script src="scripts/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      // GOAL: Make Clock component truly reusable and encapsulated.
+
+      //INITIAL
+      // function tick() {
+      //   const element = (
+      //     <div>
+      //       <h1>Hello, world!</h1>
+      //       <h2>It is {new Date().toLocaleTimeString()}.</h2>
+      //     </div>
+      //   );
+      //   ReactDOM.render(
+      //     element,
+      //     document.getElementById('root')
+      //   );
+      // }
+      //
+      // //Calls ReactDOM.render() to change rendered output.
+      // setInterval(tick, 1000);
+
+      //START: encapsulate how clock looks
+      function Clock(props){
+        return(
+          <div>
+            <h1>What is the time?</h1>
+            <h2>It is {props.date.toLocaleTimeString()}.</h2>
+          </div>
+        );
+      }
+
+      function tick() {
+        ReactDOM.render(
+          <Clock date={new Date()} />,
+          document.getElementById('root')
+        );
+      }
+
+      setInterval(tick, 1000);
+      // Missing crucial requirement: Clock sets up a timer and updates UI every second
+      // should be an implementation detail of the clock. As such, we need to add "state" to Clock component.
+      // State is similar to props, but it is private and fully controlled by the component.
+
+
+    </script>
+  </body>
+</html>
