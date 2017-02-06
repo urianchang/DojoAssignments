@@ -1,0 +1,1 @@
+The Web Fundamentals folder covers assignments for HTML, CSS, Javascript, jQuery, AJAX and other API's.
