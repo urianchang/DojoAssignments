@@ -28,8 +28,8 @@ def multiply(arr, num):
     return newarr
 
 a = [2, 4, 10, 16]
-b = multiply(a, 5)
-print b
+# b = multiply(a, 5)
+# print b
 
 '''
 Hacker Challenge:
@@ -44,6 +44,7 @@ def layered_multiples(arr):
         for digit in range(1, num+1):
             arr1.append(1)
         arr2.append(arr1)
+        arr1 = []
     return arr2
 x = layered_multiples(multiply([2, 4, 5], 3))
 print x
