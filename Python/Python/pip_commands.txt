@@ -1,0 +1,21 @@
+pip install : several stages: (1) Identify the base requirements (user supplied arguments processed),
+  (2) resolve dependencies (what will be installed),
+  (3) build wheels (all dependencies that can be are built into wheels),
+  (4) install the packages (and uninstall anything being upgraded/replaced)
+
+pip install (x2) : Message about the package already being installed will appear
+
+pip list : list installed packages, including editables. Listed in case-insensitive sorted order.
+
+pip freeze : output installed packages in requirements format. Listed in case-insensitive sorted order.
+
+pip freeze > requirements.txt : puts output from "pip freeze" into text file named "requirements"
+  Ex: List of installed packages and their version number.
+
+pip uninstall Django : uninstall packages.
+  Exceptions: pure distutils packages installed with "python setup.py install", script wrappers
+  installed by "python setup.py develop".
+
+pip show Django : show information about one or more installed packages.
+
+pip search Flask : search for PyPI packages whose name or summary contains <query>
