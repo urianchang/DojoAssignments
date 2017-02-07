@@ -31,4 +31,18 @@ def coinage(cents):
     coins["pennies"] = cents
     return coins
 
-print coinage(387)
+def coinop(cents):
+    coins = ["dollars", "half-dollars", "quarters", "dimes", "nickels", "pennies"]
+    denom = [100, 50, 25, 10, 5, 1]
+    change = {}
+    ind = 0
+    for ind in range(len(denom)):
+        change[coins[ind]] = int(cents/denom[ind])
+        cents = cents%denom[ind]
+        ind += 1
+    return change
+
+print coinop(387)
+
+
+# print coinage(387)
