@@ -12,3 +12,32 @@ You can use session in both your server.py file as well as your templates.
 
 Even though you have access to the session, you should not abuse the amount of information you store in it. Store only what you need in the session.
 
+================
+| HIDDEN INPUT |
+================
+
+Example:
+HTML:
+<form method="post" action="/process">
+      <input type="hidden" name="action" value="register">
+      <input type="text" name="first_name">
+      <input type="text" name="last_name">
+      <input type="text" name="email">
+      <input type="password" name="password">
+      <input type="submit" value="Register">
+ </form>
+ <form method="post" action="/process">
+      <input type="hidden" name="action" value="login">
+      <input type="text" name="email">
+      <input type="password" name="password">
+      <input type="submit" value="Login">
+ </form>
+
+Flask:
+if request.form['action'] == 'register':
+  //do registration process
+elif request.form['action'] == 'login':
+  //do login process
+
+
+
