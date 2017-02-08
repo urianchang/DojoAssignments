@@ -1,0 +1,11 @@
+/* CSS reset */
+*{
+    padding: 0px;
+    margin: 0px;
+}
+body{
+    background-color: black;
+}
+h1{
+    color: white;
+}
