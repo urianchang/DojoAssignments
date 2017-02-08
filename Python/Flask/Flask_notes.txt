@@ -1,3 +1,7 @@
+===========
+| SESSION |
+===========
+
 Session is a way to store information unique to a particular client on the server side.
 
 Session uses cookies to identify the client whose session we are interacting with.
@@ -7,3 +11,4 @@ When you want to access and modify data over multiple redirects use session.
 You can use session in both your server.py file as well as your templates.
 
 Even though you have access to the session, you should not abuse the amount of information you store in it. Store only what you need in the session.
+
