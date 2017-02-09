@@ -39,5 +39,47 @@ if request.form['action'] == 'register':
 elif request.form['action'] == 'login':
   //do login process
 
+=========================
+| BASIC FORM VALIDATION |
+=========================
+
+Here's what we think are the most important concepts in form validation:
+	* Logic: what data do we want to validate?
+	* Checking if the data is present
+	* Making sure the data is in the correct format
+	* Sending the user to the correct destination whether their data is valid or not
+	* Alerting the user of their errors (if they exist)
+
+Validation Step 1 -- Conditionals
+Validation Step 2 -- Flash Messages on the Server
+	Flash messages are strings that exist for one redirect cycle. Similar to Session, you can access flash messages through embedded python tags {{}} & {%%} on the views and display them to the user. The difference between flash and session is that flash messages only last for one redirect while session stays until it is manually popped. This makes flash messages perfect for validations where we only need to display the error or message temporarily! To use flash messages we first need to import them from Flask.
+
+Validation Step 3 -- Flash Messages on the Client (HTML)
+	Example:
+--------------------------
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p>{{message}}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+--------------------------
+{% with messages = get_flashed_messages() %}
+	The with messages here helps us declare a variable in our template that we can use within a specific scope.
+{% if messages %}
+	Check if there are even any messages that came back from the get_flashed_messages() function
+{% for message in messages %}
+	Loop through all messages
+<p>{{message}}</p>
+	Print the messages one by one each in a paragraph tag
+
+
+
+
+
+
+
+
 
 
