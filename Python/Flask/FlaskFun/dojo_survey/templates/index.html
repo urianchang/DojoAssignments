@@ -7,6 +7,13 @@
     </head>
     <body>
       <div class="response-area">
+          {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                  {% for message in messages %}
+                      <p>{{message}}</p>
+                  {% endfor %}
+              {% endif %}
+          {% endwith %}
           <form action='/results' method='post'>
               <h1>Add a person</h1>
               <section class="basic-info">

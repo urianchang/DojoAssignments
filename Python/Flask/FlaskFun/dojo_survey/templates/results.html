@@ -9,10 +9,10 @@
         <div class="response-area">
             <section class="basic-info">
                 <h1>Submitted Info</h1>
-                <p>Name: {{ name }}</p>
-                <p>Dojo Location: {{ loc }}</p>
-                <p>Favorite Language: {{ lang }}</p>
-                <p>Comment: {{ comm }}</p>
+                <p>Name: {{session.name}}</p>
+                <p>Dojo Location: {{session.loc}}</p>
+                <p>Favorite Language: {{session.lang}}</p>
+                <p>Comment: {{session.comm}}</p>
             </section>
             <section>
                 <input type='submit' value='Go Back' onClick="history.go(-1);return true;" class="button">
