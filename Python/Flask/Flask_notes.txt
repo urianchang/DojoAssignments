@@ -74,8 +74,18 @@ Validation Step 3 -- Flash Messages on the Client (HTML)
 <p>{{message}}</p>
 	Print the messages one by one each in a paragraph tag
 
+============================
+| ADVANCED FORM VALIDATION |
+============================
 
+Another common validation that needs to be performed is checking whether an email address is valid. You can achieve this by using something known as a regular expression or regex. Use the 'match' method that will return a boolean indicating whether the argument matches the regular expression or not. 
 
+Regex for e-mail:
+r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$'
+
+Other Useful Validation Tools:
+* str.isalpha() -- Returns a boolean that shows whether a string contains only alphabetic characters. 
+* time.strptime(string, format) -- Changes a string to a time using the given format. 
 
 
 
