@@ -76,8 +76,23 @@ ORDER BY MONTH(leads.registered_datetime);
 -- we've generated for each of our client's sites between January 1, 2011 to December 31, 2011? 
 -- Come up with a second query that shows all the clients, the site name(s), and the total number of 
 -- leads generated from each site for all time.
+SELECT * FROM leads;
+SELECT CONCAT(clients.first_name, ' ', clients.last_name) as name, COUNT(leads.leads_id) AS num_leads, sites.domain_name AS domain_name, DATE_FORMAT(leads.registered_datetime, '%M %e, %Y') AS date_generated
+FROM clients
+LEFT JOIN sites ON clients.client_id = sites.client_id
+LEFT JOIN leads ON sites.site_id = leads.site_id
+WHERE YEAR(leads.registered_datetime) = 2011
+GROUP BY domain_name
+ORDER BY clients.last_name;
 
-
+-- Second part --
+SELECT * FROM leads;
+SELECT CONCAT(clients.first_name, ' ', clients.last_name) as name, COUNT(leads.leads_id) AS num_leads, sites.domain_name AS domain_name, DATE_FORMAT(leads.registered_datetime, '%M %e, %Y') AS date_generated
+FROM clients
+LEFT JOIN sites ON clients.client_id = sites.client_id
+LEFT JOIN leads ON sites.site_id = leads.site_id
+GROUP BY domain_name
+ORDER BY clients.last_name;
 
 -- 9. Write a single query that retrieves total revenue collected from each client each month of the year.
 
