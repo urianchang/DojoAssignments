@@ -44,9 +44,6 @@ ORDER BY year ASC;
 
 -- 5. What query would you run to get the total # of leads we've generated for each of our sites 
 -- between January 1, 2011 to February 15, 2011?
-SELECT * FROM leads;
-SELECT * FROM sites;
-
 SELECT COUNT(leads.leads_id) AS total_leads, DATE_FORMAT(leads.registered_datetime, '%M %e, %Y') AS date, sites.domain_name
 FROM leads
 LEFT JOIN sites ON leads.site_id = sites.site_id
@@ -56,13 +53,24 @@ ORDER BY date DESC;
 
 -- 6. What query would you run to get a list of client names and the total # of leads 
 -- we've generated for each of our clients between January 1, 2011 to December 31, 2011?
-
+SELECT CONCAT(clients.first_name, ' ', clients.last_name) as name, COUNT(leads.leads_id) AS num_leads
+FROM clients
+LEFT JOIN sites ON clients.client_id = sites.client_id
+LEFT JOIN leads ON sites.site_id = leads.site_id
+WHERE YEAR(leads.registered_datetime) = 2011
+GROUP BY name
+ORDER BY num_leads DESC;
 
 
 -- 7. What query would you run to get a list of client name and the total # of leads 
 -- we've generated for each client each month between month 1 - 6 of Year 2011?
-
-
+SELECT CONCAT(clients.first_name, ' ', clients.last_name) as name, COUNT(leads.leads_id) AS num_leads, MONTHNAME(leads.registered_datetime) as month
+FROM clients
+LEFT JOIN sites ON clients.client_id = sites.client_id
+LEFT JOIN leads ON sites.site_id = leads.site_id
+WHERE YEAR(leads.registered_datetime) = 2011 AND (MONTH(leads.registered_datetime) BETWEEN 1 and 6)
+GROUP BY name, month 
+ORDER BY MONTH(leads.registered_datetime);
 
 -- 8. What query would you run to get a list of client name and the total # of leads 
 -- we've generated for each of our client's sites between January 1, 2011 to December 31, 2011? 
