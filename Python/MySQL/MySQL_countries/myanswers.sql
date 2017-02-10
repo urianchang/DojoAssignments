@@ -4,7 +4,7 @@ USE world;
 -- Your query should return the name of the country, language and language percentage. 
 -- Your query should arrange the result by language percentage in descending order. (1)
 SELECT countries.name, languages.language, languages.percentage FROM countries
-JOIN languages ON countries.id = languages.country_id WHERE language="Slovene" ORDER BY percentage DESC;
+LEFT JOIN languages ON countries.id = languages.country_id WHERE language="Slovene" ORDER BY percentage DESC;
 
 
 -- 2. What query would you run to display the total number of cities for each country? 
@@ -19,7 +19,7 @@ GROUP BY countries.name ORDER BY COUNT(*) DESC;
 -- Your query should arrange the result by population in descending order. (1)
 SELECT cities.name AS city, cities.population 
 FROM countries
-JOIN cities ON countries.id = cities.country_id WHERE countries.name = "Mexico" 
+LEFT JOIN cities ON countries.id = cities.country_id WHERE countries.name = "Mexico" 
 AND cities.population > 500000
 ORDER BY cities.population DESC;
 
@@ -27,7 +27,8 @@ ORDER BY cities.population DESC;
 -- 4. What query would you run to get all languages in each country with a percentage greater than 89%? 
 -- Your query should arrange the result by percentage in descending order. (1)
 SELECT countries.name AS country, languages.language, languages.percentage
-FROM countries JOIN languages ON countries.id = languages.country_id 
+FROM countries 
+LEFT JOIN languages ON countries.id = languages.country_id 
 WHERE languages.percentage > 89
 ORDER BY languages.percentage DESC;
 
@@ -47,7 +48,8 @@ WHERE government_form = "Constitutional Monarchy" AND capital > 200 AND life_exp
 -- and have the population greater than 500,000? The query should return 
 -- the Country Name, City Name, District and Population. (2)
 SELECT countries.name, cities.name AS city, cities.district, cities.population
-FROM countries JOIN cities ON countries.id = cities.country_id 
+FROM countries 
+LEFT JOIN cities ON countries.id = cities.country_id 
 WHERE countries.name = "Argentina" AND cities.population > 500000 AND cities.district = "Buenos Aires";
 
 
