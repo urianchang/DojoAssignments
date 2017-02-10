@@ -1,0 +1,28 @@
+USE twitter;
+
+SELECT * FROM users;
+SELECT * FROM faves;
+SELECT * FROM follows;
+SELECT * FROM tweets;
+SELECT first_name FROM users;
+SELECT first_name, last_name FROM users;
+SELECT first_name FROM users WHERE id=2;
+SELECT last_name FROM users WHERE id=2 or id=3;
+SELECT * FROM users WHERE id > 2;
+SELECT * FROM users WHERE id <= 3;
+SELECT * FROM users WHERE first_name LIKE "%e";
+SELECT * FROM users WHERE first_name LIKE "K%";
+SELECT * FROM users ORDER BY birthday DESC;
+SELECT * FROM users ORDER BY birthday ASC;
+SELECT * FROM users WHERE first_name LIKE "%e" ORDER BY birthday DESC;
+SELECT * FROM users WHERE first_name LIKE "%e" ORDER BY birthday ASC;
+SELECT first_name FROM users ORDER BY first_name;
+SELECT * FROM tweets;
+
+INSERT INTO tweets (tweet, user_id, created_at, updated_at) VALUES ("helloooo", 1, NOW(), NOW());
+
+SELECT * FROM users;
+UPDATE users SET first_name = "Kobe" WHERE id=1;
+
+SELECT * FROM tweets;
+DELETE FROM tweets WHERE id=13;
