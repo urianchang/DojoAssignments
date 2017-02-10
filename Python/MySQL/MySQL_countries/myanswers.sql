@@ -47,13 +47,14 @@ WHERE government_form = "Constitutional Monarchy" AND capital > 200 AND life_exp
 -- 7. What query would you run to get all the cities of Argentina inside the Buenos Aires district 
 -- and have the population greater than 500,000? The query should return 
 -- the Country Name, City Name, District and Population. (2)
-
+SELECT countries.name, cities.name AS city, cities.district, cities.population
+FROM countries JOIN cities ON countries.id = cities.country_id 
+WHERE countries.name = "Argentina" AND cities.population > 500000 AND cities.district = "Buenos Aires";
 
 
 
 -- 8. What query would you run to summarize the number of countries in each region? 
 -- The query should display the name of the region and the number of countries. 
 -- Also, the query should arrange the result by the number of countries in descending order. (2)
-
 
 
