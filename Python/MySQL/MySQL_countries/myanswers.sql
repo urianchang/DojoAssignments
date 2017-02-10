@@ -13,7 +13,7 @@ LEFT JOIN languages ON countries.id = languages.country_id WHERE language="Slove
 SELECT countries.name, COUNT(cities.name) AS cities FROM countries
 JOIN cities ON countries.id = cities.country_id
 GROUP BY countries.name ORDER BY COUNT(*) DESC;
-
+-- You would use JOIN for this problem because we want a list of cities for all countries (even if the country doesn't have a city).
 
 -- 3. What query would you run to get all the cities in Mexico with a population of greater than 500,000? 
 -- Your query should arrange the result by population in descending order. (1)
