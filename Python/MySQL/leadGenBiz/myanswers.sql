@@ -44,8 +44,15 @@ ORDER BY year ASC;
 
 -- 5. What query would you run to get the total # of leads we've generated for each of our sites 
 -- between January 1, 2011 to February 15, 2011?
+SELECT * FROM leads;
+SELECT * FROM sites;
 
-
+SELECT COUNT(leads.leads_id) AS total_leads, DATE_FORMAT(leads.registered_datetime, '%M %e, %Y') AS date, sites.domain_name
+FROM leads
+LEFT JOIN sites ON leads.site_id = sites.site_id
+WHERE YEAR(registered_datetime) = 2011 AND (MONTHNAME(registered_datetime) = "January" OR MONTHNAME(registered_datetime) = "February")
+GROUP BY sites.site_id
+ORDER BY date DESC;
 
 -- 6. What query would you run to get a list of client names and the total # of leads 
 -- we've generated for each of our clients between January 1, 2011 to December 31, 2011?
