@@ -11,7 +11,7 @@ WHERE address.city_id = 312;
 
 -- 2. What query would you run to get all comedy films? 
 -- Your query should return film title, description, release year, rating, special features, and genre (category).
--- Comedy has category id of 5, rating, special_features
+-- My Notes: Comedy has category id of 5, rating, special_features
 SELECT film.film_id, film.title, film.description, film.release_year, film.rating, film.special_features, category.name as genre
 FROM film
 JOIN film_category ON film.film_id = film_category.film_id
@@ -21,7 +21,11 @@ WHERE film_category.category_id = 5;
 
 -- 3. What query would you run to get all the films joined by actor_id=5? 
 -- Your query should return the film title, description, and release year.
-
+SELECT film_actor.actor_id, CONCAT(actor.first_name, " ", actor.last_name) AS actor, film.film_id, film.title, film.description, film.release_year
+FROM film
+JOIN film_actor ON film.film_id = film_actor.film_id
+JOIN actor ON actor.actor_id = film_actor.actor_id
+WHERE film_actor.actor_id = 5;
 
 
 -- 4. What query would you run to get all the customers in store_id = 1 
