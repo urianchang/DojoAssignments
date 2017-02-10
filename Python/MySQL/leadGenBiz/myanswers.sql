@@ -76,7 +76,6 @@ ORDER BY MONTH(leads.registered_datetime);
 -- we've generated for each of our client's sites between January 1, 2011 to December 31, 2011? 
 -- Come up with a second query that shows all the clients, the site name(s), and the total number of 
 -- leads generated from each site for all time.
-SELECT * FROM leads;
 SELECT CONCAT(clients.first_name, ' ', clients.last_name) as name, COUNT(leads.leads_id) AS num_leads, sites.domain_name AS domain_name, DATE_FORMAT(leads.registered_datetime, '%M %e, %Y') AS date_generated
 FROM clients
 LEFT JOIN sites ON clients.client_id = sites.client_id
@@ -86,7 +85,6 @@ GROUP BY domain_name
 ORDER BY clients.last_name;
 
 -- Second part --
-SELECT * FROM leads;
 SELECT CONCAT(clients.first_name, ' ', clients.last_name) as name, COUNT(leads.leads_id) AS num_leads, sites.domain_name AS domain_name, DATE_FORMAT(leads.registered_datetime, '%M %e, %Y') AS date_generated
 FROM clients
 LEFT JOIN sites ON clients.client_id = sites.client_id
@@ -95,12 +93,17 @@ GROUP BY domain_name
 ORDER BY clients.last_name;
 
 -- 9. Write a single query that retrieves total revenue collected from each client each month of the year.
-
-
+SELECT * FROM billing;
+SELECT CONCAT(clients.first_name, ' ', clients.last_name) as name, SUM(billing.amount) AS total_revenue, MONTHNAME(billing.charged_datetime) AS month, YEAR(billing.charged_datetime) as year
+FROM clients
+LEFT JOIN billing ON clients.client_id = billing.client_id
+GROUP BY name, month, year
+ORDER BY clients.last_name, billing.charged_datetime;
 
 -- 10. Write a single query that retrieves all the sites that each client owns. 
 -- Group the results so that each row shows a new client. 
 -- Add a new field called 'sites' that has all the sites that the client owns. (HINT: use GROUP_CONCAT)
-
-
-
+SELECT CONCAT(clients.first_name, ' ', clients.last_name) as name, GROUP_CONCAT(' ', sites.domain_name) AS sites
+FROM clients
+LEFT JOIN sites ON clients.client_id = sites.client_id
+GROUP BY name;
