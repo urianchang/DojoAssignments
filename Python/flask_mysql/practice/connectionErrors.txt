@@ -1,0 +1,131 @@
+--------
+Traceback (most recent call last):
+  File "server.py", line 6, in <module>
+    mysql = MySQLConnector(app, 'mydb')
+  File "C:\Users\UC\Desktop\DojoAssignments\Python\flask_mysql\practice\mysqlconnection.py", line 40, in MySQLConnector
+    return MySQLConnection(app, db)
+  File "C:\Users\UC\Desktop\DojoAssignments\Python\flask_mysql\practice\mysqlconnection.py", line 19, in __init__
+    self.db = SQLAlchemy(app)
+NameError: global name 'SQLAlchemy' is not defined
+--------
+FIX:
+ * Import SQLAlchemy in mysqlconnection.py
+
+ -------
+ Traceback (most recent call last):
+  File "server.py", line 8, in <module>
+    print mysql.query_db("SELECT * FROM users")
+  File "C:\Users\UC\Desktop\DojoAssignments\Python\flask_mysql\practice\mysqlconnection.py", line 22, in query_db
+    result = self.db.session.execute(text(query), data)
+NameError: global name 'text' is not defined
+--------
+FIX:
+ * Import text in mysqlconnection.py
+
+ -------
+ Traceback (most recent call last):
+  File "server.py", line 6, in <module>
+    mysql = MySQLConnector(app, 'mydb')
+  File "C:\Users\UC\Desktop\DojoAssignments\Python\flask_mysql\practice\mysqlconnection.py", line 40, in MySQLConnector
+    return MySQLConnection(app, db)
+  File "C:\Users\UC\Desktop\DojoAssignments\Python\flask_mysql\practice\mysqlconnection.py", line 9, in __init__
+    'database': db123, # we got db as an argument
+NameError: global name 'db123' is not defined
+-------
+FIX:
+ * Key "Database" in initialization function of MySQLConnection class is not a valid database. Check the name.
+
+-------
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1045, "Access denied for user 'root1'@'localhost' (using password: YES)")
+-------
+FIX:
+ * User in MySQLConnection class is not valid. Check the user name.
+ * Similarly, if user name is correct and access is still denied, check password.
+
+-------
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (2003, "Can't connect to MySQL server on '127.0.0.1' (10061)")
+-------
+FIX:
+ * Check listed port # for MySQLConnection class. Port number should match port of MySQL server.
+
+-------
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: users [SQL: u'SELECT * FROM users']
+-------
+FIX:
+ * Check the string parameter supplied to app.config for DATABASE_URI
+
+-------
+UserWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.
+ warnings.warn('SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True to suppress this warning.')
+-------
+FIX:
+ * Check the string parameter supplied to app.config for TRACK MODIFICATIONS. Should be set to True and check spelling of string.
+
+-------
+AttributeError: 'MySQLConnection' object has no attribute 'db'
+-------
+FIX:
+ * Check to see if connection to database is established (i.e. "self.db = SQLAlchemy(app)")
+
+-------
+NameError: global name 'result' is not defined
+-------
+FIX:
+ * Check to see if the variable "result" is defined in the function/method query_db.
+
+-------
+TypeError: __init__() takes exactly 3 arguments (2 given)
+-------
+FIX:
+ * Check if the return statement in the method MySQLConnector returns 2 parameters.
+
+-------
+NameError: name 'MySQLConnector' is not defined
+-------
+FIX:
+ * Check server.py if there is reference to mysqlconnection.py, and if the function MySQLConnector is imported.
+
+-------
+ NameError: name 'mysql' is not defined
+-------
+FIX:
+ * Check server.py if the variable 'mysql' is defined.
+
+-------
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1049, "Unknown database 'mydb111'")
+-------
+FIX:
+ * Check if the database being connected to is valid.
+
+-------
+sqlalchemy.exc.ProgrammingError: (_mysql_exceptions.ProgrammingError) (1146, "Table 'mydb.user' doesn't exist") [SQL: u'SELECT * FROM user']
+-------
+FIX:
+ * The database table that the query is referring to doesn't exist. Check spelling.
+
+-------
+sqlalchemy.exc.ProgrammingError: (_mysql_exceptions.ProgrammingError) (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELETC id FROM users' at line 1") [SQL: u'SELETC id FROM users']
+-------
+FIX:
+ * Check the syntax of the MySQL query.
+
+-------
+Server doesn't start, but you see this:
+[{u'updated_at': datetime.datetime(2017, 2, 11, 11, 34, 5), u'created_at': datetime.datetime(2017, 2, 11, 11, 34, 5), u'id': 1L, u'name': u'user1'}, {u'updated_at': datetime.datetime(2017, 2, 11, 11, 34, 22), u'created_at': datetime.datetime(2017, 2, 11, 11, 34, 22), u'id': 2L, u'name': u'user2'}, {u'updated_at': datetime.datetime(2017, 2, 11, 11, 34, 28), u'created_at': datetime.datetime(2017, 2, 11, 11, 34, 28), u'id': 3L, u'name': u'user3'}]
+-------
+FIX:
+ * Has the server been started? Check for app.run.
+
+-------
+* Restarting with stat
+[{u'updated_at': datetime.datetime(2017, 2, 11, 11, 34, 5), u'created_at': datetime.datetime(2017, 2, 11, 11, 34, 5), u'id': 1L, u'name': u'user1'}, {u'updated_at': datetime.datetime(2017, 2, 11, 11, 34, 22), u'created_at': datetime.datetime(2017, 2, 11, 11, 34, 22), u'id': 2L, u'name': u'user2'}, {u'updated_at': datetime.datetime(2017, 2, 11, 11, 34, 28), u'created_at': datetime.datetime(2017, 2, 11, 11, 34, 28), u'id': 3L, u'name': u'user3'}]
+-------
+FIX:
+ * Nothing to worry about.
+
+ EXPLANATION:
+  * The Werkzeug reloader constantly monitors modules and paths of your web application, and restarts the server if any of the observed files change.
+
+ * To remove the "restarting with stat" (and lose reloading functionality):
+    1. Add "use_reloader=False" parameter to app.run OR
+    2. Set debug = False.
