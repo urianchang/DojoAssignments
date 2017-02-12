@@ -6,7 +6,11 @@
     </head>
     <body>
         <div class="logged-in">
-            <h2>Thanks for logging in, [NAME]</h2>
+            {% if session.firsttime %}
+                <h2>Thanks for registering, {{ specific_user.first_name }}!</h2>
+            {% else %}
+                <h2>Thanks for logging in, {{ specific_user.first_name }}!</h2>
+            {% endif %}
             <form action='/logout' method='post'>
                 <input type="submit" value="Log out">
             </form>

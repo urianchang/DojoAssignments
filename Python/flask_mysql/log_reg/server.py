@@ -10,6 +10,9 @@ mysql = MySQLConnector(app,'login_reg')
 
 @app.route('/')
 def index():
+    if 'x' not in session:
+        session['x'] = 0
+        session['firsttime'] = True
     return render_template('index.html')
 
 @app.route('/login', methods=['POST'])
@@ -22,6 +25,8 @@ def checker():
     user = mysql.query_db(user_query, query_data)
     if len(user) > 0:
         if bcrypt.check_password_hash(user[0]['pw_hash'], password):
+            session['x'] = user[0]['id']
+            session['firsttime'] = False
             print "*** Welcome back, user. ***"
             return redirect('/welcome')
         else:
@@ -34,7 +39,10 @@ def checker():
 
 @app.route('/welcome')
 def success():
-    return render_template('success.html')
+    query = "SELECT * FROM users WHERE id = :specific_id"
+    data = {'specific_id': session['x']}
+    user = mysql.query_db(query, data)
+    return render_template('success.html', specific_user=user[0])
 
 @app.route('/register')
 def showRegister():
@@ -77,6 +85,9 @@ def register():
         query_data = {'fname': fname, 'lname': lname, 'mail': mail, 'pw_hash': pw_hash}
         mysql.query_db(insert_query, query_data)
         print "*** Thanks for registering ***"
+        user_query = "SELECT * FROM users WHERE email = :mail LIMIT 1"
+        user = mysql.query_db(user_query, query_data)
+        session['x'] = user[0]['id']
         return redirect('/welcome')
     else:
         print "*** Something went wrong ***"
@@ -85,6 +96,7 @@ def register():
 @app.route('/logout', methods=['POST'])
 def logMeOut():
     print "*** Logging out ***"
+    session.pop('x')
     return redirect('/')
 
 app.run(debug=True)
