@@ -1,0 +1,21 @@
+NoSQL Databases:
+
+NoSQL database provides a mechanism for storage and retrieval of data which is modeled
+in means other than the tabular relations used in relational databases. Sometimes called
+"Not only SQL" to emphasize that may support SQL-like query languages.
+
+SQL Way vs NoSQL Way:
+Let's say that you want to store information about every single person on the earth...
+    SQL : Come up with survey with what information you want to capture (e.g. Name, Gender)
+    NoSQL : Allowing user who's filling out the survey to write whatever field they want
+
+Some types of NoSQL databases:
+    * Key-Value Cache: Coherence, eXtreme Scale, GigaSpaces, GemFire
+    * Key-Value Store: ArangoDB, Flare, Keyspace, RAMCloud
+    * Key-Value Store (Eventually-Consistent): DovetailDB, Oracle NoSQL Database, Dynamo, Riak
+    * Key-Value Store (Ordered): Actord, FoundationDB, Lightcloud, LMDB
+    * Data-Structures Server: Redis
+    * Tuple Store: Apache River, Coord, GigaSpaces
+    * Object Database: DB4O, Objectivity/DB, Perst
+    * Document Store: ArangoDB, Clusterpoint, Couchbase, MongoDB, XML-databases
+    * Wide Column Store: BigTable, Cassandra, Druid

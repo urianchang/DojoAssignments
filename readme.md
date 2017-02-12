@@ -15,14 +15,14 @@ Completion status of specific modules:
         + Responsive Web Design - 75%
         + jQuery UI - 0%
         + Wireframes - 86%
-    
+
     * Python / Django:
         + Python - 93%
-        + Python OOP - 0% 
+        + Python OOP - 0%
         + Flask - 94%
-        + MySQL - 95%
-        + Pylot MVC - 0% 
+        + MySQL - 100%
+        + Pylot MVC - 0%
         + API's and AJAX - 0%
         + Django - 0%
         + Deployment - 0%
-        + Algorithms II - 0% 
+        + Algorithms II - 0%
