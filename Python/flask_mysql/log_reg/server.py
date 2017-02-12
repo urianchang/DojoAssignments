@@ -66,6 +66,11 @@ def register():
         valid_status = False
         flash("Passwords do not match!", 'error')
     if valid_status:
+        print "*** Looks good. Adding to database. ***"
+        pw_hash = bcrypt.generate_password_hash(pw)
+        insert_query = "INSERT INTO users (first_name, last_name, email, pw_hash, created_at, updated_at) VALUES (:fname, :lname, :mail, :pw_hash, NOW(), NOW())"
+        query_data = {'fname': fname, 'lname': lname, 'mail': mail, 'pw_hash': pw_hash}
+        mysql.query_db(insert_query, query_data)
         print "*** Thanks for registering ***"
         return redirect('/welcome')
     else:
