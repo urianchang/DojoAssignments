@@ -31,7 +31,6 @@ def update(id):
     mysql.query_db(query, data)
     return redirect('/')
 
-
 # Add a friend
 @app.route('/friends', methods=['POST'])
 def create():
@@ -49,7 +48,6 @@ def create():
 def delete(id):
     query = "DELETE FROM friends WHERE id = :id"
     data = {'id': id}
-    print data
     mysql.query_db(query, data)
     return redirect('/')
 
