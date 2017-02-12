@@ -5,6 +5,21 @@
         <title>Edit</title>
     </head>
     <body>
-        {{ one_friend }}
+        <div class="current-info">
+            <h2>Current information for: {{ one_friend.first_name }}</h2>
+            <p>First name: {{ one_friend.first_name }}</p>
+            <p>Last name: {{ one_friend.last_name }}</p>
+            <p>E-mail: {{ one_friend.email }}</p>
+            <p>Last updated: {{ one_friend.updated_at }}</p>
+        </div>
+        <div class="update-info">
+            <h2>Update friend's information:</h2>
+            <form action='/friends/{{ one_friend.id }}' method='POST'>
+                <label for="first_name">First Name: <input type="text" name="first_name" id="first_name"></label>
+                <label for="last_name">Last Name: <input type="text" name="last_name" id="last_name"></label>
+                <label for="mail">E-mail: <input type="text" name="mail" id="mail"></label>
+                <input type="submit" value="Update">
+            </form>
+        </div>
     </body>
 </html>

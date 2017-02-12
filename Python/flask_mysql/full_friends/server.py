@@ -3,6 +3,7 @@ from mysqlconnection import MySQLConnector
 app = Flask(__name__)
 mysql = MySQLConnector(app,'fullfriends')
 
+# Render landing page
 @app.route('/')
 def index():
     query = "SELECT * FROM friends"
@@ -17,16 +18,15 @@ def show(id):
     friends = mysql.query_db(query, data)
     return render_template('editfriend.html', one_friend=friends[0])
 
-# Updating Records
-# Say we wanted to update a specific record, we could create another page and add a form that would submit to the following route.
-@app.route('/update_friend/<friend_id>', methods=['POST'])
-def update(friend_id):
-    query = "UPDATE friends SET first_name = :first_name, last_name = :last_name, occupation = :occupation WHERE id = :id"
+# Updating friend info
+@app.route('/friends/<id>', methods=['POST'])
+def update(id):
+    query = "UPDATE friends SET first_name = :first_name, last_name = :last_name, email = :mail, updated_at = NOW() WHERE id = :id"
     data = {
              'first_name': request.form['first_name'],
              'last_name':  request.form['last_name'],
-             'occupation': request.form['occupation'],
-             'id': friend_id
+             'mail': request.form['mail'],
+             'id': id
            }
     mysql.query_db(query, data)
     return redirect('/')
@@ -50,7 +50,7 @@ def delete(id):
     query = "DELETE FROM friends WHERE id = :id"
     data = {'id': id}
     print data
-    #mysql.query_db(query, data)
+    mysql.query_db(query, data)
     return redirect('/')
 
 app.run(debug=True)
