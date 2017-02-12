@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Success!</title>
+    </head>
+    <body>
+        <div class="success-message">
+            <h1>The email address you entered ({{latest}}) is a VALID email address! Thank you!</h1>
+        </div>
+        <table>
+            <h2>Email Addresses Entered</h2>
+            <tr>
+                <th>Email</th>
+                <th>Created at</th>
+            </tr>
+            {% for item in all_emails %}
+            <tr>
+                <td>{{ item['email'] }}</td>
+                <td>{{ item['created_at'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
