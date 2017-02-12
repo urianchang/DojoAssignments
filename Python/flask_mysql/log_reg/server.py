@@ -26,6 +26,7 @@ def checker():
             return redirect('/welcome')
         else:
             print "*** Wrong Password ***"
+            flash("Incorrect password!")
             return redirect('/')
     else:
         print "*** Cannot find user. Please register. ***"
