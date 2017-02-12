@@ -1,0 +1,152 @@
+==================
+| MD5 Encryption |
+==================
+
+Md5 encryption is a technique that takes an input and returns an encrypted string.
+
+Example (Sublime document):
+    import md5 # imports the md5 module to generate a hash
+    password = 'password';
+    # encrypt the password we provided as 32 character string
+    encrypted_password = md5.new(password).hexdigest();
+    print encrypted_password; #this will show you the encrypted value
+    # 5f4dcc3b5aa765d61d8327deb882cf99 -> nice!
+
+The md5 function returns an encrypted version of the parameter it is passed.
+It yields the same value every time it is run with the same argument. That means
+the value it spits back is not random. The md5 algorithm is well known and solvable
+but it is very strong in the sense that it is not easily reverse engineered.
+
+When you add users to the database, you should save passwords as an encrypted md5 string.
+    import md5 # do this at the top of your file where you import modules
+    @app.route('/users/create', methods=['POST'])
+    def create_user():
+         username = request.form['username']
+         email = request.form['email']
+         password = md5.new(request.form['password']).hexdigest();
+         insert_query = "INSERT INTO users (username, email, password, created_at, updated_at) VALUES (:username,
+         :email, :password, NOW(), NOW())"
+         query_data = { 'username': username, 'email': email, 'password': password }
+         mysql.query_db(insert_query, query_data)
+
+Similarly, when they log in, you should encrypt the inputted password to make sure it matches.
+    password = md5.new(request.form['password']).hexdigest()
+    email = request.form['email']
+    user_query = "SELECT * FROM users where users.email = :email AND users.password = :password"
+    query_data = { 'email': email, 'password': password}
+    user = mysql.query_db(user_query, query_data)
+    # do the necessary logic to login if the user exists, otherwise redirect to login page with error message<br>
+
+=====================
+| Salted encryption |
+=====================
+
+Md5 is easy encryption method and safe for small-time projects. To make encryption more powerful,
+we will encrypt by using what is called salt. A salt is a "unique" key used to generate a unique
+password. Example:
+    salt = '123'; //where the value 123 changes randomly
+    encrypted_password = md5(password . '' . salt);
+
+A salt is a string of random characters that will be passed to an encryption method (an md5())
+along with the string we are trying to encrypt (the submitted password) via concatenation.
+The encryption method that uses the salt is designed in such a way that it takes the salt
+to compute the encrypted string, using the salt as an 'ingredient' in the encryption 'recipe'.
+
+To generate a salt, you just need to generate a random string of characters.
+The code below actually uses two different functions to render a random string:
+    import os, binascii # include this at the top of your file
+    salt = binascii.b2a_hex(os.urandom(15))
+
+os.urandom() returns string of bytes. Number of bytes is equal to parameter provided.
+The string isn't a normal alphanumeric string, so we turn it into a string using b2a_hex(),
+which turns value returned from openSSL function into a normal alphanumeric string. This new
+random string is our salt.
+
+Idea is to store salt during the registration process:
+    username = request.form['username']
+    email = request.form['email']
+    password = request.form['password']
+    salt =  binascii.b2a_hex(os.urandom(15))
+    encrypted_pw = md5.new(password + salt).hexdigest()
+    insert_query = "INSERT INTO users (username, email, password, salt, created_at, updated_at)
+         VALUES (:username, :email, :encrypted_pw, :salt, NOW(), NOW())"
+    query_data = { 'username': username, 'email': email, 'encrypted_pw': encrypted_pw, 'salt': salt}
+    mysql.query_db(insert_query, query_data)
+
+To authenticate user's login:
+    email = request.form['email']
+    password = request.form['password']
+    user_query = "SELECT * FROM users WHERE users.email = :email LIMIT 1"
+    query_data = {'email': email}
+    user = mysql.query_db(user_query, query_data)
+    if user[0]:
+     encrypted_password = md5.new(password + user[0]['salt']).hexdigest();
+     if user[0]['password'] == encrypted_password:
+      # this means we have a successful login!
+     else:
+         # invalid password!
+    else:
+      # invalid email!
+
+==========
+| bcrypt |
+==========
+
+bcrypt is a powerful module that helps encrypt passwords in a secure way.
+
+To use bcrypt in Flask apps:
+    from flask import Flask, request, render_template
+    from mysqlconnection import MySQLConnector
+    # imports the Bcrypt module
+    from flask.ext.bcrypt import Bcrypt
+    app = Flask(__name__)
+    bcrypt = Bcrypt(app)
+    mysql = MySQLConnector(app, 'my_database_here')
+    # this will load a page that has 2 forms one for registration and login
+    @app.route('/', methods=['GET'])
+    def index():
+     return render_template('index.html')
+    # we are going to add functions to create new users and login users
+
+generate_password_hash
+bcrypt has a handy password hash generator function that we can use when creating new users.
+    @app.route('/create_user', methods=['POST'])
+    def create_user():
+     email = request.form['email']
+     username = request.form['username']
+     password = request.form['password']
+     # run validations and if they are successful we can create the password hash with bcrypt
+     pw_hash = bcrypt.generate_password_hash(password)
+     # now we insert the new user into the database
+     insert_query = "INSERT INTO users (email, username, pw_hash, created_at) VALUES (:email, :username, :pw_hash, NOW())"
+     query_data = { 'email': email, 'username': username, 'pw_hash': pw_hash }
+     mysql.query_db(insert_query, query_data)
+     # redirect to success page
+
+check_password_hash
+The check_password_hash function will return true if the hashed value of password provided at
+login is equal to the password hash in the database. Otherwise, it'll return false.
+    password = 'password'
+    pw_hash = bcrypt.generate_password_hash(password)
+    test_password_1 = 'thisiswrong'
+    bcrypt.check_password_hash(pw_hash, test_password_1) # this will return false
+    test_password_2 = 'password'
+    bcrypt.check_password_hash(pw_hash, test_password_2) # this will return true
+Now to use with logging in...
+    @app.route('/login', methods=['POST'])
+    def login():
+     email = request.form['email']
+     password = request.form['password']
+     user_query = "SELECT * FROM users WHERE email = :email LIMIT 1"
+     query_data = { 'email': email }
+     user = mysql.query_db(user_query, query_data) # user will be returned in a list
+     if bcrypt.check_password_hash(user[0]['pw_hash'], password):
+      # login user
+     else:
+      # set flash error message and redirect to login page
+
+Things to Remember:
+    1. When you create database, make sure your column pw_hash is of type varchar(255),
+        as opposed to something shorter. bcrypt hashes are quite long, so this prevents any
+        errors from the hashed password being truncated.
+    2. Do not store the user-entered (human-readable or 'clear-text') password in the database.
