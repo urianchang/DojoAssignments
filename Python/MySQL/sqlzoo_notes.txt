@@ -1,0 +1,78 @@
+Notes from doing SQL Zoo exercises:
+=================
+IN:
+Checking a list The word IN allows us to check if an item is in a list.
+=================
+Use SELECT statements within SELECT statements to perform more complex queries
+    * Some versions of SQL insist that you give the subquery an alias.
+        Simply put AS somename after the closing bracket:
+            SELECT name FROM world WHERE continent =
+            (SELECT continent FROM world WHERE name='Brazil') AS brazil_continent
+
+    * The subquery may return more than one result - if this happens the query above will
+        fail as you are testing one value against more than one value. It is safer to
+        use IN to cope with this possibility:
+            SELECT name, continent FROM world
+            WHERE continent IN
+                (SELECT continent FROM world WHERE name='Brazil'
+                OR name='Mexico')
+
+    * If you are certain that only one value will be returned you can use that query
+        on the SELECT line:
+            SELECT population/(SELECT population FROM world
+                WHERE name='United Kingdom')
+            FROM world
+            WHERE name = 'China'
+=================
+ALL / ANY:
+You can use the words ALL or ANY where the right side of the operator might have multiple values.
+=================
+NULL:
+Sometimes NULL values are given in tables, this might be because the data is unknown or is inappropriate.
+We can use the phrase IS NULL to pick out fields. We can use IS NOT NULL similarly.
+=================
+COALESCE:
+COALESCE takes any number of arguments and returns the first value that is not null.
+
+    COALESCE(x,y,z) = x if x is not NULL
+    COALESCE(x,y,z) = y if x is NULL and y is not NULL
+    COALESCE(x,y,z) = z if x and y are NULL but z is not NULL
+    COALESCE(x,y,z) = NULL if x and y and z are all NULL
+
+COALESCE can be useful when you want to replace a NULL value with some other value.
+In this example you show the name of the party for each MSP that has a party.
+For the MSP with no party (such as Canavan, Dennis) you show the string None.
+    SELECT name, party, COALESCE(party,'None') AS aff
+    FROM msp WHERE name LIKE 'C%'
+=================
+NULLIF:
+NULLIF returns NULL if the two arguments are equal; otherwise NULLIF returns the first argument.
+
+    NULLIF(x,y) = NULL if x=y
+    NULLIF(x,y) = x if x != y
+
+NULLIF can be used to replace a specific value with NULL.
+In this example the party Lab is replaced with NULL.
+    SELECT name, party, NULLIF(party,'Lab') AS aff
+    FROM msp WHERE name LIKE 'C%'
+=================
+CASE:
+CASE allows you to return different values under different conditions.
+If no conditions match (and there is not ELSE) then NULL is returned.
+
+    CASE WHEN condition1 THEN value1
+         WHEN condition2 THEN value2
+         ELSE def_value
+    END
+
+=================
+DISTINCT:
+By default the result of a SELECT may contain duplicate rows.
+We can remove these duplicates using the DISTINCT key word.
+=================
+WHERE / HAVING:
+    * WHERE and GROUP BY. The WHERE filter takes place before the aggregating function.
+    * HAVING and GROUP BY. The HAVING clause allows use to filter the groups which are displayed.
+      The HAVING clause is tested after the GROUP BY.
+    * The WHERE clause filters rows before the aggregation,
+      the HAVING clause filters after the aggregation.
