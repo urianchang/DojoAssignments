@@ -13,7 +13,7 @@ def index():
 @app.route('/friends/<id>/edit', methods=['POST'])
 def show(id):
     query = "SELECT * FROM friends WHERE id = :specific_id"
-    data = {'specific_id': request.form['todo']}
+    data = {'specific_id': id}
     friends = mysql.query_db(query, data)
     return render_template('editfriend.html', one_friend=friends[0])
 
@@ -48,7 +48,7 @@ def create():
 @app.route('/friends/<id>/delete', methods=['POST'])
 def delete(id):
     query = "DELETE FROM friends WHERE id = :id"
-    data = {'id': request.form['todo']}
+    data = {'id': id}
     print data
     #mysql.query_db(query, data)
     return redirect('/')
