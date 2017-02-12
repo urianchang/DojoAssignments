@@ -9,7 +9,7 @@
             <h1>The email address you entered ({{latest}}) is a VALID email address! Thank you!</h1>
         </div>
         <table>
-            <h2>Email Addresses Entered</h2>
+            <p>Email Addresses Entered</p>
             <tr>
                 <th>Email</th>
                 <th>Created at</th>
@@ -21,5 +21,9 @@
             </tr>
             {% endfor %}
         </table>
+        <form action='/delete' method='post'>
+            <label for="delete-mail">Delete this e-mail address: <input type="text" name="mail" id="mail"></label>
+            <input type="submit" value="Confirm">
+        </form>
     </body>
 </html>

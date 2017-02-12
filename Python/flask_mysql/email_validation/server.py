@@ -34,4 +34,13 @@ def success():
     newest = emails[len(emails)-1]['email']
     return render_template('success.html', all_emails=emails, latest=newest)
 
+@app.route('/delete', methods=['POST'])
+def deletion():
+    deleteMe = request.form['mail']
+    print "*** DELETING THIS EMAIL: ", deleteMe, " ***"
+    query = "DELETE FROM emails WHERE email = :mail"
+    data = {'mail': deleteMe}
+    mysql.query_db(query, data)
+    return redirect('/')
+
 app.run(debug=True)
