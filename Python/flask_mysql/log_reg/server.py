@@ -14,15 +14,19 @@ def index():
 
 @app.route('/login', methods=['POST'])
 def checker():
-    print "*** BUTTON CLICKED ***"
+    print "*** Logging In ***"
     email = request.form['mail']
     password = request.form['password']
     user_query = "SELECT * FROM users WHERE email = :email LIMIT 1"
     query_data = {'email': email}
     user = mysql.query_db(user_query, query_data)
-    if bcrypt.check_password_hash(user[0]['pw_hash'], password):
-        print "*** Welcome back, user. ***"
-        return redirect('/welcome')
+    if len(user) > 0:
+        if bcrypt.check_password_hash(user[0]['pw_hash'], password):
+            print "*** Welcome back, user. ***"
+            return redirect('/welcome')
+        else:
+            print "*** Wrong Password ***"
+            return redirect('/')
     else:
         print "*** Cannot find user. Please register. ***"
         return redirect('/register')
