@@ -44,7 +44,27 @@ def register():
     pw = request.form['pword']
     cpw = request.form['c-pword']
     valid_status = True
-    
+    if len(fname) < 2:
+        valid_status = False
+        flash("First name has to be more than 2 characters!", 'error')
+    if re.search(r'[0-9]', fname):
+        valid_status = False
+        flash("First name cannot contain numbers!", 'error')
+    if len(lname) < 2:
+        valid_status = False
+        flash("Last name has to be more than 2 characters!", 'error')
+    if re.search(r'[0-9]', lname):
+        valid_status = False
+        flash("Last name cannot contain numbers!", 'error')
+    if not re.search(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$', mail):
+        valid_status = False
+        flash("Invalid E-mail format!", 'error')
+    if len(pw) < 8:
+        valid_status = False
+        flash("Password should be at least 8 characters!", 'error')
+    if pw != cpw:
+        valid_status = False
+        flash("Passwords do not match!", 'error')
     if valid_status:
         print "*** Thanks for registering ***"
         return redirect('/welcome')
