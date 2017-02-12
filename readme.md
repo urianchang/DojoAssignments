@@ -1,6 +1,7 @@
 This folder contains all the projects and assignments that were worked on by Urian Chang at Coding Dojo - Silicon Valley (started January 2017).
 
 Completion status of specific modules:
+
     * Web Fundamentals:
         + Introduction - 100%
         + HTML - 100%
