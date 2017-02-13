@@ -87,7 +87,7 @@ def showWall():
     query = "SELECT * FROM users WHERE id = :specific_id"
     data = {'specific_id': session['x']}
     user = mysql.query_db(query, data)
-    msg_query = "SELECT messages.id as message_id, CONCAT(users.first_name, ' ', users.last_name) as name, messages.message, DATE_FORMAT(messages.created_at, '%m/%d/%Y %r') as date FROM messages LEFT JOIN users ON messages.user_id = users.id ORDER BY message_id DESC;"
+    msg_query = "SELECT messages.id as message_id, messages.user_id as user_id, CONCAT(users.first_name, ' ', users.last_name) as name, messages.message, DATE_FORMAT(messages.created_at, '%m/%d/%Y %r') as date FROM messages LEFT JOIN users ON messages.user_id = users.id ORDER BY message_id DESC;"
     messages = mysql.query_db(msg_query)
     cmt_query = "SELECT comments.message_id as message_id, CONCAT(users.first_name, ' ', users.last_name) as name, comments.comment, DATE_FORMAT(comments.created_at, '%m/%d/%Y %r') as date FROM comments LEFT JOIN users ON comments.user_id = users.id ORDER BY message_id, date;"
     comments = mysql.query_db(cmt_query)
@@ -123,5 +123,17 @@ def logMeOut():
     print "*** Logging out ***"
     session.pop('x')
     return redirect('/')
+
+@app.route('/deletemsg', methods=['POST'])
+def deleteMsg():
+    msg_id = request.form['msg_id']
+    print "*** DELETING MESSAGE ID: ", msg_id
+    deleteFromComments_query = "DELETE FROM comments WHERE message_id = :id"
+    deleteFromMessages_query = "DELETE FROM messages WHERE id = :id"
+    delete_data = {'id': msg_id}
+    mysql.query_db(deleteFromComments_query, delete_data)
+    mysql.query_db(deleteFromMessages_query, delete_data)
+    print "*** DELETED DATA FROM DB ***"
+    return redirect('/wall')
 
 app.run(debug=True)

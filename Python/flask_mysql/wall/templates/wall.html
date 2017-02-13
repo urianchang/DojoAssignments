@@ -4,7 +4,6 @@
         <meta charset="utf-8">
         <title>The Wall</title>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/wall.css') }}"/>
-        <!-- <link rel="stylesheet" type="text/css" href="wall.css"> -->
     </head>
     <body>
         <div class="header">
@@ -27,6 +26,12 @@
         <div class="show-msg">
             <h3>{{ val.name }} - {{ val.date }}</h3>
             <p>{{ val.message }}</p>
+            {% if val.user_id == specific_user.id %}
+            <form action='/deletemsg' method='post'>
+                <input type=hidden name="msg_id" value="{{ val.message_id }}" >
+                <input type="submit" value="Delete message" >
+            </form>
+            {% endif %}
             {% for item in commentList %}
                 {% if item.message_id == val.message_id %}
             <div class="comment-area">
