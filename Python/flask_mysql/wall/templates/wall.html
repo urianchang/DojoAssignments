@@ -3,12 +3,13 @@
     <head>
         <meta charset="utf-8">
         <title>The Wall</title>
-        <link rel="stylesheet" type="text/css" href="wall.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/wall.css') }}"/>
+        <!-- <link rel="stylesheet" type="text/css" href="wall.css"> -->
     </head>
     <body>
         <div class="header">
             <h2>CodingDojo Wall</h2>
-            <p>Welcome, [NAME]</p>
+            <p>Welcome, {{ specific_user.first_name }}</p>
             <form action='/logout' method='post'>
                 <input type="submit" value="Log out">
             </form>
