@@ -89,9 +89,9 @@ def showWall():
     user = mysql.query_db(query, data)
     msg_query = "SELECT messages.id as message_id, CONCAT(users.first_name, ' ', users.last_name) as name, messages.message, DATE_FORMAT(messages.created_at, '%m/%d/%Y %r') as date FROM messages LEFT JOIN users ON messages.user_id = users.id ORDER BY message_id DESC;"
     messages = mysql.query_db(msg_query)
-    cmt_query = ""
+    cmt_query = "SELECT comments.message_id as message_id, CONCAT(users.first_name, ' ', users.last_name) as name, comments.comment, DATE_FORMAT(comments.created_at, '%m/%d/%Y %r') as date FROM comments LEFT JOIN users ON comments.user_id = users.id ORDER BY message_id, date;"
     comments = mysql.query_db(cmt_query)
-    return render_template('wall.html', specific_user=user[0], messageList=messages)
+    return render_template('wall.html', specific_user=user[0], messageList=messages, commentList=comments)
 
 @app.route('/message', methods=['POST'])
 def addMsg():
