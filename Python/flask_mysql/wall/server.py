@@ -82,8 +82,6 @@ def registerMe():
         print "*** Something went wrong ***"
         return redirect('/')
 
-
-
 @app.route('/wall')
 def showWall():
     query = "SELECT * FROM users WHERE id = :specific_id"
@@ -91,6 +89,25 @@ def showWall():
     user = mysql.query_db(query, data)
     return render_template('wall.html', specific_user=user[0])
 
+@app.route('/message', methods=['POST'])
+def addMsg():
+    print "*** Submitting a message ***"
+    msg = request.form['message']
+    user_id = request.form['user_id']
+    print user_id, msg
+    insert_query = "INSERT INTO messages (user_id, message, created_at, updated_at) VALUES (:user_id, :message, NOW(), NOW())"
+    insert_data = { 'user_id': user_id, 'message': msg}
+    mysql.query_db(insert_query, insert_data)
+    print "*** Message added to Database ***"
+    return redirect('/wall')
+
+@app.route('/comment', methods=['POST'])
+def addCmt():
+    print "*** Submitting a comment ***"
+    cmt = request.form['comment']
+    user_id = request.form['user_id']
+    print "User ID:", user_id, "Comment:", cmt
+    return redirect('/wall')
 
 @app.route('/logout', methods=['POST'])
 def logMeOut():

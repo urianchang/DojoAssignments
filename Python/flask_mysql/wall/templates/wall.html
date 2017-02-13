@@ -16,9 +16,10 @@
         </div>
         <hr>
         <div class="post-msg">
-            <form action='/' method='post'>
+            <form action='/message' method='post'>
                 <h3>Post a message</h3>
-                <textarea rows="5" cols="50"></textarea>
+                <input type="hidden" name="user_id" value="{{ specific_user.id }}" >
+                <textarea name="message" rows="5" cols="50"></textarea>
                 <p><input type="submit" value="Post a message"></p>
             </form>
         </div>
@@ -42,9 +43,9 @@
                 culpa qui officia deserunt mollit anim id est laborum.]</p>
             </div>
             <div class="post-comment">
-                <form action='/' method='post'>
+                <form action='/comment' method='post'>
                     <h3>Post a comment</h3>
-                    <textarea rows="3" cols="40"></textarea>
+                    <textarea name="comment" rows="3" cols="40"></textarea>
                     <p><input type="submit" value="Post a comment"></p>
                 </form>
             </div>
