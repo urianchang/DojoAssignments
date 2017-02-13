@@ -87,8 +87,10 @@ def showWall():
     query = "SELECT * FROM users WHERE id = :specific_id"
     data = {'specific_id': session['x']}
     user = mysql.query_db(query, data)
-    msg_query = "SELECT messages.id as message_id, CONCAT(users.first_name, ' ', users.last_name) as name, messages.message, DATE_FORMAT(messages.created_at, '%m/%d/%Y %r') as date FROM messages LEFT JOIN users ON messages.user_id = users.id ORDER BY date DESC;"
+    msg_query = "SELECT messages.id as message_id, CONCAT(users.first_name, ' ', users.last_name) as name, messages.message, DATE_FORMAT(messages.created_at, '%m/%d/%Y %r') as date FROM messages LEFT JOIN users ON messages.user_id = users.id ORDER BY message_id DESC;"
     messages = mysql.query_db(msg_query)
+    cmt_query = ""
+    comments = mysql.query_db(cmt_query)
     return render_template('wall.html', specific_user=user[0], messageList=messages)
 
 @app.route('/message', methods=['POST'])
@@ -110,8 +112,10 @@ def addCmt():
     user_id = request.form['user_id']
     message_id = request.form['message_id']
     print "User ID:", user_id, "Message ID:", message_id, "Comment:", cmt
-    insert_query = ""
-    insert_data = {}
+    insert_query = "INSERT INTO comments (message_id, user_id, comment, created_at, updated_at) VALUES (:message_id, :user_id, :cmt, NOW(), NOW())"
+    insert_data = {'message_id': message_id, 'user_id': user_id, 'cmt': cmt}
+    mysql.query_db(insert_query, insert_data)
+    print "*** ADDED COMMENT TO DATABASE ***"
     return redirect('/wall')
 
 @app.route('/logout', methods=['POST'])
