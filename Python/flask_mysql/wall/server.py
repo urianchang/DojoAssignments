@@ -2,6 +2,7 @@ from flask import Flask, request, redirect, render_template, session, flash
 from mysqlconnection import MySQLConnector
 from flask.ext.bcrypt import Bcrypt
 import re
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.secret_key = "hush-hush"
@@ -128,12 +129,22 @@ def logMeOut():
 def deleteMsg():
     msg_id = request.form['msg_id']
     print "*** DELETING MESSAGE ID: ", msg_id
-    deleteFromComments_query = "DELETE FROM comments WHERE message_id = :id"
-    deleteFromMessages_query = "DELETE FROM messages WHERE id = :id"
-    delete_data = {'id': msg_id}
-    mysql.query_db(deleteFromComments_query, delete_data)
-    mysql.query_db(deleteFromMessages_query, delete_data)
-    print "*** DELETED DATA FROM DB ***"
-    return redirect('/wall')
+    date_query = "SELECT created_at FROM messages WHERE id = :id"
+    date_data = {'id': msg_id}
+    created_date = mysql.query_db(date_query, date_data)[0]['created_at']
+    cur_date = datetime.now()
+    time_dif = cur_date - created_date
+    if time_dif > timedelta(minutes = 30):
+        print "*** Cannot delete. More than 30 minutes passed. ***"
+        return redirect('/wall')
+    else:
+        print "*** Message made less than 30 minutes ago. ***"
+        deleteFromComments_query = "DELETE FROM comments WHERE message_id = :id"
+        deleteFromMessages_query = "DELETE FROM messages WHERE id = :id"
+        delete_data = {'id': msg_id}
+        mysql.query_db(deleteFromComments_query, delete_data)
+        mysql.query_db(deleteFromMessages_query, delete_data)
+        print "*** DELETED DATA FROM DB ***"
+        return redirect('/wall')
 
 app.run(debug=True)
