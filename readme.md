@@ -19,7 +19,7 @@ Completion status of specific modules:
     * Python / Django:
         + Python - 93%
         + Python OOP - 0%
-        + Flask - 94%
+        + Flask - 100%
         + MySQL - 100%
         + Pylot MVC - 0%
         + API's and AJAX - 0%
