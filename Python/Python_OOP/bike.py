@@ -9,33 +9,24 @@ class Bike(object):
         self.miles = miles
     def displayInfo(self):
         print self.price, self.max_speed, self.miles
-    def ride(self):
-        print "Riding...roughly"
-        self.miles += 10
-    def reverse(self):
-        print "Reversing"
-        self.miles -= 5
+    def ride(self, num = 1):
+        print "\nRiding...roughly" * num
+        self.miles += 10 * num
+        return self
+    def reverse(self, num = 1):
+        print "\nReversing" * num
+        self.miles -= 5 * num
+        return self
 
 bike1 = Bike(200, "25mph")
 bike2 = Bike(100, "10mph")
 bike3 = Bike(500, "30mph")
 
 print "Bike 1..."
-bike1.ride()
-bike1.ride()
-bike1.ride()
-bike1.reverse()
-bike1.displayInfo()
+bike1.ride(3).reverse(1).displayInfo()
 
 print "\nBike 2..."
-bike2.ride()
-bike2.ride()
-bike2.reverse()
-bike2.reverse()
-bike2.displayInfo()
+bike2.ride(2).reverse(2).displayInfo()
 
 print "\nBike 3..."
-bike3.reverse()
-bike3.reverse()
-bike3.reverse()
-bike3.displayInfo()
+bike3.reverse(3).displayInfo()
