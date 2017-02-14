@@ -3,9 +3,18 @@
     <head>
         <meta charset="utf-8">
         <title>Users Index</title>
+        <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+        }
+        </style>
     </head>
     <body>
-        <h2>Users</h2>
+        <h2>All Users</h2>
         <table>
             <tr>
                 <th>ID</th>
@@ -14,7 +23,28 @@
                 <th>Created At</th>
                 <th>Actions</th>
             </tr>
+            {% for user in all_users %}
+            <tr>
+                <td>{{ user['id'] }}</td>
+                <td><a href="{{ url_for('showUser', id = user['id'] )}}">{{ user['name'] }}</a></td>
+                <td>{{ user['email'] }}</td>
+                <td>{{ user['date'] }}</td>
+                <td>
+                    <!--
+                    <form action='/users/{{user['id']}}' method='GET'>
+                        <input type="submit" value="SHOW">
+                    </form>
+                    <form action='/users/{{user['id']}}/edit' method='GET'>
+                        <input type="submit" value="EDIT">
+                    </form>
+                    -->
+                    <a href="{{ url_for('showUser', id = user['id'] )}}">SHOW</a>
+                    <a href="{{ url_for('editUser', id = user['id'] )}}">EDIT</a>
+                    <a href="{{ url_for('deleteUser', id = user['id'] )}}">DELETE</a>
+                </td>
+            </tr>
+            {% endfor %}
         </table>
-        <a href="{{ url_for('show') }}">hi</a>
+        <a href="{{ url_for('newUser') }}">Create a new user</a>
     </body>
 </html>
