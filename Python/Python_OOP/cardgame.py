@@ -66,13 +66,14 @@ while playing:
         ind += 1
         print "You just drew", printCardName(user1.hand[ind])
         sum += user1.hand[ind].value
-    elif sum > 16 and sum < 21:
+        print "This is your current sum: ", sum
+    elif sum >= 16 and sum < 21:
         print "You're staying."
         playing = False
     elif sum == 21:
         print "OMG. YOU HIT BLACKJACK!!!!"
         playing = False
     else:
-        print "You went over, fatass."
+        print "You went over."
         playing = False
 print "Game Over"
