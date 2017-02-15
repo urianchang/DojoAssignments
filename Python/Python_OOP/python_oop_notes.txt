@@ -102,3 +102,28 @@ developed attributes than the average Human.  We could do that like this:
             self.strength = 10               # every Samurai starts off with 10 strength
         def sacrifice(self):
             self.health -= 5
+
+================
+| Linked Lists |
+================
+
+A Linked List is another data structure that stores values in sequential order. Sounds similar
+to an array, doesn’t it? Yes, but Linked Lists have other strengths that make them more suited
+for many problems. Specifically, Linked Lists are optimized for Quick Insertion and Deletion.
+Linked Lists are made up of nodes - but what is a node?
+
+A Node is an object that has a number of attributes that are stored. Only two attributes are
+mandatory for an Object to be a Node: value and next. The value attribute stores exactly that,
+a value such as a string or a number. The next attribute is a pointer - a reference to the
+following node object -- the next kid in line. You can define a Node to have within it many
+different attributes/values, or it could have very little depending on what you want to store.
+In this same way, it can have a pointer named next, and maybe even another pointer named
+previous (or prev).
+
+When a Node has only next pointers, then we would call a Linked List of these nodes a
+Singly Linked List. If the nodes contain both next and previous pointers, then a Linked List
+of this type would be a Doubly Linked List.
+
+The Linked List Object itself only has two attributes, the head and the tail of the Linked List.
+The head is a pointer to the first node in a List. The tail is a pointer to the last node in this
+List. The tail's next will always be null meaning there are no nodes following the last node in this List.
