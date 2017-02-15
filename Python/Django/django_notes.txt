@@ -1,0 +1,26 @@
+=======
+| MVC |
+=======
+
+MVC (Model-View-Controller) architecture is a way of organizing code to help create robust web applications.
+Most ALL enterprise level web applications are built using an MVC framework, and it's CRITICAL that you
+understand how to build your web application using one.
+
+===========
+| Intro 1 |
+===========
+
+Flask example:
+    @app.route('/', methods = ['GET', 'POST'])
+    def index():
+      return render_template('index.html')
+
+Django example:
+    from django.conf.urls import url
+    from . import views
+    urlpatterns = [
+        url(r'^$', views.index),
+    ]
+
+urlpatterns list is most important from urls.py file. Django uses regex to match routes.
+First pattern (r'^$') is the equivalent of '/'.
