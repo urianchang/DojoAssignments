@@ -24,3 +24,124 @@ Django example:
 
 urlpatterns list is most important from urls.py file. Django uses regex to match routes.
 First pattern (r'^$') is the equivalent of '/'.
+
+Much like in Flask, the pages that are going to be rendered are found in the templates folder.
+In general, we actually put a secondary folder inside the templates folder with the name of our app.
+Putting our pages that get rendered inside a secondary folder helps us organize our code as we use/build
+more and more apps.
+
+Controller methods generally:
+    * Redirect to other routes
+    * Render specific templates
+    * Invoke methods attached to other places of our app that we characterize as models
+
+===================
+| Getting Started |
+===================
+
+1. Navigate to location where you want to create your project.
+        django-admin startproject main
+    This will create the main project for us, from which we're going to make a few small set-up things
+    before we can really get going.
+2. Navigate to main directory that you just created. Create directory, "apps". Go into the apps directory.
+3. Create an __init__.py file.
+4. Create new app by running:
+        python ../manage.py startapp first_app
+5. Add "apps.first_app" to INSTALLED_APPS list in the /main/settings.py file.
+6. Open main/urls.py in text editor and tell it to get routes from first_app.
+7. Create urls.py file in first_app.
+----------IF YOU RUN THE SERVER NOW... THIS IS THE MESSAGE THAT YOU WILL SEE---------
+    raise ImproperlyConfigured(msg.format(name=self.urlconf_name))
+    django.core.exceptions.ImproperlyConfigured: The included URLconf '<module 'apps.first_app.urls' from
+    'C:\Users\UC\Desktop\DojoAssignments\Python\Django\main\apps\first_app\urls.py'>' does not appear to
+    have any patterns in it. If you see valid patterns in the file then the issue is probably caused by a
+    circular import.
+--------------------------------------------------------------------------------------
+Once an HTTP request is made, the routing file (urls.py) decides which controller/method runs.
+
+==========================
+| apps/first_app/urls.py |
+==========================
+Example of urls.py file that is modularized.
+        from django.conf.urls import url
+        from . import views           # This line is new!
+        urlpatterns = [
+          url(r'^$', views.index)     # This line has changed!
+        ]
+
+Breaking it down:
+    * from django.conf.urls import url
+        This gives us access to the variable url (which points to a function)
+    * from . import views
+        This gives us access to everything in a views.py file that Django automatically created for us
+        when we built our first_app.
+    * url(r'^$', views.index)
+        * Uses the url method in a way that's similar to the @app.route method in flask. The r after the ( identifies
+        the following string to match as a regular expression pattern.
+        * In this case, it will exactly match an empty string. That means if you were to go to localhost:8000/,
+        Django (after removing the '/' automatically) will check if anything matches.
+        * In this case, it does! An empty string is what r'^$' looks for. Since the pattern matches, we run the
+        views.index method.
+        * url() will eventually take another parameter, something like name='index', which we'll introduce when
+        we talk about named routes.
+
+===========================
+| apps/first_app/views.py |
+===========================
+
+Example:
+        from django.shortcuts import render, HttpResponse
+        # Create your views here.
+        def index(request):
+          response = "Hello, I am your first request!"
+          return HttpResponse(response)
+
+While Django automatically creates the request object for us that's passed into our method. HttpResponse objects
+are our responsibility to create and return to the browser. Note that 'render' is a shortcut method that combines
+a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
+We aren't using render because we haven't created any templates yet.
+
+========================
+| REAL VIEWS OF DJANGO |
+========================
+
+********* REMEMBER *********
+    + Django Models is MODEL in MVC
+    + Django Templates (living in templates directory) is the VIEW in MVC
+    + Django Views (living in views.py) is the CONTROLLER in MVC
+
+Role of:
+    * Model: Performs heavy logic, queries database
+    * Template: Holds HTML (plus any Python code) that will be rendered and sent to browser
+    * View: Receives an HTTP request from routes.py and decides what to do (i.e. redirect,
+        call a model method, render some HTML)
+
+================
+| Static files |
+================
+
+In our views file, Django knows to look in the templates folder first for whatever path we pass to our render
+method.
+
+Example:
+        # views.py
+         ...
+         def index(request):
+           return render(request, "ourApp/index.html")
+
+Behavior for static files is similar: Django's template rendering system knows to look in the static and
+then at the path for the specific file relative to that folder.
+
+What HTML looks like:
+        <!DOCTYPE html>
+         <html>
+           <head>
+             <meta charset="utf-8">
+             <title></title>
+               {% load staticfiles %}
+             <!-- The line above tells Django to be ready to listen for static files -->
+             <link rel="stylesheet" href="{% static 'ourApp/css/main.css' %}"media="screen" title="no title"  charset="utf-8">
+             </head>
+           <body>
+           </body>
+         </html>
