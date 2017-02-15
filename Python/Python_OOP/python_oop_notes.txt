@@ -127,3 +127,23 @@ of this type would be a Doubly Linked List.
 The Linked List Object itself only has two attributes, the head and the tail of the Linked List.
 The head is a pointer to the first node in a List. The tail is a pointer to the last node in this
 List. The tail's next will always be null meaning there are no nodes following the last node in this List.
+
+EXAMPLE CODE:
+    1. Start by writing the Node Object. Each new node's next is null until we specify what it should point to.
+            class Node(object):
+             def __init__(self, value):
+              self.value = value
+              self.next = None
+
+    2. Next, we will create the Singly Linked List Object. Each new list is empty (contains zero nodes)
+       until we add them to the list.
+            class SinglyLinkedList(object):
+             def __init__(self):
+              self.head = None
+              self.tail = None
+
+    3. Now we can run the following code…
+            list = SinglyLinkedList()
+            list.head = Node('Alice')
+            list.head.next = Node('Chad')
+            list.head.next.next = Node('Debra')
