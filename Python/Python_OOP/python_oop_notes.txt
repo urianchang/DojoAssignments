@@ -1,0 +1,104 @@
+============
+| Packages |
+============
+
+A module is a single file (or files) that are imported under one import.
+A package is a collection of modules in directories that give a package hierarchy.
+
+from my_package.subdirectory import my_functions
+
+Packages are namespaces which contain multiple packages and modules themselves.
+They are simply directories, but with a twist.
+
+sample_project
+     |_____ python_file.py
+     |_____ my_modules
+               |_____ __init__.py
+               |_____ test_module.py
+               |_____ another_module.py
+               |_____ third_module.py
+
+In the above diagram, the package name is my_modules.
+
+====================
+| Writing Packages |
+====================
+
+Each package in Python is a directory which MUST contain a special file called  __init__.py.
+This file can be empty, and it indicates that the directory containing it is a Python package,
+so it can be imported the same way a module can be imported.
+
+If we create a directory called my_modules, which marks the package name, we can then create
+a module inside that package called test_module. We also must not forget to add the __init__.py
+file inside the my_modules directory.
+
+To use the module test_module, we can import it in two ways:
+
+import my_modules.test_module
+
+OR
+
+from my_modules import test_module
+
+The  __init__.py file can also decide which modules this package will export as an API,
+while keeping other modules internal, by overriding the __all__ variable, like so:
+
+__init__.py:
+__all__ = ["test_module"]
+
+===============
+| Inheritance |
+===============
+
+Inheritance is simply forming new classes using classes that have already been defined.
+In other words, it allows one class to take on some or even all of its attributes and methods
+from a parent class. The benefits of inheritance are code reuse and reduction of complexity of
+a program. The derived classes (descendants) can override or extend the functionality of base
+classes (ancestors).
+
+Implicit Inheritance
+Now we want to create new (sub)classes that are able to use all of the function and properties
+in the Human class but also have some of their own additional functions and properties.
+
+General skeleton of implicit inheritance:
+    class Parent(object): # inherits from the object class
+      # parent methods and attributes here
+    class Child(Parent): #inherits from Parent class so we define Parent as the first parameter
+      # parent methods and attributes are implicitly inherited
+      # child methods and attributes
+
+=========
+| Super |
+=========
+
+Sometimes in your OOP code, you will want to create updated versions of methods that are defined
+in the parent class, because in addition to your custom code you want specifically to call the
+parent implementation of that method as well (or instead). In these cases, you would reference
+that parent object with the keyword ' super'. Specifically you reference that parent's method by
+calling 'super(ChildClassName, self).parent_method()'.
+
+Parent __init__
+One thing we may want to do is call the Parent class's __init__ method, but also have our Child
+class change attributes defined by its Parent class. Say that we wanted each of our sub-classes
+(Wizard, Ninja, Samurai) to still inherit the attributes of the parent Human class but have more
+developed attributes than the average Human.  We could do that like this:
+
+    from human import Human
+    class Wizard(Human):
+        def __init__(self):
+            super(Wizard, self).__init__()   # use super to call the Human __init__ method
+            self.intelligence = 10           # every wizard starts off with 10 intelligence
+        def heal(self):
+            self.health += 10
+    class Ninja(Human):
+        def __init__(self):
+            super(Ninja, self).__init__()    # use super to call the Human __init__ method
+            self.stealth = 10                # every Ninja starts off with 10 stealth
+        def steal(self):
+            self.stealth += 5
+    class Samurai(Human):
+        def __init__(self):
+            super(Samurai, self).__init__()  # use super to call the Human __init__ method
+            self.strength = 10               # every Samurai starts off with 10 strength
+        def sacrifice(self):
+            self.health -= 5
