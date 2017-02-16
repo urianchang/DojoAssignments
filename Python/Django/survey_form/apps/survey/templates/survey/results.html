@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Survey Form</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'survey/stylesheets/style.css' %}">
+    </head>
+    <body>
+        <div class="response-area">
+            <section class="basic-info">
+                <h1>Submitted Info</h1>
+                <p>Name: []</p>
+                <p>Dojo Location: []</p>
+                <p>Favorite Language: []</p>
+                <p>Comment: []</p>
+            </section>
+            <section>
+                <input type='submit' value='Go Back' onClick="history.go(-1);return true;" class="button">
+            </section>
+        </div>
+    </body>
+</html>
