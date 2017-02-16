@@ -17,3 +17,9 @@ DJANGO CHEAT SHEET:
 12. Go to views.py and add view to be rendered
 13. Create file (and folders) in appName: /templates/appName/index.html
 14. Go back to folder that holds manage.py and runserver
+
+-------------------------
+Set up to use session:
+In terminal, go to where manage.py is...
+        python manage.py makemigrations
+        python manage.py migrate

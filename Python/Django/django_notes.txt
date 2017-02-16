@@ -181,3 +181,70 @@ Useful session methods:
             aren't allowed here.
 
 *** Session in Django gets saved even if we leave the browser! ***
+
+========================
+| Contextual Variables |
+========================
+
+Minimize use of request.session, limiting to just a few reference pieces such as name and ID of logged-in user.
+
+So we have to use contextual variables.
+What is context? It's just a dictionary that gets unpacked in the template, making all the keys variables that
+equal the corresponding value.
+
+Example:
+Django:
+        from django.shortcuts import render, HttpResponse, redirect
+        def index(request):
+        	context = {
+        		"email" : "blog@gmail.com",
+        		"name" : "mike"
+        	}
+        	return render(request, "second_app/index.html", context)
+
+In index.html, the context dictionary gets unpacked, and we have access to email and name.
+
+HTML:
+        <html>
+            <head>
+                <meta charset="utf-8">
+                <title>Document</title>
+            </head>
+            <body>
+                <h1>Hello World!</h1>
+                {{email}} and {{name}}
+            </body>
+        </html>
+
+====================
+| Route Parameters |
+====================
+
+Passing variable via URL:
+In urls.py...
+        from django.conf.urls import url
+         from . import views
+         urlpatterns = [
+             url(r'^/en/(?P<id>\d+)$', views.show)
+         ]
+
+In views.py...
+        def show(request, id):
+         context = {
+           "id" : id
+         }
+         return render(request, "second_app/show.html", context)
+
+================
+| Static files |
+================
+
+Put static files in directory called "static" that lives alongside "templates". Just like with templates
+it's the convention to place another directory inside static with the same name as your app. That's
+because we could potentially be accessing multiple apps from within our own.
+
+To access static files from HTML:
+      <!-- Inside apps/first_app/templates/first_app/index.html -->
+      {% load staticfiles %}
+      <link rel="stylesheet" href="{% static 'first_app/css/styles.css' %}">
+      <script src="{% static 'first_app/js/main.js' %}" > </script>
