@@ -356,3 +356,167 @@ Column Types:
              updated_at = models.DateTimeField(auto_now = True)
 
 *** ForeignKey statement is the equivalent of the one-to-many relationship shown in the ERD diagram. ***
+
+====================
+| Database Queries |
+====================
+Django has a relatively easy to use Object Relationship Mapper (ORM) to help us make queries simply and cleanly.
+Django allows you to execute SQL queries directly. Hand-written SQL queries are actually faster than
+many ORMs. Django as to convert the ORM command into SQL, which adds a bit more overhead to the hand-written
+SQL queries for more complicated retrievals; others only use the ORM, accepting slight performance hit in
+exchange for being to write code in Python with Python syntax.
+
+The Object Relational Mapper (ORM):
+Django models come pre-equipped to communicate with your views via a method called 'objects'. 'objects' is an
+instance of the Django ORM class that does our DB communication.
+
+With the models.py file...
+    # Inside models.py
+    from __future__ import unicode_literals
+    from django.db import models
+    # Create your models here.
+    class User(models.Model):
+        first_name = models.CharField(max_length=45)
+        last_name = models.CharField(max_length=45)
+        password = models.CharField(max_length=100)
+        created_at = models.DateTimeField(auto_now_add = True)
+        updated_at = models.DateTimeField(auto_now = True)
+
+*NOTE: The following code will work great the first time you hit a route that calls the
+'index' function. But if you refresh the page, it crashes! Why? Follow the clues and alter
+the code below so it no longer breaks the server.
+With the views.py file...
+    # Inside your app's views.py file
+    from django.shortcuts import render, HttpResponse
+    # Pull the User class into the file
+    from .models import User
+    def index(request):
+        print(User.objects.all())
+        # A list of objects (or an empty list)
+        User.objects.create(first_name="mike",last_name="mike",password="1234asdf")
+        # Creates a user object
+        print(User.objects.all())
+        # A list of objects (or an empty list)
+        u = User.objects.get(id=1)
+        print(u.first_name)
+        u.first_name = "Joey"
+        u.save()
+        j = User.objects.get(id=1)
+        print(j.first_name)
+        # Gets the user with an id of 1, changes name and saves to DB, then retrieves again...
+        print(User.objects.get(first_name="mike"))
+        # Gets the user with a first_name of 'mike' *** THIS MIGHT NEED TO BE CHANGED ***
+        users = User.objects.raw("SELECT * from my_app_name_user")
+        # Uses raw SQL query to grab all users (equivalent to User.objects.all()), which we iterate through below
+        for user in users:
+          print user.first_name
+        return HttpResponse("ok")
+
+Know that this line:
+
+        print(User.objects.raw("SELECT * from my_app_name_user"))
+
+Relies on the fact that Django builds our database's tables according to a particular format
+( 'app_name' + _ + 'lowercase_model_name' ). If you're ever making a raw query and aren't sure what the table
+name is, you can always find it by printing the following:
+
+        User._meta.db_table
+
+-----------------
+For this section we'll use the following model:
+        class User(models.Model):
+          first_name = models.CharField(max_length=25)
+          last_name = models.CharField(max_length=25)
+          age = models.IntegerField()
+          created_at = models.DateTimeField(auto_now_add=True)
+          updated_at = models.DateTimeField(auto_now=True)
+          def __str__(self):
+            return self.first_name + " " + self.last_name
+
+** The method '__str__' converts User object into a string, so when I print these objects in the terminal
+they'll show as '<User: Firstname Lastname>' instead of '<User: User object>'.
+
+GET:
+.get(field="val") returns the one object that matches a given condition.
+If we wanted the one user with last name "Thomas", we could say:
+         user = User.objects.get(last_name="Thomas")
+         print("QUERY RESULT:", user)
+However, if the condition is true for more than item, or zero items, using .get will throw an error.
+Only use .get if you know that there's only one matching item! For this reason, this is a very good
+method to use with ID numbers.
+
+FILTER:
+.filter(field="val"...) returns all of the records where a given condition is true.
+Here's how we'd find all of the "Thomas"es:
+        user = User.objects.filter(last_name="Thomas")
+        print("QUERY RESULT:", user)
+What's the difference between .get and .filter? .get returns the object itself, while .filter
+returns a QuerySet (a special type of list that holds Django objects). Because it's returning
+a QuerySet and not an object, .filter has no problem if there's not exactly one matching record.
+
+EXCLUDE:
+.exclude(field="val"...) is the opposite of .filter: It returns all of the records where a given condition is false.
+Here's every user NOT surnamed "Thomas":
+        user = User.objects.exclude(last_name="Thomas")
+        print("QUERY RESULT:", user)
+*NOTE: It returns a QuerySet.
+
+CONDITIONS:
+You can do a more complicated search than just if a given field is equal to a given value.
+Instead of just passing in the field name as a keyword argument to .get, .filter, or .exclude,
+you'd pass the field name__lookup type (that's a double underscore, also known as a "dunder"
+for people on-the-go). For instance, to find users whose first name begins with "S":
+        user = User.objects.filter(first_name__startswith="S")
+        print("QUERY RESULT:", user)
+Every user older than 80:
+        user = User.objects.filter(age__gt=80)
+        print("QUERY RESULT:", user)
+Every user 80 or older (see the difference?):
+        user = User.objects.filter(age__gte=80)
+        print("QUERY RESULT:", user)
+
+CHAINING QUERIES:
+Queries can be chained together:
+        user = User.objects.filter(last_name__contains="o").exclude(first_name__contains="o")
+        print("QUERY RESULT:", user)
+
+        user = User.objects.filter(age__lt=70).filter(first_name__startswith="S")
+        print("QUERY RESULT:", user)
+If it's the same type of query, instead of being chained, you can pass multiple arguments to the function:
+        user = User.objects.filter(age__lt=70, first_name__startswith="S")
+        print("QUERY RESULT:", user)
+
+These are cases where the conditions are joined with AND, as in, all users younger than 70 AND whose
+first name starts with "S". If you want OR, as in users who are younger than 70 OR whose first_name
+starts with "S", you can use | (the set union operator):
+        user = User.objects.filter(age__lt=70)|User.objects.filter(first_name__startswith="S")
+        print("QUERY RESULT:", user)
+
+-----------------
+Displaying on Templates:
+How do we pass information from our view function into a template? With a context dictionary!
+
+...user_orm_example_project/apps/users/views.py
+        def index(request):
+          users = User.objects.filter(age__lt=70)|User.objects.filter(first_name__startswith="S")
+          context = {"users": users}
+          return render(request, "users/index.html", context)
+
+On the template, we can use a for-loop to go over this data.
+        <h1>Users</h1>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+          </tr>
+          {% for user in users %}
+            <tr>
+              <td>{{user.id}}</td>
+              <td>{{user.first_name}}</td>
+              <td>{{user.last_name}}</td>
+              <td>{{user.age}}</td>
+            </tr>
+          {% endfor %}
+        </table>
