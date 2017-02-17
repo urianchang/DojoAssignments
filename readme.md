@@ -17,12 +17,12 @@ Completion status of specific modules:
         + Wireframes - 86%
 
     * Python / Django:
-        + Python - 93%
-        + Python OOP - 0%
+        + Python - 100%
+        + Python OOP - 55%
         + Flask - 100%
         + MySQL - 100%
         + Pylot MVC - 0%
         + API's and AJAX - 0%
-        + Django - 0%
+        + Django - 25%
         + Deployment - 0%
         + Algorithms II - 0%
