@@ -8,9 +8,7 @@ def insertionSort(arr):
         pos = index
         while pos > 0:
             if value < arr[pos-1]:
-                temp = arr[pos]
-                arr[pos] = arr[pos-1]
-                arr[pos-1] = temp
+                arr[pos], arr[pos-1] = arr[pos-1], arr[pos]
             pos -= 1
         print arr
     return arr
