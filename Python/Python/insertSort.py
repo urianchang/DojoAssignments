@@ -6,10 +6,13 @@ def insertionSort(arr):
     for index in range(1, len(arr)):
         value = arr[index]
         pos = index
-        while pos > 0 and value < arr[pos-1]:
-            arr[pos] = arr[pos-1]
+        while pos > 0:
+            if value < arr[pos-1]:
+                temp = arr[pos]
+                arr[pos] = arr[pos-1]
+                arr[pos-1] = temp
             pos -= 1
-        arr[pos] = value
+        print arr
     return arr
 
 b = [6, 5, 3, 1, 8, 7, 2, 4]
