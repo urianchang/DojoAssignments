@@ -44,9 +44,20 @@
                 {% for course in courses %}
                 <tr>
                     <td>{{course.name}}</td>
-                    <td>{{course.description}}</td>
+                    {% for description in descriptions %}
+                        {% if description.course_id == course %}
+                            {% if not description.description %}
+                    <td><span>No description provided.</span></td>
+                            {% else %}
+                    <td>{{description.description}}</td>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
                     <td>{{course.created_at}}</td>
-                    <td><a href="/courses/destroy/{{course.id}}">Delete</td>
+                    <td>
+                        <a href="/courses/comment/{{course.id}}">Comments</a>
+                        <a href="/courses/destroy/{{course.id}}">Delete</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>

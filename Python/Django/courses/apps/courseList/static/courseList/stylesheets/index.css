@@ -40,3 +40,10 @@ td{
     padding: 10px;
     text-align: center;
 }
+span{
+    font-style: italic;
+    color: red;
+}
+a{
+    margin-right: 5px;
+}

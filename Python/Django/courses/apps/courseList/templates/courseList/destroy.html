@@ -9,7 +9,11 @@
     <body>
         <h3>Are you sure you want to delete the following course?</h3>
         <p>Name: {{course.name}}</p>
-        <p>Description: {{course.description}}<p>
+        {% if not description.description %}
+        <p>Description: <span>No description provided.</span></p>
+        {% else %}
+        <p>Description: {{description.description}}<p>
+        {% endif %}
         <form action='/' method='POST'>
             {% csrf_token %}
             <input type="submit" value="No, let's go back" class="button">

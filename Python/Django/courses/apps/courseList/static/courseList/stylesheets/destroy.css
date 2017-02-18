@@ -25,3 +25,7 @@ form {
     background-color: red;
     color: white;
 }
+span{
+    font-style: italic;
+    color: red;
+}
