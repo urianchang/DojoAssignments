@@ -5,6 +5,27 @@
         <title>Course Comments</title>
     </head>
     <body>
-        <h1>hello world</h1>
+        <div class="display-comments">
+            <h3>Comments for '{{course.name}}'</h3>
+            {% if not comments %}
+            <h3>No comments for this course yet.</h3>
+            {% else %}
+            {% for comment in comments %}
+                <div class="comment">
+                    <h3>Comment {{comment.id}} added on {{comment.created_at}}:</h3>
+                    <p>{{comment.comment}}</p>
+                </div>
+                <hr>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="add-comment">
+            <form action='/addcomment' method='post'>
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{course.id}}">
+                <textarea name="commentbox" rows="8" cols="30"></textarea>
+                <input type="Submit" value="Add">
+            </form>
+        </div>
     </body>
 </html>
