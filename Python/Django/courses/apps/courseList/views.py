@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Course, Description, Comment
 
 # Create your views here.
+
+# Render the home page
 def index(request):
     print "*** WELCOME HOME ***"
     context = {
@@ -10,6 +12,7 @@ def index(request):
     }
     return render(request, 'courseList/index.html', context)
 
+# Add a course to the course list
 def addCourse(request):
     if request.method == 'POST':
         print "***** Submitting Course info *****"
@@ -18,6 +21,7 @@ def addCourse(request):
         Description.objects.create(course_id=instance, description=request.POST['description'])
     return redirect('/')
 
+# Render the delete course confirmation page
 def delCourse(request, id):
     courseInst = Course.objects.get(id=id)
     context = {
@@ -26,11 +30,13 @@ def delCourse(request, id):
     }
     return render(request, "courseList/destroy.html", context)
 
+# Delete a course
 def deleteC(request):
     print "** DELETING **"
     Course.objects.get(id=request.POST['id']).delete()
     return redirect('/')
 
+# Render the comments page
 def seeComments(request, id):
     print "** GOING TO COMMENTS **"
     course = Course.objects.get(id=id)
@@ -41,6 +47,7 @@ def seeComments(request, id):
     }
     return render(request, 'courseList/comments.html', context)
 
+# Add a comment
 def addComment(request):
     print "** ADDING COMMENT **"
     course = Course.objects.get(id=request.POST['id'])
