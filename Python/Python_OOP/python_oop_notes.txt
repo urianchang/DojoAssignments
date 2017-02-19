@@ -163,3 +163,11 @@ Ex:
 
 Note the .join() method is called on a string that glues the values in the tuple together. For example,
 the tuple of arguments ('two', 'three') was joined as 'two, three' when we called ', '.join(restofArg).
+
+"kwargs" means "keyword arguments" (i.e. dictionary).
+
+Ex:
+        def print_keyword_args(**kwargs):
+            # kwargs is a dict of the keyword args passed to the function
+            for key, value in kwargs.iteritems():
+                print "%s = %s" % (key, value)
