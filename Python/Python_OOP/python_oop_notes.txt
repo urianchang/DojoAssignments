@@ -147,3 +147,19 @@ EXAMPLE CODE:
             list.head = Node('Alice')
             list.head.next = Node('Chad')
             list.head.next.next = Node('Debra')
+
+======================
+| Multiple Arguments |
+======================
+What if you want to pass in a variable number of arguments, or want to capture multiple arguments into a
+single parameter? Placing an asterisk before the name of the parameter after the "normal'' parameters does
+just that. The asterisk is called a 'splat' operator.
+
+Ex:
+        def varargs(arg1, *restOfArg):
+           print "restOfArg is of " + str(type(restOfArg))
+           varargs("one", "two", "three")
+        # OUTPUT: restOfArg is of <type 'tuple'>
+
+Note the .join() method is called on a string that glues the values in the tuple together. For example,
+the tuple of arguments ('two', 'three') was joined as 'two, three' when we called ', '.join(restofArg).
