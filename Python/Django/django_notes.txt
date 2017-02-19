@@ -520,3 +520,26 @@ On the template, we can use a for-loop to go over this data.
             </tr>
           {% endfor %}
         </table>
+
+==========
+| BCRYPT |
+==========
+Bcrypt documentation explains how to generate an initial hashed password (shown below)
+as well as how to get a compare passwords!  In essence, Bcrypt can retrieve a salt
+from a Bcrypt encrypted string.
+
+Amazingly, the line before the exit in the snippet below prints out the same thing as hashed...
+        (djangoenv)>python
+        >>> import bcrypt
+        >>> password = "super secret password"
+        >>> hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+        >>> print hashed
+        >>> print len(hashed)
+        >>> hashed2 = bcrypt.hashpw(password, bcrypt.gensalt())
+        >>> print hashed2
+        >>> print bcrypt.hashpw(password,hashed)
+        >>> exit()
+
+Should you run into an encoding error when you’re hashing passwords with bcrypt,
+the following method might be useful:
+        +your_string.encode()
