@@ -31,14 +31,28 @@ class MathDojo(object):
         self.value = 0
     def add(self, *args):
         for arg in args:
-            self.value += arg
+            if type(arg) is list or type(arg) is tuple:
+                for num in arg:
+                    self.value += num
+            else:
+                self.value += arg
         return self
     def subtract(self, *args):
         for arg in args:
-            self.value -= arg
+            if type(arg) is list or type(arg) is tuple:
+                for num in arg:
+                    self.value -= num
+            else:
+                self.value -= arg
         return self
     def result(self):
         print self.value
 
 # Part I: Result should be "4"
-md = MathDojo().add(2).add(2, 5).subtract(3, 2).result()
+# MathDojo().add(2).add(2, 5).subtract(3, 2).result()
+
+# Part II: Result should be "28.15"
+# MathDojo().add([1],3,4).add([3, 5, 7, 8], [2, 4.3, 1.25]).subtract(2, [2,3], [1.1, 2.3]).result()
+
+# Part III: Support tuples
+MathDojo().add((1, 2, 3), 4, 5).result()
