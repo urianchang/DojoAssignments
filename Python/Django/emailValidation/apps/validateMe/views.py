@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Email
 
 # Create your views here.
+# Render the landing page
 def index(request):
     print "*** Landing page ***"
     if 'id' not in request.session:
@@ -9,6 +10,7 @@ def index(request):
         request.session['error'] = False
     return render(request, 'validateMe/index.html')
 
+# Check email when form is submitted
 def validate(request):
     print "*** BUTTON CLICKED ***"
     # Pass request.POST data as kwargs...
@@ -25,6 +27,7 @@ def validate(request):
         request.session['err_msg'] = status_info['err_msg']
         return redirect('/')
 
+# Render the success page
 def success(request):
     if request.session['id'] == -1:
         print "Nuh-uh. You can't see this page yet."
@@ -36,6 +39,12 @@ def success(request):
         }
         return render(request, 'validateMe/success.html', context)
 
+# Delete an email from the database
+def delete(request):
+    Email.emailManager.get(id=request.POST['id']).delete()
+    return redirect('/logout')
+
+# Log the user out
 def logout(request):
     request.session.pop('id')
     return redirect('/')

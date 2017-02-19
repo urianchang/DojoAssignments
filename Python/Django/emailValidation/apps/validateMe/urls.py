@@ -5,5 +5,6 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^process$', views.validate),
     url(r'^success$', views.success),
-    url(r'^logout$', views.logout)
+    url(r'^logout$', views.logout),
+    url(r'^delete$', views.delete)
 ]

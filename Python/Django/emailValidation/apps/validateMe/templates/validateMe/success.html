@@ -55,11 +55,19 @@
                 <tr>
                     <th>Email</th>
                     <th>Created</th>
+                    <th>Actions</th>
                 </tr>
                 {% for email in emails %}
                 <tr>
                     <td>{{email.email}}</td>
                     <td>{{email.created_at}}</td>
+                    <td>
+                        <form action='/delete' method='post'>
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{email.id}}">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>
