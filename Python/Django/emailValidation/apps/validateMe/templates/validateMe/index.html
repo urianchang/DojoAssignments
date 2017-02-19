@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Email Validation</title>
+        <style>
+            h1{
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        {% if request.session.error %}
+        <h1>Uh-oh! {{request.session.err_msg}}</h1>
+        {% endif %}
+        <h2>Please enter a valid E-mail :)</h2>
+        <form action='/process' method='POST'>
+            {% csrf_token %}
+            <label for='email'>Email: <input type="text" name="email"></label>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>
