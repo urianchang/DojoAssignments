@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome</title>
+    </head>
+    <body>
+        <div class="logged-in">
+            <form action='/logout' method='post'>
+                {% csrf_token %}
+                <input type="submit" value="Log out">
+            </form>
+        </div>
+    </body>
+</html>
