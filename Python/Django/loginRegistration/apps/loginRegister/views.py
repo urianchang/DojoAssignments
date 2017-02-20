@@ -9,20 +9,28 @@ def index(request):
     if 'user_id' not in request.session:
         request.session['user_id'] = -1
         request.session['showmsg'] = False
+    if request.session['showmsg']:
+        context = {
+            'loginerrors': request.session['loginerrors'],
+            'regerrors': request.session['regerrors']
+        }
+        return render(request, 'loginRegister/index.html', context)
     return render(request, 'loginRegister/index.html')
 
 # When user attempts to log in
 def login(request):
     print "** Log in requested **"
     login_info = User.userManager.login(**request.POST)
-    print login_info
     if login_info['valid']:
         print "** Login info is valid **"
-        print login_info['user_id']
+        request.session['user_id'] = login_info['user_id']
+        request.session['showmsg'] = False
         return redirect('/success')
     else:
         print "** Something went wrong **"
-        print login_info['messages']
+        request.session['showmsg'] = True
+        request.session['regerrors'] = []
+        request.session['loginerrors'] = login_info['messages']
         return redirect('/')
 
 # When user attempts to register
@@ -36,15 +44,24 @@ def register(request):
         print "** Something went wrong **"
         print status_info['messages']
     request.session['showmsg'] = True
-    request.session['msgList'] = status_info['messages']
+    request.session['loginerrors'] = []
+    request.session['regerrors'] = status_info['messages']
     return redirect('/')
 
 # Render the success/welcome page
 def welcome(request):
-    print "** Welcome back, user! **"
-    return render(request, 'loginRegister/success.html')
+    if request.session['user_id'] == -1:
+        print "Nuh-uh. You can't see this page yet."
+        return redirect('/')
+    else:
+        print "** Welcome back, user! **"
+        context = {
+            'user': User.userManager.get(id=request.session['user_id'])
+        }
+        return render(request, 'loginRegister/success.html', context)
 
 # When user logs out
 def logout(request):
     print "** Logging out **"
+    request.session.pop('user_id')
     return redirect('/')

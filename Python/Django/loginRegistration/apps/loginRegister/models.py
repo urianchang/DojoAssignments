@@ -20,7 +20,6 @@ class UserManager(models.Manager):
             messages.append("Login fields cannot be blank.")
         else:
             userinfo = User.userManager.filter(email=email)
-            print userinfo[0].password
             if not userinfo:
                 messages.append("Unable to find user. Please register.")
             elif not bcrypt.checkpw(password.encode(), userinfo[0].password.encode()):

@@ -8,6 +8,16 @@
     </head>
     <body>
         <div class="login-area">
+            {% if loginerrors %}
+            <div class="error-messages">
+                <h1>Uh-oh!</h1>
+                <ul>
+                    {% for msg in loginerrors %}
+                    <li>{{msg}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
             <form action='/login' method='post'>
                 {% csrf_token %}
                 <h2>Please log in:</h2>
@@ -17,6 +27,16 @@
             </form>
         </div>
         <div class="register-area">
+            {% if regerrors %}
+            <div class="error-messages">
+                <h1>Uh-oh!</h1>
+                <ul>
+                    {% for msg in regerrors %}
+                    <li>{{msg}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
             <form action='/register' method='post'>
                 {% csrf_token %}
                 <h2>Please register:</h2>
