@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+import bcrypt
 import re
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -8,7 +9,30 @@ NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
 # Create your models here.
 class UserManager(models.Manager):
     def login(self, **kwargs):
-        pass
+        print "** User manager activated **"
+        print "** Checking login info **"
+        status = {}
+        messages = []
+        email = kwargs['mail'][0]
+        password = kwargs['password'][0]
+        print email, password
+        if len(email) < 1 or len(password) < 1:
+            messages.append("Login fields cannot be blank.")
+        else:
+            userinfo = User.userManager.filter(email=email)
+            print userinfo[0].password
+            if not userinfo:
+                messages.append("Unable to find user. Please register.")
+            elif not bcrypt.checkpw(password.encode(), userinfo[0].password.encode()):
+                messages.append("Incorrect password.")
+        if not messages:
+            valid = True
+            status.update({'user_id': userinfo[0].id})
+        else:
+            valid = False
+            status.update({'messages': messages})
+        status.update({'valid': valid})
+        return status
 
     def register(self, **kwargs):
         print "** User manager activated **"
@@ -45,6 +69,8 @@ class UserManager(models.Manager):
         if not messages:
             valid = True
             messages.append('Thank you for registering! Please sign in.')
+            pw_hash = bcrypt.hashpw(pword.encode(), bcrypt.gensalt())
+            status.update({'fname': fname, 'lname': lname, 'email': email, 'pw': pw_hash})
         else:
             valid = False
         status.update({'valid': valid, 'messages': messages})
