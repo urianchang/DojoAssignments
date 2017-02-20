@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 import bcrypt
 import re
+import time
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
@@ -43,6 +44,7 @@ class UserManager(models.Manager):
         email = kwargs['mail'][0]
         pword = kwargs['pword'][0]
         cpword = kwargs['c-pword'][0]
+        birthday = kwargs['birthday'][0]
         if len(fname) < 1:
             messages.append('First name is required.')
         elif len(fname) < 2:
@@ -65,11 +67,15 @@ class UserManager(models.Manager):
             messages.append('Password should be at least 8 characters.')
         elif pword != cpword:
             messages.append('Password fields do not match.')
+        if not re.search(r'^[0-9][0-9][0-9][0-9][\-][0-9][0-9][\-][0-9][0-9]', birthday):
+            messages.append('Invalid birthday format. Should be YYYY-MM-DD format.')
+        elif birthday > time.strftime("%Y-%m-%d"):
+            messages.append('Invalid birthday! Need to be from the past.')
         if not messages:
             valid = True
             messages.append('Thank you for registering! Please sign in.')
             pw_hash = bcrypt.hashpw(pword.encode(), bcrypt.gensalt())
-            status.update({'fname': fname, 'lname': lname, 'email': email, 'pw': pw_hash})
+            status.update({'fname': fname, 'lname': lname, 'email': email, 'pw': pw_hash, 'bday': birthday})
         else:
             valid = False
         status.update({'valid': valid, 'messages': messages})
@@ -81,6 +87,7 @@ class User(models.Model):
     last_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
+    birthday = models.DateField(auto_now = False, auto_now_add = False, default="9999-11-29")
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
     userManager = UserManager()
