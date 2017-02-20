@@ -9,11 +9,11 @@
     <body>
         <div class="login-area">
             {% if messages %}
-            <div class="error-messages">
+            <div class="flash-messages">
                 <ul>
                     {% for msg in messages %}
                     {% if msg.tags == "warning" %}
-                    <li>{{msg}}</li>
+                    <li class="error-messages">{{msg}}</li>
                     {% endif %}
                     {% endfor %}
                 </ul>
@@ -29,10 +29,12 @@
         </div>
         <div class="register-area">
             {% if messages %}
-            <div class="error-messages">
+            <div class="flash-messages">
                 <ul>
                     {% for msg in messages %}
                     {% if msg.tags == "error" %}
+                    <li class="error-messages">{{msg}}</li>
+                    {% elif msg.tags == "success" %}
                     <li>{{msg}}</li>
                     {% endif %}
                     {% endfor %}

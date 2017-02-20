@@ -75,7 +75,7 @@ class UserManager(models.Manager):
             valid = True
             messages.append('Thank you for registering! Please sign in.')
             pw_hash = bcrypt.hashpw(pword.encode(), bcrypt.gensalt())
-            status.update({'fname': fname, 'lname': lname, 'email': email, 'pw': pw_hash, 'bday': birthday})
+            User.userManager.create(first_name = fname, last_name = lname, email = email, password = pw_hash, birthday = birthday)
         else:
             valid = False
         status.update({'valid': valid, 'messages': messages})

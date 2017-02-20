@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import User
 from django.contrib import messages
+import re
+
+msg_success_regex = re.compile(r'^Thank')
 
 # Create your views here.
 
@@ -16,12 +19,10 @@ def index(request):
                 messages.warning(request, msg)
         if request.session['regerrors']:
             for msg in request.session['regerrors']:
-                messages.error(request, msg)
-        # context = {
-        #     'loginerrors': request.session['loginerrors'],
-        #     'regerrors': request.session['regerrors']
-        # }
-        # return render(request, 'loginRegister/index.html', context)
+                if msg_success_regex.match(msg):
+                    messages.success(request, msg)
+                else:
+                    messages.error(request, msg)
     return render(request, 'loginRegister/index.html')
 
 # When user attempts to log in
@@ -46,7 +47,7 @@ def register(request):
     status_info = User.userManager.register(**request.POST)
     if status_info['valid']:
         print "** Registration information is valid **"
-        User.userManager.create(first_name=status_info['fname'], last_name=status_info['lname'], email=status_info['email'], password=status_info['pw'], birthday=status_info['bday'])
+        # User.userManager.create(first_name=status_info['fname'], last_name=status_info['lname'], email=status_info['email'], password=status_info['pw'], birthday=status_info['bday'])
     else:
         print "** Something went wrong **"
         print status_info['messages']
