@@ -171,3 +171,81 @@ Ex:
             # kwargs is a dict of the keyword args passed to the function
             for key, value in kwargs.iteritems():
                 print "%s = %s" % (key, value)
+
+====================
+| Ternary Operator |
+====================
+Python also has a ternary operator (one line if-else statement).
+
+In other languages:
+        <condition> ? <result_if_true> : <result_if_false>
+Python:
+        <result_if_true> if <condition> else <result_if_false>
+
+Ex:
+        print('Coding Dojo' if stacks >= 3 else 'You are not Coding Dojo!')
+
+===========
+| Lambdas |
+===========
+Another type of function mentioned earlier is the anonymous function. An anonymous function is
+a function without a name. In Python, anonymous functions are created with the lambda keyword.
+These functions are used for various purposes:
+    * handy in situations where we only need to use the function once
+    * lightweight when we need to break down complex tasks into small, specific tasks
+    * convenient as arguments to functions that require functions as parameters
+
+Ex:
+Earlier, we defined the square() function that takes in one parameter (num), squares it and returns it.
+        def square(num):
+          x = num ** 2
+          return x
+Now we can rewrite the function as an anonymous (lambda) function:
+        adder = lambda num: num ** 2     # no return statement
+
+
+**IMPORTANT: The lambda function does not include a "return" statement. LAMBDAS ALWAYS CONTAIN
+AN EXPRESSION THAT IS RETURNED IMPLICITLY.
+
+Lambda vs Def:
+    * Lambdas are expressions, not statements
+        - Expressions represent something like a number, string, a class instance, or a combo of values
+        and operators that evaluate down to a single value.
+        - Statements are sets of instructions that do not evaluate down to a value. So statements are
+        pretty much anything that we would not consider an expression. For example: variable assignment,
+        if statements, for loops, while loops, break statement in functions.
+    * Because lambdas are expressions, they can appear where a def is not allowed.
+        - element in a list
+            Ex:
+                # create a new list, with a lambda as an element
+                my_list = ['test_string', 99, lambda x : x ** 2]
+                # access the value in the list
+                print my_list[2] # will print a lambda object stored in memory
+                # invoke the lambda function, passing in 5 as the argument
+                my_list[2](5)
+        - passed to another function as a callback
+            Ex:
+                # define a function that takes one input that is a function
+                def invoker(callback):
+                    # invoke the input pass the argument 2
+                    print callback(2)
+                invoker(lambda x: 2 * x)
+                invoker(lambda y: 5 + y)
+        - stored in a variable
+            Ex:
+                add10 = lambda x: x + 10 # store lambda expression in a variable
+                add10(2)  # returns 12
+                add10(98) # returns 108
+        - returned by another function
+            Ex:
+                def incrementor(num):
+                    start = num
+                    return lambda x: num + x
+    * Lambda's body is a single expression, not a block of statements
+    * Useful when we only need a function once. This way we don't need to define a function
+        and unnecessarily consume memory and complicate our code.
+        - Functions where this implementation comes into play:
+            ~ map()
+            ~ reduce()
+            ~ sort() - lambda is optional
+            ~ filter()
