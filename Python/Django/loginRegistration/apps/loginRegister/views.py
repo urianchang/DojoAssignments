@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import User
+from django.contrib import messages
 
 # Create your views here.
 
@@ -10,11 +11,17 @@ def index(request):
         request.session['user_id'] = -1
         request.session['showmsg'] = False
     if request.session['showmsg']:
-        context = {
-            'loginerrors': request.session['loginerrors'],
-            'regerrors': request.session['regerrors']
-        }
-        return render(request, 'loginRegister/index.html', context)
+        if request.session['loginerrors']:
+            for msg in request.session['loginerrors']:
+                messages.warning(request, msg)
+        if request.session['regerrors']:
+            for msg in request.session['regerrors']:
+                messages.error(request, msg)
+        # context = {
+        #     'loginerrors': request.session['loginerrors'],
+        #     'regerrors': request.session['regerrors']
+        # }
+        # return render(request, 'loginRegister/index.html', context)
     return render(request, 'loginRegister/index.html')
 
 # When user attempts to log in

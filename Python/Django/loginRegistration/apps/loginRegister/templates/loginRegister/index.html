@@ -8,12 +8,13 @@
     </head>
     <body>
         <div class="login-area">
-            {% if loginerrors %}
+            {% if messages %}
             <div class="error-messages">
-                <h1>Uh-oh!</h1>
                 <ul>
-                    {% for msg in loginerrors %}
+                    {% for msg in messages %}
+                    {% if msg.tags == "warning" %}
                     <li>{{msg}}</li>
+                    {% endif %}
                     {% endfor %}
                 </ul>
             </div>
@@ -27,12 +28,13 @@
             </form>
         </div>
         <div class="register-area">
-            {% if regerrors %}
+            {% if messages %}
             <div class="error-messages">
-                <h1>Uh-oh!</h1>
                 <ul>
-                    {% for msg in regerrors %}
+                    {% for msg in messages %}
+                    {% if msg.tags == "error" %}
                     <li>{{msg}}</li>
+                    {% endif %}
                     {% endfor %}
                 </ul>
             </div>
