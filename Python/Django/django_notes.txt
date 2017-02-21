@@ -543,3 +543,65 @@ Amazingly, the line before the exit in the snippet below prints out the same thi
 Should you run into an encoding error when you’re hashing passwords with bcrypt,
 the following method might be useful:
         +your_string.encode()
+
+=============================
+| Foreign Key Relationships |
+=============================
+To show a one-to-many relationship between models, Django uses a special field, ForeignKey.
+To create a record that has this foreign key relationship, you'd pass it into the create
+function, like with any other field:
+
+Ex:
+        this_author = Author.objects.get(id=2)
+        my_book = Book.objects.create(title="Little Women", author=this_author)
+        # or on one line...
+        my_book = Book.objects.create(title="Little Women", author=Author.objects.get(id=2))
+
+** Joins in Django happen automatically. If you have a book object, you don't need to run
+any additional query to get information about the author.
+
+You can search based off of a ForeignKey relationship.
+This code will find all of the books by the author with ID 2:
+        this_author = Author.objects.get(id=2)
+        books = Book.objects.filter(author=this_author)
+        # one-line version:
+        books = Book.objects.filter(author=Author.objects.get(id=2))
+        OR
+        books = Book.objects.filter(author__name="Louise May Alcott")
+        books = Book.objects.filter(author__name__startswith="Lou")
+
+Reverse Look-ups:
+You may have noticed that we haven't mentioned the related_name field yet. This is used
+for a reverse look-up. In addition to placing a field on our book that holds the author
+information, Django has also placed a field on the author that holds information about
+all of their books.
+
+Example:
+In views.py...
+        def index(request):
+          context = {"authors": Author.objects.all()}
+          return render(request, "books/index.html", context)
+In index.html...
+        <h1>Author List</h1>
+        <ul>
+          {% for author in authors %}
+            <li>{{author.name}}</li>
+              <ul>
+                {% for book in author.books.all %}
+                  <li><em>{{book.title}}</em></li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+
+==============================
+| Many to Many Relationships |
+==============================
+You may remember that in order to use a many-to-many relationship in SQL,
+you had to construct a third, linking table with foreign key relationships
+to the two tables you wanted to connect. Django will do this for you automatically,
+if your model includes a ManyToManyField.
+
+Unlike with a ForeignKey, it doesn't matter which model has the ManyToManyField.
+The model would still work if the Book model has a field named publishers instead.
