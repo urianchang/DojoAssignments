@@ -4,8 +4,8 @@
 		<title>Sports Leagues</title>
 	</head>
 
-	<!-- For #1 - 6
-	<body>
+
+	<!-- <body>
 		<h1>Leagues</h1>
 		<ol>
 			{% for league in leagues %}
@@ -14,23 +14,23 @@
 			<p>No leagues found.</p>
 			{% endfor %}
 		</ol>
-	</body>
-	-->
+	</body> -->
 
 
-	<!-- <body>
+
+	<body>
 		<h1>Teams</h1>
 		<ol>
 			{% for team in teams %}
-			<li>{{team.location}}, {{team.team_name}}</li>
+			<li>{{team.location}} {{team.team_name}}</li>
 			{% empty %}
 			<p>No teams found.</p>
 			{% endfor %}
 		</ol>
-	</body> -->
+	</body>
 
 
-	<body>
+	<!-- <body>
 		<h1>Players</h1>
 		<ol>
 			{% for player in players %}
@@ -39,12 +39,12 @@
 				<p>No teams found.  Try <code>python manage.py loaddata data.json</code>, or, if that doesn't work, going <a href="{% url 'make_data' %}">here</a> (but be prepared to wait).</p>
 			{% endfor %}
 		</ol>
-	</body>
+	</body> -->
 
 
 
-	<!-- ORIGINAL
-	<body>
+
+	<!-- <body>
 		<h1>Leagues</h1>
 		<ol>
 			{% for league in leagues %}
@@ -69,6 +69,6 @@
 				<p>No teams found.  Try <code>python manage.py loaddata data.json</code>, or, if that doesn't work, going <a href="{% url 'make_data' %}">here</a> (but be prepared to wait).</p>
 			{% endfor %}
 		</ol>
-	</body>
-	-->
+	</body> -->
+
 </html>

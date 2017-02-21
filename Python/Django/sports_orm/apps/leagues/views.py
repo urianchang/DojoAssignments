@@ -160,7 +160,7 @@ def index(request):
 		"teams": Team.objects.filter(league=League.objects.filter(name__icontains="Atlantic", sport__icontains="soccer")),
 	}
 	return render(request, "leagues/index.html", context)
-"""
+
 #2 ...all (current) players on the Boston Penguins
 def index(request):
 	context = {
@@ -168,16 +168,84 @@ def index(request):
 	}
 	return render(request, "leagues/index.html", context)
 
-"""
-ORIGINAL:
+#3 ...all (current) players in the International Collegiate Baseball Conference
 def index(request):
 	context = {
-		"leagues": League.objects.all(),
-		"teams": Team.objects.all(),
-		"players": Player.objects.all(),
+		"players": Player.objects.filter(curr_team__league__name__icontains="collegiate"),
+	}
+	return render(request, "leagues/index.html", context)
+
+#4 ...all (current) players in the American Conference of Amateur Football with last name "Lopez"
+def index(request):
+	context = {
+		"players": Player.objects.filter(curr_team__league__name__icontains="amateur football", last_name="Lopez"),
+	}
+	return render(request, "leagues/index.html", context)
+
+#5 ...all football players
+def index(request):
+	context = {
+		"players": Player.objects.filter(curr_team__league__sport__icontains="football"),
+	}
+	return render(request, "leagues/index.html", context)
+
+#6 ...all teams with a (current) player named "Sophia"
+def index(request):
+	context = {
+		"teams": Team.objects.filter(curr_players__first_name__icontains="Sophia"),
+	}
+	return render(request, "leagues/index.html", context)
+
+#7 ...all leagues with a (current) player named "Sophia"
+def index(request):
+	context = {
+		"leagues": League.objects.filter(teams__curr_players__first_name__icontains="Sophia"),
+	}
+	return render(request, "leagues/index.html", context)
+
+#8 ...everyone with the last name "Flores" who DOESN'T (currently) play for the Washington Roughriders
+def index(request):
+	context = {
+		"players": Player.objects.filter(last_name = "Flores").exclude(curr_team__team_name = "Roughriders"),
+	}
+	return render(request, "leagues/index.html", context)
+
+#9 ...all teams, past and present, that Samuel Evans has played with
+def index(request):
+	context = {
+		"teams": Team.objects.filter(all_players__first_name__contains="Samuel", all_players__last_name__contains="Evans")
+	}
+	return render(request, "leagues/index.html", context)
+
+#10 ...all players, past and present, with the Manitoba Tiger-Cats
+def index(request):
+	context = {
+		"players": Player.objects.filter(all_teams__team_name__contains="Tiger-Cats")
+	}
+	return render(request, "leagues/index.html", context)
+
+#11 ...all players who were formerly (but aren't currently) with the Wichita Vikings
+def index(request):
+	context = {
+		"players": Player.objects.filter(all_teams__team_name__contains="Vikings").exclude(curr_team__team_name__contains="Vikings")
 	}
 	return render(request, "leagues/index.html", context)
 """
+#12 ...every team that Jacob Gray played for before he joined the Oregon Colts
+def index(request):
+	context = {
+		"teams": Team.objects.filter(all_players__first_name__contains="Jacob", all_players__last_name__contains="Gray").exclude(curr_players__first_name__contains="Jacob", curr_players__last_name__contains="Gray")
+	}
+	return render(request, "leagues/index.html", context)
+
+# def index(request):
+# 	context = {
+# 		"leagues": League.objects.all(),
+# 		"teams": Team.objects.all(),
+# 		"players": Player.objects.all(),
+# 	}
+# 	return render(request, "leagues/index.html", context)
+
 
 def make_data(request):
 	team_maker.gen_leagues(10)
