@@ -15,3 +15,6 @@ body{
 .error-messages{
     color: red;
 }
+.success{
+    color: green;
+}

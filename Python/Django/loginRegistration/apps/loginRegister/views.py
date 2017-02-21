@@ -27,6 +27,9 @@ def index(request):
 
 # When user attempts to log in
 def login(request):
+    if request.method == 'GET':
+        print "** Login is POST-only **"
+        return redirect('/')
     print "** Log in requested **"
     login_info = User.userManager.login(**request.POST)
     if login_info['valid']:
@@ -43,11 +46,13 @@ def login(request):
 
 # When user attempts to register
 def register(request):
+    if request.method == 'GET':
+        print "** Registration is POST-only **"
+        return redirect('/')
     print "** Registration requested **"
     status_info = User.userManager.register(**request.POST)
     if status_info['valid']:
         print "** Registration information is valid **"
-        # User.userManager.create(first_name=status_info['fname'], last_name=status_info['lname'], email=status_info['email'], password=status_info['pw'], birthday=status_info['bday'])
     else:
         print "** Something went wrong **"
         print status_info['messages']
@@ -58,8 +63,11 @@ def register(request):
 
 # Render the success/welcome page
 def welcome(request):
-    if request.session['user_id'] == -1:
+    if 'user_id' not in request.session:
         print "Nuh-uh. You can't see this page yet."
+        return redirect('/')
+    elif request.session['user_id'] == -1:
+        print "** Need to sign-in or register **"
         return redirect('/')
     else:
         print "** Welcome back, user! **"
@@ -71,11 +79,17 @@ def welcome(request):
 
 # When user logs out
 def logout(request):
+    if request.method == "GET":
+        print "Logging out should be a POST request"
+        return redirect('/')
     print "** Logging out **"
     request.session.pop('user_id')
     return redirect('/')
 
 # Delete a user
 def delete(request):
+    if request.method == 'GET':
+        print "Delete is POST-only"
+        return redirect('/')
     User.userManager.get(id=request.POST['id']).delete()
     return redirect('/success')
