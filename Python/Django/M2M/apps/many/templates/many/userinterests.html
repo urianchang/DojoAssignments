@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Interests for {{user.name}}</title>
+    </head>
+    <body>
+        <h3>{{user.name}} is interested in:</h3>
+        <ul>
+            {% for interest in user.user_interests.all %}
+            <li>{{interest.name}}</li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

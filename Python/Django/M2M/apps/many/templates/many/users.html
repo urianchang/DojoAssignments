@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>All Users</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{user.name}}</td>
+                <td>
+                    <form action='/showinterests' method='post'>
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{user.id}}">
+                        <input type="submit" value="Show interests">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
