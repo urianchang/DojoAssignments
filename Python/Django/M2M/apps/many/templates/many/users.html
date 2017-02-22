@@ -3,8 +3,39 @@
     <head>
         <meta charset="utf-8">
         <title>All Users</title>
+        <style>
+        button {
+            display: inline-block;
+        }
+        form {
+            display: inline-block;
+        }
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin-left: 5px;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 2px solid orange;
+        }
+        th {
+            text-align: center;
+            padding: 10px;
+            background-color: gray;
+            color: white;
+        }
+        td{
+            vertical-align: middle;
+            padding: 10px;
+            text-align: center;
+        }
+        </style>
     </head>
     <body>
+        <div>
+            <button type="button" onclick="location.href='/'">HOME</button>
+        </div>
         <table>
             <tr>
                 <th>Name</th>
@@ -14,10 +45,11 @@
             <tr>
                 <td>{{user.name}}</td>
                 <td>
-                    <form action='/showinterests' method='post'>
+                    <button type="button" onclick="location.href='/users/{{user.name}}'">Show Interests</button>
+                    <form action="/deleteuser" method='post'>
                         {% csrf_token %}
-                        <input type="hidden" name="id" value="{{user.id}}">
-                        <input type="submit" value="Show interests">
+                        <input type="hidden" name="name" value="{{user.name}}">
+                        <input type="submit" value="Delete">
                     </form>
                 </td>
             </tr>

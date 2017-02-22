@@ -3,12 +3,31 @@
     <head>
         <meta charset="utf-8">
         <title>Hello!</title>
+        <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin-left: 5px;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 2px solid orange;
+        }
+        th {
+            text-align: center;
+            padding: 10px;
+            background-color: gray;
+            color: white;
+        }
+        td{
+            vertical-align: middle;
+            padding: 10px;
+            text-align: center;
+        }
+        </style>
     </head>
     <body>
-        <form action='/showusers' method='post'>
-            {% csrf_token %}
-            <input type="submit" value="View People">
-        </form>
+        <button type="button" onclick="location.href='/users'">View People</button>
         <hr>
         {% if messages %}
         <div="error-messages">
@@ -25,5 +44,17 @@
             <p><label for="Interest">Interest: <input type="text" name="interest"></label></p>
             <input type="submit" value="Submit">
         </form>
+        <table>
+            <tr>
+                <th>Interest</th>
+                <th>Count</th>
+            </tr>
+            {% for key, val in interests.iteritems %}
+            <tr>
+                <td>{{key}}</td>
+                <td>{{val}}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </body>
 </html>

@@ -3,13 +3,52 @@
     <head>
         <meta charset="utf-8">
         <title>Interests for {{user.name}}</title>
+        <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin-left: 5px;
+        }
+        table, th, td {
+            border: 2px solid orange;
+        }
+        th {
+            text-align: center;
+            padding: 10px;
+            background-color: gray;
+            color: white;
+        }
+        td{
+            vertical-align: middle;
+            padding: 10px;
+            text-align: center;
+        }
+        </style>
     </head>
     <body>
+        <div>
+            <button type="button" onclick="location.href='/'">HOME</button>
+            <button type="button" onclick="location.href='/users'">USERS</button>
+        </div>
         <h3>{{user.name}} is interested in:</h3>
-        <ul>
+        <table>
+            <tr>
+                <th>Interest</th>
+                <th>Actions</th>
+            </tr>
             {% for interest in user.user_interests.all %}
-            <li>{{interest.name}}</li>
+            <tr>
+                <td>{{interest.name}}</td>
+                <td>
+                    <form action="/deleteinterest" method='post'>
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{interest.id}}">
+                        <input type="hidden" name="name" value="{{user.name}}">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
             {% endfor %}
-        </ul>
+        </table>
     </body>
 </html>

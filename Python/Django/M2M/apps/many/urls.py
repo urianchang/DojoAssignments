@@ -4,7 +4,8 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^process$', views.process),
-    url(r'^showusers$', views.showusers),
     url(r'^users$', views.users),
-    url(r'^showinterests$', views.showuserinterests)
+    url(r'^users/(?P<name>\w+)$', views.showuser),
+    url(r'^deleteinterest$', views.deleteinterest),
+    url(r'^deleteuser$', views.deleteuser)
 ]
