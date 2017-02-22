@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import League, Team, Player
+from  django.db.models import F, Count
 
 from . import team_maker
 
@@ -230,7 +231,7 @@ def index(request):
 		"players": Player.objects.filter(all_teams__team_name__contains="Vikings").exclude(curr_team__team_name__contains="Vikings")
 	}
 	return render(request, "leagues/index.html", context)
-"""
+
 #12 ...every team that Jacob Gray played for before he joined the Oregon Colts
 def index(request):
 	context = {
@@ -238,14 +239,40 @@ def index(request):
 	}
 	return render(request, "leagues/index.html", context)
 
-# def index(request):
-# 	context = {
-# 		"leagues": League.objects.all(),
-# 		"teams": Team.objects.all(),
-# 		"players": Player.objects.all(),
-# 	}
-# 	return render(request, "leagues/index.html", context)
+#13 ...everyone named "Joshua" who has ever played in the Atlantic Federation of Amateur Baseball Players
+def index(request):
+	context = {
+		"players": Player.objects.filter(all_teams__league__name__icontains="Atlantic Federation of Amateur Baseball Players", first_name__contains="Joshua")
+	}
+	return render(request, "leagues/index.html", context)
 
+#14 ...all teams that have had 12 or more players, past and present. (HINT: Look up the Django annotate function.)
+def index(request):
+	context = {
+		"teams": Team.objects.annotate(num_players=Count('all_players')).filter(num_players__gte=12)
+	}
+	return render(request, "leagues/index.html", context)
+"""
+#15 ...all players, sorted by the number of teams they've played for
+def index(request):
+	context = {
+		"players": Player.objects.annotate(num_teams=Count('all_teams')).order_by('num_teams')
+		# 'players': Player.objects.annotate(num_teams=Count('all_teams')).order_by('curr_team__id')
+		# 'players': Player.objects.annotate(num_teams=Count('all_teams')).order_by('id')
+	}
+	# print Player.objects.filter(first_name__contains="Olivia", last_name__contains="Rodriguez")[0].team_name
+	# print Player.objects.filter(first_name__contains="Luke", last_name__contains="Bell")[0].team_name
+	# print Player.objects.filter(first_name__contains="Ryan", last_name__contains="Phillips")[0].team_name
+	return render(request, "leagues/index.html", context)
+"""
+def index(request):
+	context = {
+		"leagues": League.objects.all(),
+		"teams": Team.objects.all(),
+		"players": Player.objects.all(),
+	}
+	return render(request, "leagues/index.html", context)
+"""
 
 def make_data(request):
 	team_maker.gen_leagues(10)
