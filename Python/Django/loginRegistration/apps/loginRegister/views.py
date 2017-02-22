@@ -63,11 +63,12 @@ def register(request):
 
 # Render the success/welcome page
 def welcome(request):
-    if 'user_id' not in request.session:
+    if 'user_id' not in request.session or request.session['user_id'] == -1:
         print "Nuh-uh. You can't see this page yet."
-        return redirect('/')
-    elif request.session['user_id'] == -1:
-        print "** Need to sign-in or register **"
+        request.session['user_id'] = -1
+        request.session['showmsg'] = True
+        request.session['loginerrors'] = ['Please sign-in or register.']
+        request.session['regerrors'] = []
         return redirect('/')
     else:
         print "** Welcome back, user! **"
