@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import User
 from django.contrib import messages
-import re
-
-msg_success_regex = re.compile(r'^Thank')
 
 # Create your views here.
 
@@ -12,17 +9,6 @@ def index(request):
     print "** LANDING PAGE **"
     if 'user_id' not in request.session:
         request.session['user_id'] = -1
-        request.session['showmsg'] = False
-    if request.session['showmsg']:
-        if request.session['loginerrors']:
-            for msg in request.session['loginerrors']:
-                messages.warning(request, msg)
-        if request.session['regerrors']:
-            for msg in request.session['regerrors']:
-                if msg_success_regex.match(msg):
-                    messages.success(request, msg)
-                else:
-                    messages.error(request, msg)
     return render(request, 'loginRegister/index.html')
 
 # When user attempts to log in
@@ -35,13 +21,11 @@ def login(request):
     if login_info['valid']:
         print "** Login info is valid **"
         request.session['user_id'] = login_info['user_id']
-        request.session['showmsg'] = False
         return redirect('/success')
     else:
         print "** Something went wrong **"
-        request.session['showmsg'] = True
-        request.session['regerrors'] = []
-        request.session['loginerrors'] = login_info['messages']
+        for msg in login_info['messages']:
+            messages.warning(request, msg)
         return redirect('/')
 
 # When user attempts to register
@@ -53,12 +37,12 @@ def register(request):
     status_info = User.userManager.register(**request.POST)
     if status_info['valid']:
         print "** Registration information is valid **"
+        for msg in status_info['messages']:
+            messages.success(request, msg)
     else:
         print "** Something went wrong **"
-        print status_info['messages']
-    request.session['showmsg'] = True
-    request.session['loginerrors'] = []
-    request.session['regerrors'] = status_info['messages']
+        for msg in status_info['messages']:
+            messages.error(request, msg)
     return redirect('/')
 
 # Render the success/welcome page
@@ -66,9 +50,7 @@ def welcome(request):
     if 'user_id' not in request.session or request.session['user_id'] == -1:
         print "Nuh-uh. You can't see this page yet."
         request.session['user_id'] = -1
-        request.session['showmsg'] = True
-        request.session['loginerrors'] = ['Please sign-in or register.']
-        request.session['regerrors'] = []
+        messages.warning(request, 'Please sign-in or register.')
         return redirect('/')
     else:
         print "** Welcome back, user! **"
