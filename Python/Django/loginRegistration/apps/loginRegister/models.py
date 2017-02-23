@@ -61,7 +61,7 @@ class UserManager(models.Manager):
             messages.append('E-mail is required.')
         elif not EMAIL_REGEX.match(email):
             messages.append('Invalid e-mail format.')
-        elif (User.userManager.filter(email=email)) > 0:
+        elif len(User.userManager.filter(email=email)) > 0:
             messages.append('User already exists.')
         if len(pword) < 1:
             messages.append('Password is required.')
