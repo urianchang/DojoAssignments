@@ -94,3 +94,7 @@ def delete(request):
         return redirect('/')
     User.userManager.get(id=request.POST['id']).delete()
     return redirect('/success')
+
+# If user accesses a URL route that's not supported...
+def any(request):
+    return redirect('/')
