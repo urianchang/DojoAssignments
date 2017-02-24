@@ -89,7 +89,7 @@ def popular(request):
         }
         return render(request, 'secrets/popular.html', context)
 
-# Like a secret
+# Like a secret from the main page
 def likeSecret(request, id):
     if 'user_id' not in request.session or request.session['user_id'] == -1:
         print "Uh...are you trying to hack the site?"
@@ -104,6 +104,22 @@ def likeSecret(request, id):
         if not like_res['valid']:
             messages.error(request, like_res['msg'])
         return redirect('/secrets')
+
+# Like a secret from the popular page
+def likeSecret1(request, id):
+    if 'user_id' not in request.session or request.session['user_id'] == -1:
+        print "Uh...are you trying to hack the site?"
+        request.session['user_id'] = -1
+        messages.warning(request, 'Please sign-in or register.')
+        return redirect('/')
+    else:
+        print "** You liked secret number: ", id
+        user_id = request.session['user_id']
+        secret_id = id
+        like_res = Secret.secretMan.likeSecret(user_id, secret_id)
+        if not like_res['valid']:
+            messages.error(request, like_res['msg'])
+        return redirect(reverse('most_popular'))
 
 # Delete a secret
 def delSecret(request):

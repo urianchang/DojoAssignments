@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^psst$', views.addSecret),
     url(r'^delete$', views.delSecret),
     url(r'^like/(?P<id>\d+)$', views.likeSecret),
+    url(r'^like1/(?P<id>\d+)$', views.likeSecret1),
     url(r'^.+$', views.any)
 ]
