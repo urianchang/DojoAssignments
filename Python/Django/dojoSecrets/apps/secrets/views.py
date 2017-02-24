@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import User, Secret
 from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 
 # Create your views here.
 # Render the login & registration page
@@ -56,7 +57,9 @@ def home(request):
         print "** Welcome back, user! **"
         context = {
             'user': User.userManager.get(id=request.session['user_id']),
+            'secrets': Secret.secretMan.all()
         }
+        # print Secret.secretMan.all()[0].like.all()[0].first_name
         return render(request, 'secrets/home.html', context)
 
 # When user posts a secret
@@ -64,7 +67,8 @@ def addSecret(request):
     if request.method == 'GET':
         print "** Secrets must be POST-ed **"
         return redirect(reverse('secrets_home'))
-    Secret.secretMan.addSecret(request.POST)
+    user_id = request.session['user_id']
+    Secret.secretMan.addSecret(user_id, request.POST)
     return redirect(reverse('secrets_home'))
 
 # Render page with most popular secrets
@@ -76,15 +80,27 @@ def popular(request):
         return redirect('/')
     else:
         print "** most popular secrets **"
-        return render(request, 'secrets/popular.html')
+        context = {
+            'user': User.userManager.get(id=request.session['user_id']),
+            'secrets': Secret.secretMan.all().annotate(num_likes=Count('like')).order_by('num_likes')
+        }
+        return render(request, 'secrets/popular.html', context)
 
-# Delete a user
-# def delete(request):
-#     if request.method == 'GET':
-#         print "Delete is POST-only"
-#         return redirect('/')
-#     User.userManager.get(id=request.POST['id']).delete()
-#     return redirect('/secrets')
+# Like a secret
+def likeSecret(request, id):
+    print "** You liked secret number: ", id
+    user_id = request.session['user_id']
+    secret_id = id
+    Secret.secretMan.likeSecret(user_id, secret_id)
+    return redirect('/secrets')
+
+# Delete a secret
+def delSecret(request):
+    if request.method == 'GET':
+        print "Delete is POST-only"
+        return redirect('/')
+    Secret.secretMan.get(id=request.POST['secret_id']).delete()
+    return redirect('/secrets')
 
 # When user logs out
 def logout(request):

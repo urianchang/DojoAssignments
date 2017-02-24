@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^logout$', views.logout),
     url(r'^popular$', views.popular, name='most_popular'),
     url(r'^psst$', views.addSecret),
-    # url(r'^delete$', views.delete),
+    url(r'^delete$', views.delSecret),
+    url(r'^like/(?P<id>\d+)$', views.likeSecret),
     url(r'^.+$', views.any)
 ]

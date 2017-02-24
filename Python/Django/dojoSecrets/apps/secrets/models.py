@@ -80,8 +80,12 @@ class UserManager(models.Manager):
         return status
 
 class SecretManager(models.Manager):
-    def addSecret(self, postData):
-        print postData['secretmsg']
+    def addSecret(self, user_id, postData):
+        Secret.secretMan.create(message=postData['secretmsg'], user=User.userManager.get(id=user_id))
+    def likeSecret(self, user_id, secret_id):
+        this_user = User.userManager.get(id=user_id)
+        this_secret = Secret.secretMan.get(id=secret_id)
+        this_user.liked.add(this_secret)
 
 class User(models.Model):
     first_name = models.CharField(max_length=255)
