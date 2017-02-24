@@ -57,7 +57,7 @@ def home(request):
         print "** Welcome back, user! **"
         context = {
             'user': User.userManager.get(id=request.session['user_id']),
-            'secrets': Secret.secretMan.all()
+            'secrets': Secret.secretMan.all().order_by('created_at')[0:4]
         }
         # print Secret.secretMan.all()[0].like.all()[0].first_name
         return render(request, 'secrets/home.html', context)
