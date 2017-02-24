@@ -81,11 +81,19 @@ class UserManager(models.Manager):
 
 class SecretManager(models.Manager):
     def addSecret(self, user_id, postData):
+        if len(postData['secretmsg']) < 1:
+            return {'valid': False, 'msg': 'Message field cannot be blank'}
         Secret.secretMan.create(message=postData['secretmsg'], user=User.userManager.get(id=user_id))
+        return {'valid': True}
     def likeSecret(self, user_id, secret_id):
         this_user = User.userManager.get(id=user_id)
         this_secret = Secret.secretMan.get(id=secret_id)
-        this_user.liked.add(this_secret)
+        if this_user in this_secret.like.all() :
+            print "** Hm. Must be a big fan. **"
+            return {'valid': False, 'msg': "You've liked this secret already."}
+        else:
+            this_user.liked.add(this_secret)
+            return {'valid': True}
 
 class User(models.Model):
     first_name = models.CharField(max_length=255)
