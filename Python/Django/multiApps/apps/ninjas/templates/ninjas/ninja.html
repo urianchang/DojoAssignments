@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{ninja_name}}</title>
+    </head>
+    <body>
+        {% load staticfiles %}
+        {% if ninja_name == "all" %}
+        <img src="{% static 'ninjas/images/tmnt.png' %}" />
+        {% elif ninja_name == "blue" %}
+        <img src="{% static 'ninjas/images/leonardo.jpg' %}" />
+        {% elif ninja_name == "purple" %}
+        <img src="{% static 'ninjas/images/donatello.jpg' %}" />
+        {% elif ninja_name == "red" %}
+        <img src="{% static 'ninjas/images/raphael.jpg' %}" />
+        {% elif ninja_name == "orange" %}
+        <img src="{% static 'ninjas/images/michelangelo.jpg' %}" />
+        {% else %}
+        <img src="{% static 'ninjas/images/notapril.jpg' %}" />
+        {% endif %}
+    </body>
+</html>

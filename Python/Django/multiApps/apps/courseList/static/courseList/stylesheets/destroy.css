@@ -1,0 +1,31 @@
+/* CSS Reset */
+* {
+    padding: 0px;
+    margin: 0px;
+}
+body{
+    text-align: center;
+}
+.button{
+    padding: 5px;
+    border-radius: 5px;
+    margin: 5px;
+}
+h3{
+    color: red;
+    margin: 5px;
+}
+p{
+    margin: 5px;
+}
+form {
+    display: inline-block;
+}
+#bye{
+    background-color: red;
+    color: white;
+}
+span{
+    font-style: italic;
+    color: red;
+}

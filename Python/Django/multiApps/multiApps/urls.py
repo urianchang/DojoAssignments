@@ -17,5 +17,8 @@ from django.conf.urls import url, include
 
 urlpatterns = [
     url(r'^', include('apps.loginRegister.urls')),
-    url(r'^new/', include('apps.testmodels.urls'))
+    url(r'^new/', include('apps.testmodels.urls')),
+    url(r'^ninjaGold/', include('apps.makeGold.urls')),
+    url(r'^ninjas/', include('apps.ninjas.urls')),
+    url(r'^courses/', include('apps.courseList.urls'))
 ]

@@ -1,0 +1,49 @@
+/* CSS Reset */
+* {
+    padding: 0px;
+    margin: 0px;
+}
+.add-course{
+    margin-bottom: 10px;
+}
+.add-course p, h3{
+    margin: 5px;
+}
+.add-course label {
+    vertical-align: top;
+}
+.button{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #5d9451;
+    color: white;
+}
+.course-table h3{
+    margin: 5px 0px 5px 5px;
+}
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin-left: 5px;
+}
+table, th, td {
+    border: 2px solid orange;
+}
+th {
+    text-align: center;
+    padding: 10px;
+    background-color: gray;
+    color: white;
+}
+td{
+    vertical-align: middle;
+    padding: 10px;
+    text-align: center;
+}
+span{
+    font-style: italic;
+    color: red;
+}
+a{
+    margin-right: 5px;
+}

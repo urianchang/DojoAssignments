@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Courses</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'courseList/stylesheets/index.css' %}">
+    </head>
+    <body>
+        <div class="add-course">
+            <form action='courses/addCourse' method='post'>
+                {% csrf_token %}
+                <h3>Add a course:</h3>
+                <p>
+                    <label for='name'>Name: <input type="text" name="name"></label>
+                </p>
+                <p>
+                    <label for='description'>Description: </label>
+                    <textarea name="description" rows="8" cols="30"></textarea>
+                </p>
+                <p>
+                    <input type="Submit" value="Add" class="button">
+                </p>
+            </form>
+        </div>
+        <hr>
+        <div class="course-table">
+            <h3>Courses</h3>
+            <table>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Description</th>
+                    <th>Date Added</th>
+                    <th>Actions</th>
+                </tr>
+                {% if not courses %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endif %}
+                {% for course in courses %}
+                <tr>
+                    <td>{{course.name}}</td>
+                    {% for description in descriptions %}
+                        {% if description.course_id == course %}
+                            {% if not description.description %}
+                    <td><span>No description provided.</span></td>
+                            {% else %}
+                    <td>{{description.description}}</td>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    <td>{{course.created_at}}</td>
+                    <td>
+                        <a href="/courses/comment/{{course.id}}">Comments</a>
+                        <a href="/courses/destroy/{{course.id}}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Course Comments</title>
+        <!-- Got lazy with linking CSS... -->
+        <style>
+            span{
+                color: red;
+                font-style: italic;
+            }
+            .button{
+                padding: 5px;
+                border-radius: 5px;
+                margin: 5px;
+            }
+            #Add{
+                background-color: #5d9451;
+                color: white;
+            }
+            textarea{
+                display: block;
+            }
+            .comment{
+                margin-left: 10px;
+            }
+            .comment p {
+                margin-left: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="display-comments">
+            <h2>Comments for '{{course.name}}':</h2>
+            {% if not comments %}
+            <h4><span>No comments for this course yet.<span></h4>
+            {% else %}
+            {% for comment in comments %}
+                <hr>
+                <div class="comment">
+                    <h4>Comment added on {{comment.created_at}}:</h4>
+                    <p>{{comment.comment}}</p>
+                </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <hr>
+        <div class="add-comment">
+            <h2>Add a comment: </h2>
+            <form action='courses/addcomment' method='post'>
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{course.id}}">
+                <textarea name="commentbox" rows="8" cols="30"></textarea>
+                <input type="Submit" id="Add" value="Add comment" class="button">
+            </form>
+        </div>
+        <div class="footer">
+            <form action='/courses' method='POST'>
+                {% csrf_token %}
+                <input type="submit" value="Go home" class="button">
+            </form>
+        </div>
+    </body>
+</html>
