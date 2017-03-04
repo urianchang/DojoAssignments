@@ -1,0 +1,43 @@
+body{
+    white-space: nowrap;
+}
+.container {
+    background: #e6e6e8;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+.login-area{
+    width: 25%;
+    white-space: normal;
+    display: inline-block;
+    vertical-align: top;
+}
+.register-area{
+    width: 30%;
+    white-space: normal;
+    display: inline-block;
+}
+.error-messages{
+    color: red;
+}
+.success{
+    color: green;
+}
+.professor img {
+    display: inline-block;
+    margin-left: 10px;
+}
+.speech{
+    white-space: normal;
+    vertical-align: top;
+    display: inline-block;
+    width: 300px;
+    word-wrap: break-word;
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    padding: 35px 39px 25px 20px;
+}
+
+.col-md-4 {
+    display: inline-block;
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Team Builder</title>
+    {%load staticfiles%}
+    <link rel="stylesheet" type="text/css" href={%static "teambuilder/css/styles.css"%}>
+    <script src="{%static 'teambuilder/js/jquery.min.js'%}"></script>
+    <script src="{%static 'teambuilder/js/teambuilder.js'%}"></script>
+    <script src="//kendo.cdn.telerik.com/2015.2.805/js/jquery.min.js"></script>
+    <script src="//kendo.cdn.telerik.com/2015.2.805/js/kendo.all.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/4d6e528798.js"></script>
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2015.2.805/styles/kendo.common-bootstrap.min.css" />
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2015.2.805/styles/kendo.bootstrap.min.css" />
+
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 text-left">
+                <h1>Welcome to the Poke Dojo, {{user.username}}!</h1>
+                <!-- <div class="logged-in"> -->
+                    <form action='/logout' method='post'>
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-danger btn-md" value="Log out" class="button">
+
+                    </form>
+                    <ul class='errors'>
+                    </ul>
+                <!-- </div> -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class='stats'>
+              <div class="table-responsive">
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <td><h4>Pokemon:</h4></td>
+                        <td id='numname'><p>Click a Pokemon to view stats...</p></td>
+                      </tr>
+                      <tr>
+                        <td><h4>Types:</h4></td>
+                        <td id='types'></td>
+                      </tr>
+                      <tr>
+                        <td><h4>Stats:</h4></td>
+                        <td>
+                          <form action='/teambuilder/stat_ajax/' method='POST' save='false' id='statform'>
+                            {%csrf_token%}
+                            <input type='hidden' name='id' id='id' value="">
+                            Nature: <select class = "selectpiker" name='nature' id='naturelist'>
+                              <option value=''>Select a nature...</option>
+                            </select>
+                            <br>
+                          </div>
+                            <table class = "table">
+                              <thead>
+                                <th>Stat</th>
+                                <th>Base</th>
+                                <th>IV</th>
+                                <th>EV</th>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>HP:</td>
+                                  <td id='base_hp'><input type='hidden' name='hp_base'></td>
+                                  <td><input type='text' name='hp_iv' value='31'></td>
+                                  <td><input type='text' name='hp_ev' value='0'></td>
+                                </tr>
+                                <tr>
+                                  <td>Attack:</td>
+                                  <td id='base_atk'><input type='hidden' name='atk_base'></td>
+                                  <td><input type='text' name='atk_iv' value='31'></td>
+                                  <td><input type='text' name='atk_ev' value='0'></td>
+                                </tr>
+                                <tr>
+                                  <td>Defense:</td>
+                                  <td id='base_def'><input type='hidden' name='def_base'></td>
+                                  <td><input type='text' name='def_iv' value='31'></td>
+                                  <td><input type='text' name='def_ev' value='0'></td>
+                                </tr>
+                                <tr>
+                                  <td>Special Attack</td>
+                                  <td id='base_spa'><input type='hidden' name='spa_base'></td>
+                                  <td><input type='text' name='spa_iv' value='31'></td>
+                                  <td><input type='text' name='spa_ev' value='0'></td>
+                                </tr>
+                                <tr>
+                                  <td>Special Defense</td>
+                                  <td id='base_spd'><input type='hidden' name='spd_base'></td>
+                                  <td><input type='text' name='spd_iv' value='31'></td>
+                                  <td><input type='text' name='spd_ev' value='0'></td>
+                                </tr>
+                                <tr>
+                                  <td>Speed</td>
+                                  <td id='base_spe'><input type='hidden' name='spe_base'></td>
+                                  <td><input type='text' name='spe_iv' value='31'></td>
+                                  <td><input type='text' name='spe_ev' value='0'></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <button class="btn btn-info btn-md" id='calc'><i class="fa fa-calculator" aria-hidden="true"></i>Calculate</button>
+                            <button class="btn btn-primary btn-md" id='save'><i class="fa fa-plus" aria-hidden="true"></i>Add To Team! </button>
+
+                          </form>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+              <hr>
+              <div class="user_pkmn">
+                {% if user.pkmn.all %}
+                <table>
+                    {% for pk in user.pkmn.all %}
+                    <!-- <tr><img src="{% static "teambuilder/img/pokeball.png" %}" style="width: 2%; margin-left:2%"/> -->
+                        <img src="{% static "teambuilder/img/" %}{{pk.pokeid}}.png" %} style="width:15%; height:auto;"/></tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p>Add some Pokemon to your team!</p>
+                {% endif %}
+              </div>
+                <hr>
+                <!-- <form action = "/teambuilder/battle">
+                    <button style="background-image:'{% static "teambuilder/img/battle.png" %}'"></button>
+                </form> -->
+                <a href="/teambuilder/battle" style="margin-left: 37%;font-size: 2em;">Let's Battle!</a>
+                </div>
+            <div class='dex'>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="demo-section k-content">
+                    <div id="chart" style="position: fixed; vertical-align: top; height: 357px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="graph">
+
+        </div>
+    </div>
+  </body>
+</html>

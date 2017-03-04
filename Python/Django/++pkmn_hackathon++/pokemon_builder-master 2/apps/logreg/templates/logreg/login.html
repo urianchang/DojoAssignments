@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Intro</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" type="text/css" href={%static "logreg/css/prof.css"%}>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://use.fontawesome.com/4d6e528798.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <div class="professor">
+                        <img src={% static 'logreg/img/pikachu.png'%}/>
+                        <div class="speech" style="background-image: url('{% static "logreg/img/speechbox.png"%}')";>
+                            <p>Hello there! Welcome to the world of Pokémon! My name is Oak! People call me the Pokémon Prof! This world is inhabited by creatures called Pokémon! For some people, Pokémon are pets. Other use them for fights. Myself… I study Pokémon as a profession. First, what is your name?</p>
+                        </div>
+                        <img src={% static 'logreg/img/prof.png'%} />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-2 text-center">
+                    {% if messages %}
+                    <div class="flash-messages">
+                        <ul>
+                            {% for msg in messages %}
+                            {% if msg.tags == "warning" %}
+                            <li class="error-messages">{{msg}}</li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <form action='/login' method='post'>
+                        {% csrf_token %}
+                        <h2>Please log in:</h2>
+                        <p><label for="username">Username: <input type="text" name="username"></label></p>
+                        <p><label for="password">Password: <input type="password" name="password"></label></p>
+                        <input type="submit" class="btn btn-primary btn-md" value="Login">
+                    </form>
+                </div>
+                <div class="col-md-4 text-center">
+                    {% if messages %}
+                    <div class="flash-messages">
+                        <ul>
+                            {% for msg in messages %}
+                            {% if msg.tags == "error" %}
+                            <li class="error-messages">{{msg}}</li>
+                            {% elif msg.tags == "success" %}
+                            <li class="success">{{msg}}</li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <form action='/register' method='post'>
+                        {% csrf_token %}
+                        <h2>Please register:</h2>
+                        <p><label for="username">Username: <input type="text" name="username"></label></p>
+                        <p><label for="pword">Password: <input type="password" name="pword"></label></p>
+                        <p><label for="c-pword">Confirm Password: <input type="password" name="c-pword"></label></p>
+                        <input type="submit" class="btn btn-primary btn-md" value="Register">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

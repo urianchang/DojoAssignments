@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+        $( document ).ready(function() {
+            var count = 1;
+            while (count < 100) {
+                $('#images').append('<img src="https://placebear.com/'+ count+ '0/200" />');
+                count++;
+                console.log(count);
+            }
+            $(window).on("load", function() {
+                var imgload = "loading";
+                $('img').each(function(){
+                    console.log(imgload);
+                    $(this).css("display", "inline-block")
+                })
+            });
+        });
+        </script>
+        <style>
+            img{
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="images">
+            <p>images should appear below here</p>
+        </div>
+    </body>
+</html>

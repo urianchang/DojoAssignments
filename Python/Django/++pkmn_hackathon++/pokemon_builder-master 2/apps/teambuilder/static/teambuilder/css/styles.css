@@ -1,0 +1,34 @@
+.dex {
+    white-space: normal;
+     width: 50%;
+     height: auto;
+     display: block;
+     background-color: #06000a;
+     margin: 5px;
+}
+.dex img {
+    margin: 3px;
+    height:auto;
+    width: 74px;
+}
+
+.stats {
+    width: 31%;
+    display: inline-block;
+    background-color: #c43235;
+    height: auto;
+    position: fixed;
+    vertical-align: top;
+    right: 18%;
+    border-radius: 4%;
+
+}
+
+.poke {
+    border: 1px solid black;
+    height: 25px;
+}
+
+p {
+
+}
