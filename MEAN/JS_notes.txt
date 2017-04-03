@@ -1,0 +1,29 @@
+Notes - JavaScript v2 - Fundamentals
+
+Functions in JavaScript are known as “First-Class”:
+    * Functions can be stored as standalone functions (like above), as the value of variables,
+        or as attributes in a JavaScript object (where they're known as methods)
+    * Functions can be passed as arguments to functions (known as a callback)
+    * Functions can be returned from functions. (This is creating what’s called a closure,
+        which we’ll discuss later.)
+
+Ternary operator: single line if-else check
+    Ex: (condition) ? console.log(true) : console.log(false)
+
+Do-while Loops:
+    Ex:
+        do {
+            // CODE HERE
+        } while (parent_permission)
+
+Loops can be used on both arrays (by index), as well as objects (by key).
+    Ex:
+        for (var key in ninja) {
+            if (ninja.hasOwnProperty(key)) {
+                console.log(key);
+                console.log(ninja[key]);
+            }
+        }
+
+Arrays are generally used to keep track of a list of related things of the same type.
+While objects are generally used to keep attributes of a thing associated with that thing.
