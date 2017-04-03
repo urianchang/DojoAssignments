@@ -27,3 +27,33 @@ Loops can be used on both arrays (by index), as well as objects (by key).
 
 Arrays are generally used to keep track of a list of related things of the same type.
 While objects are generally used to keep attributes of a thing associated with that thing.
+
+=====================
+| Function Hoisting |
+=====================
+This:
+    awesome();
+    function awesome() {
+    console.log("too good to be true");
+    }
+
+Runs like this:
+    // JS rearranges your code before running it
+    function awesome() {     // the function floated to the top!
+    console.log("too good to be true");
+    }
+    awesome();               // so now awesome is defined before we invoke it!
+
+This:
+    varFunction();
+    var varFunction = function() {
+      console.log("How will this get hoisted?")
+    }
+
+Runs like this:
+    // HOW THE JS INTERPRETER REARRANGES THE CODE
+    var varFunction;           // the variable declaration gets hoisted to the top
+    varFunction();             // this tries to invoke "undefined": we get "undefined is not a function"
+    varFunction = function() {
+    console.log("How will this get hoisted?")
+    }
