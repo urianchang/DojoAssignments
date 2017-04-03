@@ -1,0 +1,56 @@
+<html>
+<head>
+	<title>Javascript Demo</title>
+	<style>
+		body {
+			background-color:black;
+			font-family: monospace;
+			color:white;
+			font-size:50px;
+			text-align: center;
+			margin-top:20%;
+		}
+		#magic{
+			color: yellow;  /*Changed color to yellow*/
+			border-right: 1px solid #777;
+			padding-right: 7px;
+			display: inline;
+		}
+	</style>
+</head>
+<body>
+
+	Coding is <div id="magic"></div>
+
+	<script>
+		var words = ["a b c 1 2 3", "patience", "fun", "exciting", "about not giving up", "being helpful", "being open", "what I learned at CodingDojo!"], //Added some more text
+			el = document.getElementById('magic'),
+			word_counter = 0,
+			character_counter = 0;
+		function updateText()
+		{
+			//To account for spaces in the string...
+			var char = words[word_counter][character_counter]; //declare variable that represents the character
+			if (char === " ") { //check for space in the string
+				char = "&nbsp;"; //convert space to &nbsp; for HTML
+			}
+			el.innerHTML += char; //Add character to current string
+			character_counter++; //Increase character counter by 1, so next character is evaluated
+			// old code below:
+			// el.innerHTML = el.innerHTML+words[word_counter][character_counter++];
+			if(character_counter == words[word_counter].length + 1) //Added 1 to array length so all characters are printed
+			{
+				word_counter++; 	//choose a different word
+				character_counter = 0;	//start over with the first character of the word
+				el.innerHTML = '';  //set the html to be blank
+				//if we're displaying the last word, go back to the first word
+				if(word_counter == words.length)
+					word_counter = 0;
+			}
+		}
+		setInterval(updateText,500); //Increased to 500ms delay
+	</script>
+
+</body>
+
+</html>
