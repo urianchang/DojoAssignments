@@ -57,3 +57,13 @@ Runs like this:
     varFunction = function() {
     console.log("How will this get hoisted?")
     }
+
+====================
+| Function Scoping |
+====================
+
+JavaScript has function scoping. What this means is that the variables that you declare with var inside a
+function are accessible only inside the function they are declared in.
+
+Understanding scope and how to use it and when and where variables are defined to structure our code will
+make our JavaScript careers that much more awesome.
