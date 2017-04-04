@@ -197,3 +197,100 @@ We did a couple of things here:
     * Created an object inside of the function and returned it. This is the specific instance of the object being created.
     * Redefined Michael’s introduce method (remember that these instances are just simple JavaScript objects,
         so we can manipulate them like we've always been able to)
+
+====================
+| Function Scoping |
+====================
+
+Private variables are data that's accessible within the object but not as a property of the object.
+
+Example of private vs public:
+        function Ninja(name, age, prevOccupation) {
+          // PRIVATE
+          var privateVar = "This is a private variable";
+          var privateMethod = function() {
+            console.log("this is a private method");
+          }
+          // PUBLIC
+          this.name = name;
+          this.age = age;
+          this.prevOccupation = prevOccupation;
+          this.introduce = function() {
+            console.log("Hi my name is " + this.name + ". I used to be a " + this.prevOccupation + " and now I'm a Ninja!");
+            privateMethod(); // this works since it is a scope that can access privateMethod!
+            console.log(privateVar);      // this works too!
+          }
+        }
+
+Private variables can be useful to protect your objects from being altered in unintended ways.
+
+Luckily, we can create a public method that lets your program read the information without ever
+being able to change it! Accessing a variable instantiated in the User function even well after
+the User function finished running is taking advantage of something called closure.
+
+Example of closure:
+        function User(name, ssn){
+          var social = ssn;
+          this.name = name;
+          // Adds a so-called 'getter' function to allow reading private variables
+          this.getSSN = function(){
+            return social;
+          }
+        }
+        var mike = new User('Mike', 274164398);
+        console.log(mike.getSSN()); // 274164398
+
+=====================
+| Scoping of 'this' |
+=====================
+
+Example:
+
+        function Ninja(name, age, prevOccupation) {
+          // PRIVATE
+          var privateVar = "This is a private variable";
+          var privateMethod = function() {
+            console.log(this); // What will print here?
+          }
+          // PUBLIC
+          this.name = name;
+          this.age = age;
+          this.prevOccupation = prevOccupation
+          // PUBLIC METHODS DECLARED HERE
+          this.introduce = function() {
+            console.log("Hi my name is " + this.name + ". I used to be a " + this.prevOccupation + " and now I'm a Ninja!");
+            privateMethod();
+            console.log(privateVar);
+          }
+        }
+        var Speros = new Ninja("Speros", 24, "MBA");
+        Speros.introduce();
+
+**** Inside of the private method, 'this' refers to the global Window or Node object. ****
+
+There are a few different strategies we can use to make sure the this we're talking about inside a private method is the object instance.
+One way is to capture a snapshot of this and store it in a variable that you call something else, which any method (public or private)
+is free to reference.
+
+'Fixed' Example:
+
+        function Ninja(name, age, prevOccupation) {
+          // PRIVATE
+          var self = this; // HERE WE HAVE DECLARED SELF to EQUAL THE NEW OBJECT WE CREATE WITH NEW
+          var privateVar = "This is a private variable";
+          var privateMethod = function() {
+            console.log("this is a private method for " + self.name);     // refer to name via self
+            console.log(self);
+          }
+          //PUBLIC
+          this.name = name;
+          this.age = age;
+          this.prevOccupation = prevOccupation
+          this.introduce = function() {
+            console.log("Hi my name is " + this.name + ". I used to be a " + this.prevOccupation + " and now I'm a Ninja!");
+            privateMethod();
+            console.log(privateVar);
+          }
+        }
+        var Speros = new Ninja("Speros", 24, "MBA");
+        Speros.introduce();
