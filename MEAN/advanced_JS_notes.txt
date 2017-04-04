@@ -1,0 +1,80 @@
+=============
+| Callbacks |
+=============
+
+While a callback is just a fancy name for a function passed as an argument to another function,
+it’s also the most common way of writing asynchronous code in JavaScript. By asynchronous code,
+we just mean the ability to divide your code into portions that run now and later.
+
+Example:
+        function doSomething(possibleCallback) {
+          if (typeof(possibleCallback) === 'function'){
+            console.log('possibleCallback is a callback!');
+            possibleCallback(); //we can invoke the callback!
+          }
+          else {
+            console.log('possibleCallback: ', possibleCallback, ' is not a callback function.');
+          }
+        }
+        doSomething(function myCallback(){ console.log('yes, I am a callback!') });
+        doSomething('string');
+
+Callbacks, especially those linked to Ajax requests, can help us create a more seamless user experience
+on a web page because we can send and receive data and update the DOM without needing to refresh the page.
+
+Another example:
+        function makePasta(pasta, makeSauce) {
+          console.log("Boiling water");
+          console.log("Putting " + pasta + " pasta in the water");
+          // create a variable for sauce!
+          var sauce = makeSauce();          // invoke makeSauce, our callback
+          console.log("Mixing sauce");
+          console.log("Pasta is done!");
+          return pasta + " Pasta with " + sauce + " sauce! Voila!";
+        }
+        function makePesto() {
+          console.log("Making Pesto");
+          return "pesto";
+        }
+        function makeAlfredo() {
+          console.log("Making Alfredo");
+          return "alfredo";
+        }
+
+        // we pass the whole makePesto recipe to makePasta!
+        console.log(makePasta("Penne", makePesto));
+
+        // notice lack of parentheses after makeAlfredo.
+        // Remember: we want to pass the function, not execute it and pass a return value.
+        console.log(makePasta("Farfalle", makeAlfredo));
+
+When we pass the function as an argument into the makePasta function call, we don’t put parenthesis after “makePesto,”
+because we actually want to pass the function definition, or the list of instructions, rather than execute the function
+(which would just pass whatever the function returns).
+
+==============
+| Delegation |
+==============
+
+Callbacks are used to delegate functionality.
+
+If a function takes a callback, that callback can do a myriad of things.
+This allows us to use our callback to be delegated to a specific task.
+
+Example:
+        // This is a function that just prints the result of another list of instructions
+        function printResult(doSomething) {
+         var result = doSomething();         // store the return value of the callback parameter
+         console.log(result);                // print the result!
+        }
+        printResult(function returnFive(){ return 5 })  // this should print "5"
+
+Another example:
+        function each(arr, callback) {
+          // loop through the array
+          for(var i = 0; i < arr.length; i++) {
+            callback(arr[i]); // invoking the callback many times... delegation!
+          }
+        }
+        // call the each function
+        each([1,2,3], function(num) { alert(num + " I am from the callback!"); }) //so many alerts!
