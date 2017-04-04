@@ -294,3 +294,70 @@ is free to reference.
         }
         var Speros = new Ninja("Speros", 24, "MBA");
         Speros.introduce();
+
+=============
+| Prototype |
+=============
+
+'__proto__' stands for prototype, which is how objects in JavaScript share properties and methods.
+
+Example:
+        obj1.newProperty = "newProperty!";
+        obj1.__proto__.anotherProperty = "anotherProperty!";
+        console.log(obj1.anotherProperty); // anotherProperty!
+        console.log(obj1.newProperty); // newProperty!
+        // What about obj2?
+        console.log(obj2.newProperty); // undefined
+        console.log(obj2.anotherProperty); // anotherProperty! <= THIS IS THE COOL PART!
+
+Every object constructor creates a second memory space for all objects created by that constructor
+that is accessed by proto. It is one memory space, so any changes there affect every object spit out by that constructor.
+
+Major PROS of Prototype:
+    * One memory space for all! If you are creating lots of the same object and use prototype, it can save you significant memory
+    * Great for general methods for objects
+    * We can access prototype methods with just using .method or .property.
+    * The interpreter will go through all prototypes in the prototype chain to check if any of them have the called method or property before giving up (it'll return/use the first match it finds).
+
+Major CONS of Prototype:
+    * Methods generated in prototype cannot access the private variables inside the constructor function
+    * Lots of prototypes can be hard to read
+
+Better way to implement prototypes:
+    // After we create our MyObjConstructor:
+    MyObjConstructor.prototype.methodName = function(){
+      //do stuff here!
+    }
+
+Example of good OOP Practice:
+        function Ninja(name){
+          this.name = name;   // creating instance variables
+          this.distance_traveled = 0;
+        }
+        // creating an instance method
+        Ninja.prototype.walk = function() {
+            console.log(this.name + ' is walking');
+            this.distance_traveled += 1;
+            return this;      // have this method return its own object
+          };
+        // creating an instance method
+        Ninja.prototype.run = function() {
+            console.log(this.name + ' is running');
+            this.distance_traveled += 5;
+            this.displayDistanceTraveled();
+            return this;      // have this method return its own object
+          };
+        //another instance method
+        Ninja.prototype.displayDistanceTraveled = function() {
+            console.log('distance traveled: ', this.distance_traveled);
+        }
+
+        // creating instances/objects
+        var ninja1 = new Ninja('Jay');
+        var ninja2 = new Ninja('Michael');
+        var ninja3 = new Ninja('Andrew');
+
+        ninja1.walk().run().walk().run().run();  // because walk/run returns itself, we can chain these methods
+
+        // you can also log ninja1 and study it
+        console.log(ninja1);
