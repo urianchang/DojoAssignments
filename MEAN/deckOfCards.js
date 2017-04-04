@@ -52,8 +52,8 @@ DeckConstructor.prototype.shuffle = function() {
     // Deal a random card from the deck
 DeckConstructor.prototype.deal = function() {
     var rand = Math.floor(Math.random()*52);
-    var removedCard = this.deck.splice(rand, 1);
-    console.log(`Dealt player ${removedCard[0].value} of ${removedCard[0].suit}`);
+    var removedCard = this.deck.splice(rand, 1)[0];
+    console.log(`Dealt player ${removedCard.value} of ${removedCard.suit}`);
     return removedCard;
 }
 
@@ -65,14 +65,14 @@ function PlayerConstructor(name) {
     // Take a card
 PlayerConstructor.prototype.takeCard = function(deckObj) {
     var myCard = deckObj.deal();
-    console.log(`I got the ${myCard[0].value} of ${myCard[0].suit}`);
+    console.log(`I got the ${myCard.value} of ${myCard.suit}`);
     this.hand.push(myCard);
     return this;
 }
     // Discard top card
 PlayerConstructor.prototype.discard = function () {
-    var removedCard = this.hand.splice(0, 1);
-    console.log(`Removed ${removedCard[0][0].value} of ${removedCard[0][0].suit} from hand`);
+    var removedCard = this.hand.splice(0, 1)[0];
+    console.log(`Removed ${removedCard.value} of ${removedCard.suit} from hand`);
     return this;
 }
 
@@ -80,6 +80,6 @@ var deck = new DeckConstructor();
 var player1 = new PlayerConstructor("player1");
 deck.makeDeck().shuffle();
 player1.takeCard(deck).takeCard(deck);
-console.log(`${player1.name}'s current hand: ${player1.hand[0][0].value}`);
+console.log(`${player1.name}'s current hand: ${player1.hand[0].value}`);
 player1.discard();
-console.log(`${player1.name}'s current hand: ${player1.hand[0][0].value}`);
+console.log(`${player1.name}'s current hand: ${player1.hand[0].value}`);
