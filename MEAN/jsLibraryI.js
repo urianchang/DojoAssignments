@@ -23,7 +23,11 @@ var _ = {
      return mapped;
    },
    reduce: function(arr, callback, memo) {
-       var curSum = memo;
+       if (memo == undefined) {
+           var curSum = 0;
+       } else {
+           var curSum = memo;
+       }
        for (var idx in arr) {
            curSum = callback(curSum, arr[idx]);
        }
@@ -68,7 +72,7 @@ var _ = {
 // var showMe = _.each([1, 2, 3], (num) => (`Value in the array: ${num}`));
 // var map = _.map([1, 2, 3], (num) => (num * 3));
 // console.log(map);
-// var reduce = _.reduce([1, 2, 3], (memo, num) => (num+memo), 15);
-// console.log(reduce);
+var reduce = _.reduce([1, 2, 3], (memo, num) => (num+memo));
+console.log(reduce);
 // var find = _.find([1, 2, 3, 4], (num) => (num % 2 == 0));
 // console.log(find);
