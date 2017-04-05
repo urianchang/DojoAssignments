@@ -23,15 +23,15 @@ var _ = {
      return mapped;
    },
    reduce: function(arr, callback, memo) {
-       if (memo == undefined) {
-           var curSum = 0;
-       } else {
-           var curSum = memo;
+       var start = 0;
+       if (memo === undefined) {
+           memo = arr[0];
+           start = 1;
        }
-       for (var idx in arr) {
-           curSum = callback(curSum, arr[idx]);
+       for (var i = start; i < arr.length; i++) {
+           memo  = callback(memo, arr[i]);
        }
-       return curSum;
+       return memo;
    },
    find: function(arr, callback) {
        for (var i = 0; i < arr.length; i++) {
@@ -72,7 +72,7 @@ var _ = {
 // var showMe = _.each([1, 2, 3], (num) => (`Value in the array: ${num}`));
 // var map = _.map([1, 2, 3], (num) => (num * 3));
 // console.log(map);
-var reduce = _.reduce([1, 2, 3], (memo, num) => (num+memo));
+var reduce = _.reduce([1, 2, 3], (memo, num) => (num + memo), 5);
 console.log(reduce);
 // var find = _.find([1, 2, 3, 4], (num) => (num % 2 == 0));
 // console.log(find);
