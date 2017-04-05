@@ -78,3 +78,121 @@ Another example:
         }
         // call the each function
         each([1,2,3], function(num) { alert(num + " I am from the callback!"); }) //so many alerts!
+
+==================
+| Event Listener |
+==================
+
+Callbacks can be used to handle events.
+
+Example:
+        // Link our variable "button" to a DOM element
+        var button = document.getElementById("someButton")
+        // add a DOM eventListener to that variable.
+        button.addEventListener("click", whatToDoOnClick);
+        // here we define the whatToDoOnClick function
+        function whatToDoOnClick() {
+          alert("You Did it!")
+        }
+
+======================
+| Immediate Function |
+======================
+
+The immediate function pattern is a syntax that enables you to execute
+a function as soon as it is defined.
+
+Ex 1:
+        (function() {
+           console.log( "I'm an immediate function!" );
+        }());
+
+Ex 2:
+        (function() {
+           console.log( "I'm an immediate function!" );
+        })();
+
+() is used to invoke a function. ( ) helps define the order of operations.
+(myfunction)<-- do this first (myfunction)() <-- create the function before doing anything else and then invoke the function!
+Alternative Syntax: (myfunction()) <-- create and run the function before doing anything else.
+
+Passing arguments to immediate functions:
+        (function (param1, param2){
+           console.log( "I'm an immediate function!" );
+        }) ( arg1, arg2 ) ;
+
+A common pattern when writing code that should be able to run on non-browser platforms,
+or when speed is important is passing the global object as an argument. This creates a
+local copy of the global object inside the function, which results in faster lookup times.
+
+Example:
+        (function (global) {
+           console.log( window );               // logs the window object
+           console.log( global );               // logs the window object, but faster!
+        }) ( window ) ;
+
+Some Benefits:
+    * It reduces the number of global variables and mitigates variable name pollution.
+    * Features are self-contained units, resulting in easier testing.
+
+To eliminate variables/methods being exposed outside and to contain its scoping, you could
+wrap them inside an immediate function. Once you wrap these inside an immediate function,
+these variables/methods are no longer global (due to the function scoping of Javascript).
+
+============
+| Closures |
+============
+
+A closure is a function that is returned from another function.
+
+Example:
+
+        // Here we have a function called "Outer"
+        function Outer() {
+          // There is a count variable that is scoped to the function
+        var count = 0;
+          // There is an inner function that increments count and then console.logs it
+        function inner() {
+            // increment count
+        count++
+            // console.log count
+        console.log(count);
+        }
+          // return the inner function! We can return a function!
+        return inner
+        }
+        // counter is now the function returned from invoking Outer
+        var counter = Outer();
+                  // if we invoke the counter function
+        counter()     // this will console.log "1"
+        counter()     // this will console.log "2"
+        counter()     // this will console.log "3"
+        counter()     // this will console.log "4"
+                  // So that means that the count variable still exists!
+                  // and it is being changed even though we aren't inside of the Outer function!
+
+        // What if we try to access count out here?
+        console.log(count) // doesn't work!
+
+============
+| Currying |
+============
+
+Currying is the idea that you only run part of a function, rather than the whole thing.
+It is functional programming rather than object oriented.
+
+Example: Uncurried
+
+        function ninjaBelt(ninja, beltColor){
+          console.log("Ninja "+ ninja + " has earned a " + beltColor +" belt.");
+        }
+        ninjaBelt('Eileen', 'black');
+
+Example: Curried
+
+        function ninjaBelt(ninja){
+          return function belt(beltColor){ //note the closure here!
+            console.log("Ninja "+ ninja + " has earned a " + beltColor +" belt.");
+          }
+        }
+        ninjaBelt('Eileen')('black'); //note the double invocation here.

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Button Fun</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                var blue = true;
+                $('#theButton').click(function() {
+                    blue = !blue;
+                    if (blue) {
+                        $(this).css("background-color", "blue");
+                    } else {
+                        $(this).css("background-color", "red");
+                    }
+                });
+                $('#theButton').hover(function() {
+                    $(this).css("background-color", "green");
+                }, function() {
+                    if (blue) {
+                        $(this).css("background-color", "blue");
+                    } else {
+                        $(this).css("background-color", "red");
+                    }
+                });
+            });
+        </script>
+        <style>
+            *{
+                padding: 0px;
+                margin: 0px;
+            }
+            button {
+                background-color: blue;
+                padding: 5px;
+                margin: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="theButton">BUTTON</button>
+    </body>
+</html>
