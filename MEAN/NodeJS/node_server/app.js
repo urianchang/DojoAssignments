@@ -14,6 +14,20 @@ var server = http.createServer(function (request, response){
             response.end(); // finished!
         });
     }
+    else if (request.url === "/dojo.html") {
+        fs.readFile('dojo.html', 'utf8', function (errors, contents){
+             response.writeHead(200, {'Content-type': 'text/html'});
+             response.write(contents);
+             response.end();
+        });
+    }
+    else if (request.url === "/stylesheets/style.css") {
+        fs.readFile('stylesheets/style.css', 'utf8', function (errors, contents) {
+            response.writeHead(200, {'Content-type': 'text/css'});
+            response.write(contents);
+            response.end();
+        });
+    }
     // request didn't match anything:
     else {
         response.writeHead(404);

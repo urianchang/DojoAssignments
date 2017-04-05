@@ -1,0 +1,58 @@
+===============
+| FS and HTTP |
+===============
+
+An essential part of any server is the ability to read and write files.
+Reading a file is how we obtain the content to serve to clients, and
+writing it is how we output content to the client.  If we don't have
+a way of doing this, we're not going to be able to build a server!
+That is why the creators of Node.js built the fs (file system) module.
+The FS module allows us to do exactly what we need: read and write
+content from files, and it is by default included in Node.js. It is
+very rare that you will see the HTTP module used without the fs module.
+The HTTP module is the module that allows us to build a web server that
+accepts HTTP requests and can serve responses. Combining the fs and
+http modules, we can create simple web servers quite easily.
+
+Setting up the server:
+
+** IMPORTANT **
+        var server = http.createServer(function (request, response){...}
+
+This one line creates our web server.  The createServer() method takes a parameter,
+namely, a callback function with a request and response parameter. They are the HTTP
+request made by the client and captured by the server and the HTTP response we will
+prepare and serve back to the client!  So let's sketch out what's going to happen:
+    1. Any request made to this web server gets passed into the callback.
+    2a. If the request matches one of the response patterns we built into the server,
+        we will prepare and serve the associated response.
+    2b. If the request doesn't match, we will send back an error to the client.
+
+Configuring the root route:
+        if(request.url === '/') {
+            fs.readFile('index.html', 'utf8', function (errors, contents){
+                response.writeHead(200, {'Content-Type': 'text/html'});
+                response.write(contents);
+                response.end();
+            });
+        }
+
+response.writeHead() - method sends the headers for our response along with a status code.
+                        A header is the part of a response that contains the specifics of the response.
+                        Any status code in the 200's or 300's is good.
+                        Anything in the 400's to the 500's is bad.
+response.write() -  sends the contents of the files to the client
+response.end() - when we are finished
+
+server.listen() method tells our server to listen on a specific port
+
+
+File type:	    |       Headers:
+HTML	           {'Content-Type': 'text/html'}
+CSS	               {'Content-Type': 'text/css'}
+Javascript	       {'Content-Type': 'text/javascript'}
+png/jpeg/gif	   {'Content-Type': 'image/*'} (* is the image format, ie png or jpeg etc)
+
+* Any file written in plain text will be served with utf-8 encoding.
+Images won't be served with utf-8; omit that argument in the
+fs.readFile() method when serving images.
