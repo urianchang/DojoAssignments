@@ -1,0 +1,221 @@
+================
+| Introduction |
+================
+
+What is Express?
+
+Express is a set of tools on top of Node.js that allow us to more easily
+handle requests and build a robust server.
+
+Unlike other MVC frameworks (like Codeigniter, Django, and Rails),
+Express is quite flexible in the way it can be configured.
+This provides tons of customization for experienced developers.
+
+=======
+| MVC |
+=======
+
+"MVC" = Model - View - Controller
+
+Benefits of using MVC framework:
+    1. all things that deal with data/database need to be inside a folder/class called Models.
+    2. all things that deal with HTML rendering need to be inside a folder/class called Views.
+    3. all things that deal with business logic and handling the URL request need to be
+        inside a folder/class called Controller.
+    4. we'll have a single file that is in a way the master of all the URL requests and we'll
+        have this file load all the necessary files before any web application is called.
+        This is commonly called Routes.
+    5. finally, we'll have a config folder where things related to configuring the app
+        (database session, security encryption, etc) can be stored. This eliminates some of
+        the configuration settings appearing randomly in the app.
+
+Disadvantages:
+    1. There is overhead to running a framework (as it loads a lot of files for each URL request).
+        This could slow things down a little bit.
+    2. There may be a security bug with the framework itself (this has happened with even some
+        popular frameworks like Rails where all apps built with that framework were vulnerable
+        for hacker attacks) which you probably don't have control of.
+    3. Whoever is supporting the development of that framework may go out of business and the
+        framework may no longer be updated.
+    4. Some of the methods/functions you are using were written by other developers so you
+        will have less clue about what's actually happening behind the scene. In a way, you're
+        dependent on other people's code, which may not be so bad, but also, you have less
+        control over what's happening in the code.
+
+=========
+| Views |
+=========
+
+There are two ways of serving HTML/CSS/JS:
+    1. Static Content - Serving a static HTML/CSS/JS file from the backend in response to a request
+    2. Templates - Using a view/templating engine to generate HTML (PHP, embedded ruby, embedded JavaScript)
+
+Using Templates (EJS):
+EJS is the templating engine we are going to use. EJS = Embedded JavaScript. Just like express, EJS is a
+node module that we will need to install for our project.
+
+<% %> : tags are delimiter for EJS - allows us to run JS code that can be embedded into the HTML (e.g. for-loops)
+<%= %> : tags print the JS code to the document
+
+================
+| HTTP Methods |
+================
+
+GET : request for passing insensitive information
+POST : request for passing sensitive information
+
+GET requests are sent as part of the URL. GET requests can be cached, and will even remain
+stored in the browser history.
+
+Why use GET? GET requests can be bookmarked!
+
+POST requests send data behind the scenes, in the HTTP message body. They're never cached, they don't
+linger in your browser history, they can't be bookmarked, and there are no restrictions on how much
+data you can send.
+
+In Express, we will assign all routing rules using the syntax:
+        app.HTTP_VERB('URL', function (req, res){});    //HTTP_VERB is 'get' or 'post'
+
+Example of route to create new user:
+        // root route
+        app.get('/', function (req, res){
+          res.render('index', {title: "my Express project"});
+        });
+        // route to process new user form data:
+        app.post('/users', function (req, res){
+          //code to add user to db goes here!
+
+          //: REDIRECTING
+          res.redirect('/');
+
+        })
+
+POST data:
+Express doesn't have a good way to handle post-data inherently. So we have to use node module called 'body-parser'.
+
+Example (server.js):
+        // require body-parser
+        var bodyParser = require('body-parser');
+        // use it!
+        app.use(bodyParser.urlencoded({extended: true}));
+
+Example (index.ejs):
+        <form action='/users' method='post'>
+            Name: <input type='text' name='name'>
+            Email: <input type='text' name='email'>
+            <input type='submit' value='create user'>
+        </form>
+
+Get form data as JSON...
+        // route to process new user form data:
+        app.post('/users', function (req, res){
+            console.log("POST DATA \n\n", req.body)
+            //code to add user to db goes here!
+            // redirect the user back to the root route.
+            res.redirect('/')
+        });
+
+**  req.body is a JSON object that contains the data from our form. **
+
+DATA from URL (GET data):
+Example (server.js):
+        app.get("/users/:id", function (req, res){
+            console.log("The user id requested is:", req.params.id);
+            // just to illustrate that req.params is usable here:
+            res.send("You requested the user with id: " + req.params.id);
+            // code to get user from db goes here, etc...
+        });
+
+** Any data you wish to pass via the URL must be indicated by a ':'.
+    It will then be available in the req.params object. **
+
+Session data:
+Session data is almost never used in the MEAN stack. If you do need to use it, you have
+to install and require the express-session module first.
+
+Example (server.js):
+        // new code:
+        var session = require('express-session');
+        // original code:
+        var app = express();
+        // more new code:
+        app.use(session({secret: 'codingdojorocks'}));  // string for encryption
+
+...Now, within any of your routes, there will be an object called 'req.session'. It is an object
+and you can assign properties to it like normal:
+
+        app.post('/users', function (req, res){
+            // set the name property of session.
+            req.session.name = req.body.name;
+            console.log(req.session.name);
+            //code to add user to db goes here!
+            // redirect the user back to the root route.
+            res.redirect('/');
+        });
+
+...Now, 'req.session.name' will be available to any other route afterward.
+
+============================
+| package.json, bower.json |
+============================
+
+Package managers, such as NPM and Bower, keep track of what modules you are using through JSON files.
+These files contain information about the project overall, as well as which modules have been downloaded
+for the project.
+
+CMD commands:
+' npm init -y ' - Fill the package.json with base information
+' npm install [package name] --save ' - Install node modules and add to dependencies array in package.json
+' npm install ' - When not passed any information will look for package.json file and install all the listed dependencies
+
+Bower works almost identically; however, you have to manually type in initialization conditions (rather than using '-y').
+
+=============
+| Socket.io |
+=============
+
+We can set up a real-time connection between client and server that is always listening for events
+from the other party. This is called a web socket connection. A very important fact of this connection
+is that it is not performed using HTTP. The other important fact is that socket connections are event-driven.
+
+Events:
+Like jQuery, sockets are event-driven. That means that the code we write for sockets will happen only as
+the events we tie to the code are triggered. With sockets, we'll be writing both client-side and server-side
+code: to emit events and listen from them.
+
+Listening:
+A socket event is very much like a jQuery event: a click, a hover, a form submission, etc. All events are user-defined!
+This is how we are able to have our Node servers react just the way we want them because we tell them exactly what
+events to fire on. Both the server and the client can listen for events.
+
+Emitting:
+Emitting an event is the act of signaling to either a client or server.
+* Important: Clients emit to the server, not other clients!
+
+Let's go back to the chatroom example: if I type some text into my chat box and I enter it,
+my text should appear on the screens of the other users (as well as mine).
+What is the process that's happening here? Let's walk through this:
+    1. I enter text and submit it. This should trigger a client-side emit: "new_text"
+    2. The server is listening for an event called "new_text", and it is triggered by the client.
+        This gets triggered.
+    3. When the server gets the "new_text" event, in turn, it is programmed to emit to all the
+        clients an event called "updated_chat" and pass the new chat text to the clients.
+    4. The clients are all listening for an event called "updated_chat" and when they get that
+        event, the new message appends to the chat box on their screen.
+
+For one specific socket action, there will be two associated steps:
+    1. A listener for the event is present
+    2. An emit of the listened-for event to trigger the action
+
+Different types of emit (server-only):
+    * Emit
+        - The standard emit is used after an event is triggered on the server. That is after the client
+            emits a particular event that the server is listening for. Within the code we write to facilitate
+            the server's response, we will have the option to emit back to the particular client that triggered
+            the event.
+    * Broadcast
+        - The sending out of an event to all of the sockets except for the socket connection that triggered
+            the event is called a 'broadcast'.
+    * Full broadcast
+        - The full broadcast goes to every connected socket. Any client who has a connection to the server via
+            web sockets will get the event emitted by a full broadcast.
