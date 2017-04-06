@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Survey Form</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <h1>Submitted Information:</h1>
+        <h3>Name: <%= surveyData.username %></h3>
+        <h3>Dojo Location: <%= surveyData.userlocation %></h3>
+        <h3>Favorite Language: <%= surveyData.userlanguage %></h3>
+        <h3>Comment: <%= surveyData.commentbox %></h3>
+        <form action='/' method='get'>
+            <input type="submit" value="Go Back" class="button">
+        </form>
+    </body>
+</html>
