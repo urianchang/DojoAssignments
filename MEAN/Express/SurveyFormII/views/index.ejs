@@ -19,6 +19,8 @@
                     socket.emit("posting_form", formData);
                 });
                 socket.on('updated_message', function(data) {
+                    // console.log(data);
+                    // $('#form-data').html("<h1>" + JSON.stringify(data) + "</h1>");
                     $('#form-data').html("<h3>Submitted data:</h3><ul><li>Name: " + data.username + "</li><li>Location: " + data.userlocation + "</li><li>Language: " + data.userlanguage + "</li><li>Comment: " + data.commentbox + "</li></ul>");
                 });
                 socket.on('random_number', function(data) {
