@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Survey Form - Sockets</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var socket = io.connect();
+                $('button').click(function (){
+                    var formData = {
+                        username : $('form').find('input[name="username"]').val(),
+                        userlocation : $('form').find('select[name="userlocation"]').val(),
+                        userlanguage : $('form').find('select[name="userlanguage"]').val(),
+                        commentbox : $('form').find('textarea[name="commentbox"]').val()
+                    };
+                    // console.log(formData);
+                    socket.emit("posting_form", formData);
+                });
+                socket.on('updated_message', function(data) {
+                    $('#form-data').html("<h3>Submitted data:</h3><ul><li>Name: " + data.username + "</li><li>Location: " + data.userlocation + "</li><li>Language: " + data.userlanguage + "</li><li>Comment: " + data.commentbox + "</li></ul>");
+                });
+                socket.on('random_number', function(data) {
+                    $('#lucky-number').html("<h1>Your lucky number is " + data + "!</h1>");
+                });
+            })
+        </script>
+    </head>
+    <body>
+        <div id="lucky-number"></div>
+        <form action="/" method='post'>
+            <h1>Tell us about yourself</h1>
+            <section class="basic-info">
+                <p>
+                    <label for="name">
+                        <span>Your name: </span>
+                        <input type="text" name="username">
+                    </label>
+                </p>
+                <p>
+                    <label for="location">
+                        <span>Dojo Location: </span>
+                        <select id="location" name="userlocation">
+                            <option value="San Jose">San Jose</option>
+                            <option value="San Francisco">San Francisco</option>
+                            <option value="Seattle">Seattle</option>
+                        </select>
+                    </label>
+                </p>
+                <p>
+                    <label for="language">
+                        <span>Favorite Language: </span>
+                        <select id="language" name="userlanguage">
+                            <option value="Python">Python</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="HTML">HTML</option>
+                            <option value="CSS">CSS</option>
+                        </select>
+                    </label>
+                </p>
+            </section>
+            <section>
+                <p>
+                    <label for="comment">
+                        <span>Comment (optional): </span>
+                        <textarea name="commentbox" rows="4" cols="33"></textarea>
+                    </label>
+                </p>
+            </section>
+            <!-- <section>
+                <button class="button">Submit</button>
+            </section> -->
+        </form>
+        <button class="button">Submit</button>
+        <div id="form-data"></div>
+    </body>
+</html>

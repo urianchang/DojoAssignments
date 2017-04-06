@@ -219,3 +219,27 @@ Different types of emit (server-only):
     * Full broadcast
         - The full broadcast goes to every connected socket. Any client who has a connection to the server via
             web sockets will get the event emitted by a full broadcast.
+
+==================
+| Adding sockets |
+==================
+
+1. Add the socket.io module
+2. Modify the server-side code
+3. Modify the client-side code
+
+Server-side Emit Syntax:
+    1. Emit: sends data from the server to the specific client who initiated contact.
+    2. Broadcast: sends data from the server to everyone BUT the client that initiated the contact.
+    3. Full Broadcast: sends data to all connected clients.
+
+Sample code:
+        //  this is just the configuration code that we've already used
+        io.sockets.on('connection', function (socket) {
+            //  EMIT:
+            socket.emit('my_emit_event');
+            //  BROADCAST:
+            socket.broadcast.emit("my_broadcast_event");
+            //  FULL BROADCAST:
+            io.emit("my_full_broadcast_event");
+        })
