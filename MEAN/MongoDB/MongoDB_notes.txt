@@ -12,3 +12,19 @@ just basic tabular storage.
 !! NO JOINS !!
 
 Everything stored in a MongoDB database is a JSON object.
+
+***********
+Go here to run mongod.exe and mongo.exe (two terminal windows):
+        cd c:/"Program Files"/MongoDB/Server/<version_number>/bin/
+***********
+
+================
+| Dependencies |
+================
+
+* mongod daemon
+    - A daemon is simply a program that runs in the background which manages different processes.
+    - Run mongod and leave it running while we use the database
+* mongo terminal
+    - Needs mongod running
+    - Access database manually to create, update, and manage your data directly
