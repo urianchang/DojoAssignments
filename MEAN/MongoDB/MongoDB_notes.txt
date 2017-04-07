@@ -1,0 +1,14 @@
+============
+| Overview |
+============
+
+MongoDB is a NoSQL database. NoSQL stands for "Not Only SQL".
+While NoSQL does support a structured query language (SQL),
+there is more flexibility in the storage of the data other than
+just basic tabular storage.
+
+** In a NoSQL environment, every piece of data is unaware of the other pieces. **
+
+!! NO JOINS !!
+
+Everything stored in a MongoDB database is a JSON object.
