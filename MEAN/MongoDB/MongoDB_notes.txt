@@ -28,3 +28,25 @@ Go here to run mongod.exe and mongo.exe (two terminal windows):
 * mongo terminal
     - Needs mongod running
     - Access database manually to create, update, and manage your data directly
+
+==================
+| Basic Concepts |
+==================
+
+Database Type:	                                   SQL	        Mongo
+Database	                                      Schema	    Database (db)
+Collection of related records	                  Tables	    Collections
+Each one record in the collection of records	Row / Record	Document
+
+MySQL Database Schema == MongoDB Database (db)
+SQL: Tables == MongoDB: Collections
+SQL: Row / Record == MongoDB: Document (JSON object)
+
+'show dbs' - Show all databases
+'db' - Show current database
+'use DB_NAME' - Change to another database / Create new one if DNE
+'use DB_NAME // db.dropDatabase()' - Delete database
+'show collections' - View all collections in a MongoDB
+'db.createCollections('NAME')' - Create a new collection in the current database
+'db.COLLECTION_NAME.drop()' - Destroy a collection
+'db.COLLECTION_NAME.insert({key: "value"})' - Add document to collection
