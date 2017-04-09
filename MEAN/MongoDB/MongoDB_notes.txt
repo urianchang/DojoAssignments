@@ -50,3 +50,56 @@ SQL: Row / Record == MongoDB: Document (JSON object)
 'db.createCollections('NAME')' - Create a new collection in the current database
 'db.COLLECTION_NAME.drop()' - Destroy a collection
 'db.COLLECTION_NAME.insert({key: "value"})' - Add document to collection
+
+MongoDB doesn't use JSON objects to store your data. They use what's called BSON (Binary JSON).
+BSON is friendlier to store (due to it being binary; don't stress about this) and can support a
+few more things (like dates, which are not part of JSON, but crucial for databases).
+
+=============
+| Documents |
+=============
+
+Basic CRUD operations:
+
+CREATE:
+        // Pattern:
+        db.COLLECTION_NAME.insert({YOUR_JSON_DOCUMENT})
+
+        // Example:
+        db.ninjas.insert({name: "Trey", belt: "black", status: "awesome"})
+
+READ:
+        // Pattern:
+        db.COLLECTION_NAME.find({YOUR_QUERY_DOCUMENT})
+        // Pretty print
+        db.COLLECTION_NAME.find().pretty()
+
+If you want to just find all of the given collection, you can pass an empty object to the .find
+method; or you can just not pass anything at all.
+
+HINT: if you want to sort by something like creation time in MongoDB, you can sort by ObjectId
+because it is made by using a time stamp as part of the string.
+
+DESTROY:
+        // Pattern:
+        db.COLLECTION_NAME.remove({YOUR_QUERY_DOCUMENT}, BOOLEAN)
+
+        // Example
+        db.ninjas.remove({belt: "yellow"})
+        db.ninjas.remove({belt: "yellow"}, false) // this query would have the same effect as the one above.
+
+The second parameter is a boolean, and it is OPTIONAL. If the parameter is omitted, it defaults to false.
+The boolean is called the justOne boolean, and if it is present and it is true, the remove query will
+only remove the first document that matches the query.
+
+UPDATE:
+        // Pattern:
+        db.COLLECTION_NAME.update({QUERY}, {FIELDS_TO_UPDATE}, {OPTIONS})
+        // Note: the options document is optional
+
+        // Example:
+        db.ninjas.update({name: "Trey"}, {location: "Mountain View"}) // Overwrite
+        db.ninjas.update({name: "Trey"}, {$set: {location: "Mountain View"}})
+
+MongoDB's native update method will completely overwrite everything except the _id field
+when we run the way shown above. '$set' is an update operator (covered later).
