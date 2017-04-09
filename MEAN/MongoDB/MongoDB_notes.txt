@@ -103,3 +103,37 @@ UPDATE:
 
 MongoDB's native update method will completely overwrite everything except the _id field
 when we run the way shown above. '$set' is an update operator (covered later).
+
+=============
+| Operators |
+=============
+
+Operators are an important part of MongoDB. Queries are more method-based
+and not typed syntax like regular SQL. Operators allow you to 'operate'
+on the data.
+
+Example to find number of students greater than 15:
+        db.dojos.find({number_of_students: {$gt: 15}})
+
+Common operators:
+NAME:                  DESCRIPTION:
+$gt (>)                Use to query selectively on numerical-valued fields
+$gte (>=)              Use to query selectively on numerical-valued fields
+$lt (<)                Use to query selectively on numerical-valued fields
+$lte (<=)              Use to query selectively on numerical-valued fields
+$in (in array)         Use to find documents who have a particular value within an array
+$push                  Push to an array contained within a document
+$pop                   Removes either the first or last element from an array. Use 1 for the last item in the array, -1 for the first item.
+$addToSet              Functions like $push. Only adds to the specified array if the value doesn't already exist (thereby preventing duplicate entries).
+$pull                  Removes a specified value from an array, unlike $pop, which removes by location. This will remove all instances of VALUE from the documents with the array specified by the array_key that match QUERY.
+
+Examples:
+    IN:
+        db.COLLECTION.find({field : {$in: [value1, etc]}})
+    PUSH:
+        db.students.update({_id: ObjectId("5463d871a6a96d5ed6252f4d")}, {$push: {interests: 'snowboarding'}})
+    POP:
+        db.COLLECTION.update({QUERY}, {$pop: {array_key: (1 or -1)}})
+
+    PULL:
+        db.COLLECTION.update({QUERY}, {$pull: {array_key: VALUE}})
