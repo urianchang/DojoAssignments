@@ -1,0 +1,217 @@
+/*CSS reset*/
+*{
+  margin: 0px;
+  padding: 0px;
+}
+body{
+  background-color: black;
+  padding: 0px 10px;
+}
+p{
+  font-family: sans-serif;
+  color: white;
+  font-size: 12px;
+  line-height: 150%;
+}
+.header{
+  display: block;
+  width: 100%;
+  height: 100px;
+  background-color: #1A1A1A;
+}
+.header img{
+  margin: 20px 0px 0px 10px;
+  display: inline-block;
+  height: 60px;
+  width: auto;
+}
+.header p{
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 500px;
+  margin-top: 30px;
+  font-weight: bold;
+  font-size: 14px;
+}
+.navbar{
+  display: block;
+  width: 100%;
+  height: 30px;
+  background: gray; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#525252, #2B2B2B); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#525252, #2B2B2B); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#525252, #2B2B2B); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#525252, #2B2B2B); /* Standard syntax */
+}
+.navbar ul{
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+.link1{
+  width: 70px;
+}
+.navbar li{
+  display: inline-block;
+  height: 30px;
+  border-right: 1px solid gray;
+  text-align: center;
+  vertical-align: top;
+}
+.navbar li a{
+  padding: 8px 12px;
+  display: block;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 11px;
+  color: white;
+  font-family: sans-serif;
+}
+/*These two CSS elements are for that weird space that appears behind the Contact word*/
+.last-link{
+  text-align: left;
+}
+.weirdspace{
+  display: inline-block;
+  height: 1px;
+  width: 415px;
+}
+.navbar span{
+  margin-left: 3px;
+  font-size: 8px;
+}
+.main{
+  display: block;
+  width: 100%;
+  height: 450px;
+  background-color: #363636;
+}
+.slideshow{
+  display: block;
+  width: 100%;
+  height: 300px;
+}
+.content{
+  display: block;
+  width: 100%;
+  height: 180px;
+  margin-top: 5px;
+  background-color: #1A1A1A;
+}
+.content img{
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  vertical-align: top;
+  margin: 35px 5px 0px 20px;
+}
+.main-text{
+  display: inline-block;
+  width: 135px;
+  height: 120px;
+  vertical-align: top;
+  margin: 37px 10px 0px 0px;
+}
+h2{
+  font-size: 16px;
+  color: #EF7F2B;
+}
+.main-text h2{
+ display: block;
+ margin-left: -2px;
+ margin-bottom: 3px;
+}
+.main-text p{
+  display: block;
+}
+.advert{
+  display: block;
+  width: 100%;
+  height: 140px;
+  /*background-color: #050505;*/
+  background-image: url("images/carbon.jpg");
+  background-repeat: repeat;
+}
+.advert-text{
+  display: inline-block;
+  width: 500px;
+  height: 100px;
+  margin: 25px 0px 0px 20px;
+}
+.advert-text h1{
+  font-size: 25px;
+  font-family: sans-serif;
+  margin-bottom: 5px;
+  margin-left: 2px;
+  color: white;
+}
+.advert button{
+  height: 40px;
+  width: 120px;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 40px;
+  margin-left: 200px;
+  color: white;
+  border: none;
+  background: #ffa84c; /* Old browsers */
+  background: -moz-linear-gradient(top, #ffa84c 0%, #ff7b0d 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffa84c 0%,#ff7b0d 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffa84c 0%,#ff7b0d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  border-radius: 5px;
+}
+.portfolio{
+  display: block;
+  width: 100%;
+  height: 310px;
+  background-color: #1A1A1A;
+}
+.portfolio-top{
+  display: block;
+}
+.portfolio-top h3{
+  display: inline-block;
+  vertical-align: top;
+  color: white;
+  margin: 25px 0px 0px 15px;
+}
+.portfolio-top a{
+  display: inline-block;
+  vertical-align: top;
+  font-style: italic;
+  margin: 30px 0px 0px 682px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #EF7F2B;
+  font-weight: 500;
+}
+.portfolio-block{
+  display: inline-block;
+  height: 250px;
+  width: 200px;
+  vertical-align: top;
+  margin: 15px 0px 0px 15px;
+}
+.image-container{
+  height: 115px;
+  width: 190px;
+  background-color: #363636;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.image-container img{
+  width: 100%;
+  height: 100%;
+}
+.portfolio-block h2{
+  margin-bottom: 5px;
+}
+.tothetop{
+  position: fixed;
+  bottom: 0px;
+  right: 25px;
+  color: gray;
+  font-family: sans-serif;
+  text-decoration: none;
+  font-size: 11px;
+}
