@@ -9,6 +9,7 @@ io.emit('page_load', {name : this_player_name});
 //: Get player ID from server
 io.on('player_id', function(player_data) {
     this_player_id = player_data.player_id;
+    $('#chat_title').html(`Chatter Box: Your user name is ${this_player_name} and you are player ${this_player_id}.`);
 });
 
 //: Submit new message
@@ -97,11 +98,13 @@ function PacMan(initial_x, initial_y) {
         if(this.position.y < -1)
             this.position.y = 15
 
-        //alert(this.position.x)
+
         if(this.position.x > 14){
+            // alert(this.position.x)
             this.position.x = 0
         }
         if(this.position.x < 0){
+            // alert(this.position.x)
             this.position.x = 15
         }
 

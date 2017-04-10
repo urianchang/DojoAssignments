@@ -40,27 +40,27 @@ io.sockets.on('connection', function (socket) {
 
     //: Got a new message
     socket.on('new_message', function(data) {
-        console.log("got a new message");
+        // console.log("got a new message");
         messages.push(data.message);
         io.emit('post_new_message', {new_message : messages[messages.length-1]});
     });
 
     //: Pacman 1 moved
     socket.on('move_pac1', function(data) {
-        console.log('pacman1 moved');
-        console.log(data);
+        // console.log('pacman1 moved');
+        // console.log(data);
         io.emit('all_move_pac1', data);
     });
 
     //: Pacman 2 moved
     socket.on('move_pac2', function(data) {
-        console.log('pacman2 moved');
+        // console.log('pacman2 moved');
         io.emit('all_move_pac2', data);
     });
 
     //: Update the score
     socket.on('update_score', function(data) {
-        console.log('need to update the scoreboard');
+        // console.log('need to update the scoreboard');
         io.emit('execute_update_score', data);
     })
 
