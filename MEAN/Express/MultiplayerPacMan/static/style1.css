@@ -1,0 +1,73 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#wrapper{
+	width: 600px;
+	margin: 20px auto;
+}
+img {
+	width: 15px;
+	height: 15px;
+}
+#left{
+	width: 300px;
+	height: 400px;
+	float: left;
+}
+
+#game_world{
+	display:inline-block;
+	vertical-align: top;
+	width:250px;
+}
+
+#right{
+	width: 300px;
+	height: 400px;
+	float: right;
+}
+
+.score_board{
+	background-color: blue;
+	color: white;
+	display:inline-block;
+	vertical-align: top;
+	width: 150px;
+	border:1px solid silver;
+	padding:7px;
+	margin-left: 30px;
+	margin-bottom: 30px;
+}
+
+.score{
+	float: right;
+}
+
+.clear{
+	clear: all;
+}
+
+#others_game{
+	width: 200px;
+	margin: 10px;
+}
+
+#message_board{
+	width: 600px;
+	height: 100px;
+	padding: 5px 5px;
+	border: 1px solid black;
+	margin: 10px 0px;
+}
+
+p{
+	margin: 0px;
+	padding: 0px;
+}
+
+#message{
+	width: 250px;
+}

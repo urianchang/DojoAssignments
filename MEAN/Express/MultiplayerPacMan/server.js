@@ -1,7 +1,12 @@
+//: Requirements
 var express = require('express');
+var path = require('path');
+
 var app = express();
 
 var server = app.listen(8080);
+console.log('Server running on port 8080');
+
 var io = require('socket.io').listen(server);
 
 // routing
@@ -12,59 +17,51 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/static"));
 
-// usernames which are currently connected to the chat
-var usernames = {};
-
-// rooms which are currently available in chat
-var rooms = ['room1','room2','room3'];
+//: usernames which are currently connected to the chat
+var users = [];
+//: store messages in a variable
+var messages = [];
 
 io.sockets.on('connection', function (socket) {
 
-	// when the client emits 'adduser', this listens and executes
-	socket.on('adduser', function(username){
-		// store the username in the socket session for this client
-		socket.username = username;
-		// store the room name in the socket session for this client
-		socket.room = 'room1';
-		// add the client's username to the global list
-		usernames[username] = username;
-		// send client to room 1
-		socket.join('room1');
-		// echo to client they've connected
-		socket.emit('updatechat', 'SERVER', 'you have connected to room1');
-		// echo to room 1 that a person has connected to their room
-		socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
-		socket.emit('updaterooms', rooms, 'room1');
-	});
+    socket.on('page_load', function(player) {
+        console.log("someone has joined");
+        //: Get info about new user
+        var new_user = {}
+        new_user[socket.id] = player.name;
+        new_user['player_id'] = users.length + 1;
+        users.push(new_user);
+        //: Send player id to user
+        socket.emit('player_id', {player_id : new_user.player_id})
+        console.log("all_users: ", users);
+        //: Send chat messages to user
+        socket.emit('load_messages', {messages : messages});
+    });
 
-	// when the client emits 'sendchat', this listens and executes
-	socket.on('sendchat', function (data) {
-		// we tell the client to execute 'updatechat' with 2 parameters
-		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
-	});
+    //: Got a new message
+    socket.on('new_message', function(data) {
+        console.log("got a new message");
+        messages.push(data.message);
+        io.emit('post_new_message', {new_message : messages[messages.length-1]});
+    });
 
-	socket.on('switchRoom', function(newroom){
-		// leave the current room (stored in session)
-		socket.leave(socket.room);
-		// join new room, received as function parameter
-		socket.join(newroom);
-		socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
-		// sent message to OLD room
-		socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', socket.username+' has left this room');
-		// update socket session room title
-		socket.room = newroom;
-		socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username+' has joined this room');
-		socket.emit('updaterooms', rooms, newroom);
-	});
+    //: Pacman 1 moved
+    socket.on('move_pac1', function(data) {
+        console.log('pacman1 moved');
+        console.log(data);
+        io.emit('all_move_pac1', data);
+    });
 
-	// when the user disconnects.. perform this
-	socket.on('disconnect', function(){
-		// remove the username from global usernames list
-		delete usernames[socket.username];
-		// update list of users in chat, client-side
-		io.sockets.emit('updateusers', usernames);
-		// echo globally that this client has left
-		socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
-		socket.leave(socket.room);
-	});
+    //: Pacman 2 moved
+    socket.on('move_pac2', function(data) {
+        console.log('pacman2 moved');
+        io.emit('all_move_pac2', data);
+    });
+
+    //: Update the score
+    socket.on('update_score', function(data) {
+        console.log('need to update the scoreboard');
+        io.emit('execute_update_score', data);
+    })
+
 });
