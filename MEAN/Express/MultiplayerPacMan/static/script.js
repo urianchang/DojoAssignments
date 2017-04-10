@@ -46,11 +46,11 @@ function PacMan(initial_x, initial_y) {
 
     var restore_background = function(prev_x, prev_y){
         var element_to_reset = '#pac_'+(parseInt(that.position.y)+prev_y)+"_"+(parseInt(that.position.x)+prev_x)
-
+        // console.log('before', $(element_to_reset).attr('src'));s
         $(element_to_reset)
             .attr('src', '/images/w0.png')
             .removeClass("pac"+this_player_id);
-
+        // console.log('after', $(element_to_reset).attr('src'));
         return element_to_reset;
     }
 
@@ -165,22 +165,40 @@ function GameLoop() {
     };
 
     // map coordinates
+    var map1 = [
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,1,0,0,0,0,0,1,0,0,0,1,
+        1,0,0,1,0,1,0,0,0,1,0,1,0,0,1,
+        1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,1,1,1,1,1,0,0,0,0,1,
+        1,0,0,0,0,0,1,1,1,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,
+        1,0,1,0,0,0,0,1,0,0,0,0,1,0,1,
+        1,0,0,1,0,0,0,1,0,0,0,1,0,0,1,
+        1,0,0,0,1,1,1,3,1,1,1,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+    ];
+
     var map = [
-        0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,
-        0,1,0,0,0,0,0,0,0,0,1,1,1,1,0,
-        0,1,0,0,1,1,1,0,1,0,0,0,0,1,0,
-        0,0,0,0,1,0,1,0,1,0,0,1,1,1,0,
-        0,1,0,0,1,0,1,0,1,0,0,1,0,0,0,
-        0,1,0,0,1,0,1,0,1,0,0,1,0,0,0,
-        0,1,0,0,1,0,1,1,1,0,0,0,0,0,0,
-        0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,
-        0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,
-        0,1,0,0,1,0,1,0,0,0,0,0,1,1,0,
-        0,1,0,1,1,0,1,1,1,1,1,0,0,1,0,
-        0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,
-        0,1,0,0,0,0,1,1,1,0,1,1,1,1,0,
-        0,1,0,0,0,0,1,0,1,1,1,0,0,0,0,
-        0,1,1,1,1,1,1,0,0,0,0,0,0,0,0
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        1,0,0,0,0,1,0,0,1,1,1,1,1,0,0,
+        1,0,0,0,0,1,0,0,1,0,0,0,0,1,0,
+        1,0,0,0,0,1,0,0,1,0,0,0,0,1,0,
+        1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,
+        1,0,0,0,0,1,0,0,1,0,0,0,0,1,0,
+        1,0,0,0,0,1,0,0,1,0,0,0,0,1,0,
+        1,0,0,0,0,1,0,0,1,1,1,1,1,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        1,1,1,0,1,0,0,0,1,0,1,0,0,0,1,
+        1,0,1,0,1,0,0,0,0,0,1,0,0,0,1,
+        1,1,1,0,1,1,1,0,1,0,1,0,0,0,1,
+        1,0,0,0,1,0,1,0,1,0,1,0,0,0,0,
+        1,0,0,0,1,0,1,0,1,0,1,1,1,0,1,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
     ];
 
     function populate_empty_with_coin()
@@ -206,13 +224,21 @@ function GameLoop() {
                     $('#game_world').append("<img id='pac_"+row+"_"+column+"' src='/images/w1.png' />");
                 else if(map[row*world.height+column] == 2)
                     $('#game_world').append("<img id='pac_"+row+"_"+column+"' src='/images/w2.png' />");
+                else if(map[row*world.height+column] == 3)
+                    $('#game_world').append("<img id='pac_"+row+"_"+column+"' src='/images/w3.png' />");
+                else if(map[row*world.height+column] == 4)
+                    $('#game_world').append("<img id='pac_"+row+"_"+column+"' src='/images/w4.png' />");
+                else if(map[row*world.height+column] == 5)
+                    $('#game_world').append("<img id='pac_"+row+"_"+column+"' src='/images/w5.png' />");
+                else if(map[row*world.height+column] == 6)
+                    $('#game_world').append("<img id='pac_"+row+"_"+column+"' src='/images/w6.png' />");
             }
             $('#game_world').append('<br />');
         }
     }
 
-    var pacman = new PacMan(3,3);
-    var pacman2 = new PacMan(3,12);
+    var pacman = new PacMan(3,12);
+    var pacman2 = new PacMan(11,12);
 
     $(document).keydown(function(e){
         // e.preventDefault();
@@ -242,8 +268,6 @@ function GameLoop() {
             // else {
             //     console.log(e);
             // }
-
-            //pacman.display(1);
         }
 
         if(this_player_id == 2){
@@ -268,11 +292,9 @@ function GameLoop() {
                 if(map[(pacman2.position.y+1)*world.width+pacman2.position.x] != 1)
                     pacman2.move_down(this_player_id);
             }
-
-            //pacman2.display(2);
         }
 
-        //see if there was a coin where the pacman1 currently is at
+        //check pacman1 position
         if(this_player_id == 1)
         {
             if(map[pacman.position.y*world.width+pacman.position.x] == 2)
@@ -288,14 +310,53 @@ function GameLoop() {
                     pacman_coord: pacman.position.y*world.width+pacman.position.x
                 })
             }
+            if(map[pacman.position.y*world.width+pacman.position.x] == 3)
+            {
+                pacman.score += 50;
+                //need real time
+                $('#player1').find('.score').text(pacman.score);
+                map[pacman.position.y*world.width+pacman.position.x] = 0;
+
+                io.emit("update_score", {
+                    player: 'player1',
+                    score: pacman.score,
+                    pacman_coord: pacman.position.y*world.width+pacman.position.x
+                })
+            }
+            // if(map[pacman.position.y*world.width+pacman.position.x] == 0)
+            // {
+            //     pacman.score += 20;
+            //     //need real time
+            //     $('#player1').find('.score').text(pacman.score);
+            //     map[pacman.position.y*world.width+pacman.position.x] = 4;
+            //
+            //     io.emit("update_score", {
+            //         player: 'player1',
+            //         score: pacman.score,
+            //         pacman_coord: pacman.position.y*world.width+pacman.position.x
+            //     })
+            // }
         }
 
-        //see if there was a coin where the pacman2 currently is at
+        //check pacman2 position
         if(this_player_id == 2)
         {
             if(map[pacman2.position.y*world.width+pacman2.position.x] == 2)
             {
                 pacman2.score += 10;
+                //need real time
+                $('#player2').find('.score').text(pacman2.score);
+                map[pacman2.position.y*world.width+pacman2.position.x] = 0;
+
+                io.emit("update_score", {
+                    player: 'player2',
+                    score: pacman2.score,
+                    pacman_coord: pacman2.position.y*world.width+pacman2.position.x
+                })
+            }
+            if(map[pacman2.position.y*world.width+pacman2.position.x] == 3)
+            {
+                pacman2.score += 50;
                 //need real time
                 $('#player2').find('.score').text(pacman2.score);
                 map[pacman2.position.y*world.width+pacman2.position.x] = 0;
@@ -312,6 +373,17 @@ function GameLoop() {
     io.on("execute_update_score", function(data){
 
         $('#'+data.player).find('.score').text(data.score);
+        var p1_score = $('#player1').find('.score').text();
+        var p2_score = $('#player2').find('.score').text();
+
+        //: Check for win conditions:
+        if ((p1_score - p2_score) >= 300) {
+            alert("Player 1 wins!");
+        }
+        else if ((p2_score - p1_score) >= 300) {
+            alert("Player 2 wins!");
+        }
+
         map[data.pacman_coord] = 0;
     })
 

@@ -1,0 +1,107 @@
+------------------
+Create a database called 'my_first_db'.
+
+    use my_first_db
+
+------------------
+Create students collection.
+    Each document you insert into this collection should have the following format:
+    ({name: STRING, home_state: STRING, lucky_number: NUMBER,
+        birthday: {month: NUMBER, day: NUMBER, year: NUMBER}})
+
+    db.createCollection("students")
+
+------------------
+Create 5 students with the appropriate info.
+
+    db.students.insert({name: "Urian", home_state: "California", lucky_number: 13, birthday: {month: 10, day: 29, year: 1988}})
+    db.students.insert({name: "Tester 1", home_state: "California", lucky_number: 1, birthday: {month: 11, day: 29, year: 1988}})
+    db.students.insert({name: "Tester 2", home_state: "Washington", lucky_number: 1, birthday: {month: 03, day: 01, year: 1988}})
+    db.students.insert({name: "Tester 3", home_state: "Texas", lucky_number: 5, birthday: {month: 05, day: 01, year: 1988}})
+    db.students.insert({name: "Tester 4", home_state: "Alaska", lucky_number: 24, birthday: {month: 07, day: 04, year: 1988}})
+
+------------------
+Get all students.
+
+    db.students.find().pretty()
+
+------------------
+Retrieve all students who are from California (San Jose Dojo) or Washington (Seattle Dojo).
+
+    db.students.find({$or: [{home_state: "California"}, {home_state: "Washington"}]}).pretty()
+
+------------------
+Get all students whose lucky number is:
+    greater than 3
+
+        db.students.find({lucky_number: {$gt: 3}}).pretty()
+
+    less than or equal to 10
+
+        db.students.find({lucky_number: {$lte: 10}}).pretty()
+
+    between 1 and 9 (inclusive)
+
+        db.students.find({$and: [{lucky_number: {$gte: 1}}, {lucky_number: {$lte: 9}}]}).pretty()
+
+------------------
+Add a field to each student collection called 'interests' that is an ARRAY.
+    It should contain the following entries: 'coding', 'brunch', 'MongoDB'. Do this in ONE operation.
+
+        db.students.update({}, {$set: {interests: ["coding", "brunch", "MongoDB"]}}, {multi: true})
+
+    Add some unique interests for each particular students into each of their interest arrays.
+
+        db.students.update({name: "Urian"}, {$addToSet: {interests: "basketball"}})
+        db.students.update({name: "Tester 1"}, {$addToSet: {interests: "Python"}})
+        db.students.update({name: "Tester 2"}, {$addToSet: {interests: "JavaScript"}})
+        db.students.update({name: "Tester 3"}, {$addToSet: {interests: "Ruby"}})
+        db.students.update({name: "Tester 4"}, {$addToSet: {interests: "Swift"}})
+
+    Add the interest 'taxes' into someone's interest array.
+
+        db.students.update({name: "Urian"}, {$addToSet: {interests: "taxes"}})
+
+    Remove the 'taxes' interest you just added.
+
+        db.students.update({name: "Urian"}, {$pull: {interests: "taxes"}})
+
+------------------
+Remove all students who are from California (or Washington).
+
+    db.students.remove({$or: [{home_state: "California"}, {home_state: "Washington"}]})
+
+------------------
+Remove a user by name.
+
+    db.students.remove({name: "Tester 4"}, true)
+
+------------------
+Remove a student whose lucky number is greater than 5 (JUST ONE)
+
+    db.students.remove({lucky_number: {$gt: 5}}, true)
+
+------------------
+Add a field to each student collection called 'number_of_belts' and set it to 0.
+
+    db.students.update({}, {$set: {number_of_belts: 0}}, {multi: true})
+
+------------------
+Increment this field by 1 for all students in Washington (Seattle Dojo).
+
+    db.students.update({home_state: "Washington"}, {$set: {number_of_belts: 1}}, {multi: true})
+
+------------------
+Rename the 'number_of_belts' field to 'belts_earned'
+
+    db.students.updateMany({}, {$rename: {"number_of_belts" : "belts_earned"}})
+
+------------------
+Remove the 'lucky_number' field.
+
+    db.students.updateMany({}, {$unset: {lucky_number : ""}})
+
+------------------
+Add a 'updated_on' field, and set the value as the current date.
+
+    db.students.updateMany({}, {$currentDate : {updated_on : true}} )

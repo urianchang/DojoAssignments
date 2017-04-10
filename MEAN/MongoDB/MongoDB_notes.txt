@@ -47,7 +47,7 @@ SQL: Row / Record == MongoDB: Document (JSON object)
 'use DB_NAME' - Change to another database / Create new one if DNE
 'use DB_NAME // db.dropDatabase()' - Delete database
 'show collections' - View all collections in a MongoDB
-'db.createCollections('NAME')' - Create a new collection in the current database
+'db.createCollection('NAME')' - Create a new collection in the current database
 'db.COLLECTION_NAME.drop()' - Destroy a collection
 'db.COLLECTION_NAME.insert({key: "value"})' - Add document to collection
 
@@ -134,6 +134,5 @@ Examples:
         db.students.update({_id: ObjectId("5463d871a6a96d5ed6252f4d")}, {$push: {interests: 'snowboarding'}})
     POP:
         db.COLLECTION.update({QUERY}, {$pop: {array_key: (1 or -1)}})
-
     PULL:
         db.COLLECTION.update({QUERY}, {$pull: {array_key: VALUE}})
