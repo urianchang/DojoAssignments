@@ -16,7 +16,7 @@ var Schema = mongoose.Schema;
 
 //: Define Post Schema
 var PostSchema = new mongoose.Schema({
-    author : { type: String, required: true },
+    author : { type: String, required: true, minlength: 4 },
     messageBody : { type: String, required: true },
     comments : [{ type : Schema.Types.ObjectId, ref : 'Comment' }],
     created : { type: Date, default: Date.now }
@@ -25,7 +25,7 @@ var PostSchema = new mongoose.Schema({
 //: Define Comment Schema
 var CommentSchema = new mongoose.Schema({
     _post : { type : Schema.Types.ObjectId, ref : 'Post' },
-    author : { type: String, required: true },
+    author : { type: String, required: true, minlength: 4 },
     commentBody : { type: String, required: true },
     created : { type: Date, default: Date.now }
 })
@@ -54,6 +54,10 @@ app.set('views', path.join(__dirname, './views'));
 //: Set up View Engine set to EJS
 app.set('view engine', 'ejs');
 
+//: Variable to save flash messages for posts and comments
+var post_errors;
+var comment_errors;
+
 //: ROUTING
     //: Render landing page
 app.get('/', function(req, res) {
@@ -63,8 +67,10 @@ app.get('/', function(req, res) {
         if (err) {
             console.log('unable to reach database');
         } else {
-            // console.log(posts);
-            res.render('index', {posts : posts});
+            // console.log(post_errors);
+            res.render('index', {posts : posts, errors: post_errors, errors1 : comment_errors});
+            post_errors = undefined;
+            comment_errors = undefined;
         }
     });
 })
@@ -76,7 +82,10 @@ app.post('/addmessage', function(req, res) {
     //: Try to save new post to DB
     post.save(function(err) {
         if(err) {
-            res.render('index', {title: 'you have errors!', errors: post.errors});
+            // res.render('index', {title: 'you have errors!', errors: post.errors});
+            post_errors = post.errors;
+            console.log('something went wrong');
+            res.redirect('/');
         } else {
             res.redirect('/');
         }
@@ -89,10 +98,16 @@ app.post('/newcomment/:id', function(req, res) {
         comment._post = post._id;
         post.comments.push(comment);
         comment.save(function(err) {
-            post.save(function(err){
-                if(err) { console.log('unable to reach server')}
-                else { res.redirect('/');}
-            })
+            if (err) {
+                comment_errors = comment.errors;
+                console.log('something is wrong with your comment');
+                res.redirect('/');
+            } else {
+                post.save(function(err){
+                    if(err) { console.log('unable to reach server')}
+                    else { res.redirect('/');}
+                })
+            }
         })
     })
 
