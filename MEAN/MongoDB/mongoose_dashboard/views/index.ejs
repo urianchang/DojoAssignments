@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Rubber Ducks - All</title>
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 50%;
+                margin-left: 5px;
+            }
+            table, th, td {
+                border: 2px solid orange;
+            }
+            th {
+                text-align: center;
+                padding: 10px;
+                background-color: gray;
+                color: white;
+            }
+            td{
+                vertical-align: middle;
+                padding: 10px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <a href='/rubberducks/new'>Add new rubber duck</a>
+        <h1>All the rubber ducks</h1>
+        <% if (ducks.length == 0) { %>
+            <h2>There are no rubber duckys in the family!</h2>
+        <% } else { %>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Description</th>
+                <th>Options</th>
+            </tr>
+        <% for (var i = 0; i < ducks.length; i++) { %>
+            <tr>
+                <td><%= ducks[i].name %></td>
+                <td><%= ducks[i].gender %></td>
+                <td><%= ducks[i].age %></td>
+                <td><%= ducks[i].description %></td>
+                <td>
+                    <a href="/rubberducks/<%= ducks[i].id %>">Show</a>
+                    <a href="/rubberducks/edit/<%= ducks[i].id %>">Edit</a>
+                    <form action='/rubberducks/destroy/<%= ducks[i].id %>' method='post'>
+                        <input type='submit' value='delete'>
+                    </form>
+                </td>
+            </tr>
+        <% } %>
+        </table>
+    <% } %>
+    </body>
+</html>
