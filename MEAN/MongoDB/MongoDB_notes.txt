@@ -298,3 +298,121 @@ Displaying validation errors (Angular will resolve this):
         <% } %>
 
 Mongoose Validator (node module) allows you to create powerful validation arrays to go with models.
+
+================
+| Associations |
+================
+Using Mongoose, we are able to create associations between Mongo objects.
+
+Example: One-to-many relationship (post model with a comment model)
+Setup:
+        POST MODEL:
+            //: Establish a schema variable
+            var Schema = mongoose.Schema;
+            var postSchema = new mongoose.Schema({
+             text: { type: String, required: true },
+             comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}]
+            }, { timestamps: true });
+            // The 'type' property of the object inside of the array is an attribute
+            // that tells Mongoose what to look for.
+
+* One-to-Many relationship because the comments property is an array, meaning the post
+model will have many comments. Secondly, the object we are going to have many of has two
+properties: type and ref. Type property tells Mongoose the unique identifier for our
+association, which for us is the ObjectID of each comment. The ref property tells Mongoose
+what model the unique identifier is associated with.
+
+:: MONGOOSE IS KEEPING AN ARRAY FULL OF ASSOCIATED COMMENT ID'S ::
+
+        COMMENT MODEL:
+        var commentSchema = new mongoose.Schema({
+        // since this is a reference to a different document, the _ is the naming convention!
+        _post: {type: Schema.Types.ObjectId, ref: 'Post'},
+        text: { type: String, required: true },
+        }, {timestamps: true });
+
+Retrieving the data:
+Important methods are: .populate() and .exec(). The .populate() method tells post model
+to gather the associated comments and the .exec() method actually fires the action.
+
+    Example of getting comments for one post:
+        // just an example route, your routes may look different
+        app.get('/posts/:id', function (req, res){
+        // the populate method is what grabs all of the comments using their IDs stored in the
+        // comment property array of the post document!
+        Post.findOne({_id: req.params.id})
+        .populate('comments')
+        .exec(function(err, post) {
+          res.render('post', {post: post});
+            });
+        });
+
+Adding a comment:
+To add a comment to a preexisting post, we must update both parties.
+
+    Example:
+        //  just a sample route.  Post request to update a post.
+        //  your routes will probably look different.
+        app.post('/posts/:id', function (req, res){
+           Post.findOne({_id: req.params.id}, function(err, post){
+               // data from form on the front end
+               var comment = new Comment(req.body);
+               //  set the reference like this:
+               comment._post = post._id;
+               // now save both to the DB
+               comment.save(function(err){
+                       post.comments.push(comment);
+                       post.save(function(err){
+                            if(err) {
+                                 console.log('Error');
+                            } else {
+                                 res.redirect('/');
+                            }
+                        });
+                });
+           });
+        });
+
+*** TRY TO AVOID USING MANY-TO-MANY RELATIONSHIPS WITH MONGODB ***
+
+Embedding documents makes querying a lot easier.
+
+Example:
+    ORIGINAL:
+        {
+           _id: "dojo",
+           name: "CodingDojo"
+        }
+        {
+           business_id: "dojo",
+           street: "10777 Main Street",
+           city: "Bellevue",
+           state: "WA",
+           zip: "98004"
+        }
+        {
+           business_id: "dojo",
+           street: "1980 Zanker Road",
+           city: "San Jose",
+           state: "CA",
+           zip: "95112"
+        }
+
+    EMBEDDED:
+    {
+       name: "CodingDojo",
+       locations: [
+                    {
+                        street: "10777 Main Street",
+                        city: "Bellevue",
+                        state: "WA",
+                        zip: "98004"
+                    },
+                    {
+                        street: "1980 Zanker Road",
+                        city: "San Jose",
+                        state: "CA",
+                        zip: "95112"
+                    }
+                  ]
+     }
