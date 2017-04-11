@@ -3,28 +3,41 @@ var express = require('express');
 var app = express();
 
 //: Require Mongoose module
-// var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
 //: Require body-parser module
 var bodyParser = require('body-parser');
 
 //: Connect to Mongoose DB
-// mongoose.connect('mongodb://localhost/mongoose_dash');
+mongoose.connect('mongodb://localhost/message_board');
 
-//: Create Mongoose Schema
-// var DuckSchema = new mongoose.Schema({
-//     name : { type: String, required: true },
-//     gender : { type: String, required: true },
-//     age : { type: String, required: true },
-//     description : { type: String, required: true },
-//     created : { type: Date, default: Date.now }
-// })
+//: Define Schema variable
+var Schema = mongoose.Schema;
+
+//: Define Post Schema
+var PostSchema = new mongoose.Schema({
+    author : { type: String, required: true },
+    messageBody : { type: String, required: true },
+    comments : [{ type : Schema.Types.ObjectId, ref : 'Comment' }],
+    created : { type: Date, default: Date.now }
+})
+
+//: Define Comment Schema
+var CommentSchema = new mongoose.Schema({
+    _post : { type : Schema.Types.ObjectId, ref : 'Post' },
+    author : { type: String, required: true },
+    commentBody : { type: String, required: true },
+    created : { type: Date, default: Date.now }
+})
+
 //: Set this schema in our models
-// mongoose.model('Duck', DuckSchema);
+mongoose.model('Post', PostSchema);
+mongoose.model('Comment', CommentSchema);
 //: Retrieve this schema from models
-// var Duck = mongoose.model('Duck');
+var Post = mongoose.model('Post');
+var Comment = mongoose.model('Comment');
 //: Use native promises
-// mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 
 //: Integrate body-parser with app
 app.use(bodyParser.urlencoded({extended: true}));
@@ -44,43 +57,45 @@ app.set('view engine', 'ejs');
 //: ROUTING
     //: Render landing page
 app.get('/', function(req, res) {
-    res.render('index');
-    // Duck.find({}, function(err, ducks) {
-    //     if (err) {
-    //         console.log('unable to reach database');
-    //     } else {
-    //         // console.log(ducks);
-    //         res.render('index', {ducks : ducks});
-    //     }
-    // })
+    Post.find({})
+    .populate('comments')
+    .exec(function(err, posts) {
+        if (err) {
+            console.log('unable to reach database');
+        } else {
+            // console.log(posts);
+            res.render('index', {posts : posts});
+        }
+    });
 })
     //: New Message form submission
 app.post('/addmessage', function(req, res) {
     console.log("POST DATA", req.body);
-    res.redirect('/');
-    //: Create a new Duck
-    // var duck = new Duck({name: req.body.duckname, gender: req.body.gender, age: req.body.age, description: req.body.details });
-    // //: Try to save new duck to DB
-    // duck.save(function(err) {
-    //     if(err) {
-    //         res.render('newDuck', {title: 'you have errors!', errors: duck.errors});
-    //     } else {
-    //         res.redirect('/');
-    //     }
-    // })
+    //: Create a new Post
+    var post = new Post({author: req.body.username, messageBody: req.body.message });
+    //: Try to save new post to DB
+    post.save(function(err) {
+        if(err) {
+            res.render('index', {title: 'you have errors!', errors: post.errors});
+        } else {
+            res.redirect('/');
+        }
+    })
 })
     //: New comment form submission
 app.post('/newcomment/:id', function(req, res) {
-    res.redirect('/');
-    // console.log("edited", req.params.id);
-    // var duck_id = req.params.id;
-    // Duck.update({_id: duck_id}, {$set: {name: req.body.duckname, gender: req.body.gender, age: req.body.age, description: req.body.details }}, function(err) {
-    //     if (err) {
-    //         console.log('unable to reach database');
-    //     } else {
-    //         res.redirect('/');
-    //     }
-    // })
+    Post.findOne({_id: req.params.id}, function(err, post){
+        var comment = new Comment({ author: req.body.username, commentBody: req.body.message });
+        comment._post = post._id;
+        post.comments.push(comment);
+        comment.save(function(err) {
+            post.save(function(err){
+                if(err) { console.log('unable to reach server')}
+                else { res.redirect('/');}
+            })
+        })
+    })
+
 })
 
 //: Set server to listen on port 8000

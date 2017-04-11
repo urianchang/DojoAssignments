@@ -7,10 +7,38 @@
     <body>
         <h1>The Dojo Message Board</h1>
         <hr>
+        <div class="error-messages">
+            <% if(typeof(errors) != 'undefined') { %>
+                <% for (var x in errors) { %>
+                    <h3><%= errors[x].message %></h3>
+                <% } %>
+            <% } %>
+        </div>
         <form action='/addmessage' method='post'>
             <p>Name: <input type="text" name="username"></p>
             <p>Message: <input type="text" name="message"></p>
             <input type="submit" value="Post message">
         </form>
+        <hr>
+        <% if (posts.length != 0) { %>
+        <% for (var i = 0; i < posts.length; i++) { %>
+            <div class="messages">
+                <p>Message: <%= posts[i].messageBody %></p>
+                <p>Posted by <%= posts[i].author %></p>
+                <div class="comments">
+                <% for (var idx = 0; idx < posts[i].comments.length; idx++) { %>
+                    <p>Comment: <%= posts[i].comments[idx].commentBody %></p>
+                    <p>Comment by <%= posts[i].comments[idx].author %></p>
+                <% } %>
+                </div>
+                <form action='/newcomment/<%= posts[i].id %>' method='post'>
+                    <p>Name: <input type="text" name="username"></p>
+                    <p>Message: <input type="text" name="message"></p>
+                    <input type="submit" value="Post comment">
+                </form>
+            </div>
+            <hr>
+        <% } %>
+        <% } %>
     </body>
 </html>
