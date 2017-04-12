@@ -5,3 +5,10 @@
 Modularization is the practice of splitting up your code into modules
 or components that have dedicated roles or responsibilities.
 The most common example of modularization is the MVC framework.
+
+Require & module.exports:
+    * Require is a function that takes in a parameter. The parameter is the location of the file
+        that we are requiring. Require first executes the code in the file and then passes
+        back the value inside of module.exports as a return value.
+    * Since we pass the dictionary variable into the module.exports, when we require it we can
+        store the returned value into another variable.
