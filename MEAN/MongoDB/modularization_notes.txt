@@ -1,0 +1,7 @@
+============
+| OVERVIEW |
+============
+
+Modularization is the practice of splitting up your code into modules
+or components that have dedicated roles or responsibilities.
+The most common example of modularization is the MVC framework.
