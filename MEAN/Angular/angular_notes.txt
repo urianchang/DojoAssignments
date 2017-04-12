@@ -1,0 +1,109 @@
+================
+| Introduction |
+================
+
+Angular is a tool to take data from your database and control all facets of the CRUD
+life cycle through the use of powerful HTML tools in the form of directives.
+
+Advantages:
+    * Modularize our code into MVC-like architecture.
+        - Angular Controllers control what is rendered onto a page (the view) by
+            interacting with a factory (the model) that stores data and communicates
+            with the server via AJAX calls.
+    * Multi-page web apps create HTML by assembling and joining it with data on server.
+      Server returns finished pages up to the browser where they are rendered.
+    * Angular apps add a client-side ability to hold onto data and the ability to perform
+      logic using controllers.
+
+Disadvantages:
+    * Clients must have JavaScript enabled on their browsers.
+    * If the client is using an old version of a browser, or a slow computer, their
+      experience may suffer when visiting an Angular front-end-built website (to the
+      extent of it not working at all).
+
+Each of the views is controlled by an Angular directive called a controller.
+
+Example:
+        app.controller('PlayersController', ['$scope', function($scope) {
+        //javascript that controls the Player view goes here:
+        }]);
+        app.controller('AssociationsController', ['$scope', function($scope) {
+        //javascript that controls the Associations view goes here:
+        }]);
+        app.controller('TeamsController', ['$scope', function($scope) {
+        //javascript that controls the Teams view goes here:
+        }]);
+
+Data are held in 'factories'. Factories are singleton objects. They are created
+once per page. In general, they hold data and methods for manipulating that data.
+They communicate with the server via $http requests and are injected as dependencies
+into other Angular directives.
+
+Example:
+        app.factory('PlayerFactory', ['$http', function($http) {
+          var players = {}; //object that holds methods and public properties for players.  Remember OOP - there are different ways of creating objects and adding methods and properties to that object.
+          return players;
+        }]);
+        app.factory('TeamFactory', ['$http', function($http) {
+          return {
+            //object that holds methods and public properties for teams.  Remember OOP - there are different ways of creating objects and adding methods and properties to that object.
+          };
+        }]);
+
+=========================
+| Angular Relationships |
+=========================
+
+Similarly, the module methods .controller and .factory add objects to the angular.module generated object.
+
+To gain access to properties of another object, it is possible to use the JavaScript method:
+bind, call and apply. But Angular simplified this! When we create a new property, for example:
+
+        app.controller('PlayersController', ['$scope', function($scope) {
+        //javascript that controls the Player view goes here:
+        }]);
+
+This code creates a new controller.  If we want access to other Angular objects, all we do is inject
+other objects from the app in!
+
+        app.controller('PlayersController', ['$scope', 'newinjectable', function($scope, "custom name of new injectable") {
+        //javascript that controls the Player view goes here:
+        }]);
+
+Now our PlayersController has access to $scope and newinjectable. To use the methods and properties of $scope,
+we’ll access them using $scope.method or property. To access newinjectable, which could be a factory,
+we’ll access it by whatever custom name we gave it and its properties by using a period(.).
+For example, if the newinjectable custom name is UserFactory, we can do something
+like UserFactory.addNewUser().
+
+Just like our controller example, many of our factories are injected with the $http service object.
+This object makes our AJAX calls to the DB similar to jQuery $.get, $.ajax, $.post methods.
+
+===================
+| Getting Started |
+===================
+
+Angular directive : marker on a DOM element
+    - ex: ng-app and ng-init
+
+'ng-app': like telling the browser, 'Hey, this element and all of its children are now under
+    the purview of Angular!' Usually add it to the HTML tag ('<html ng-app>').
+
+'ng-init': simple directive that lets us declare a variable. Helps us test if everything
+    is working appropriately.
+
+** We can elminate EJS templating **
+Angular will be doing all the HTML manipulation and rendering UI for us. This offloads
+the process onto each individual client, as opposed to putting all the work on the server.
+
+Now, with Angular, each client (i.e. the browser window) is responsible for rendering its
+own 100 documents. Moving logic to the client makes our apps more scalable.
+
+==============
+| Directives |
+==============
+
+Directives direct something to happen within your HTML.
+
+Compiling Angular:
+Angular templates get compiled to angular views by the angular compilers.
