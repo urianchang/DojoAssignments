@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>A Rubber Duck</title>
+    </head>
+    <body>
+        <div class="nav-bar">
+            <a href='/'>Home</a>
+        </div>
+        <h1>Showing information for: <%= duck.name %></h1>
+        <ul>
+            <li>Name: <%= duck.name %></li>
+            <li>Gender: <%= duck.gender %></li>
+            <li>Age: <%= duck.age %></li>
+            <li>Description: <%= duck.description %></li>
+        </ul>
+        <a href='/rubberducks/edit/<%= duck.id %>'>Edit this duck</a>
+    </body>
+</html>
