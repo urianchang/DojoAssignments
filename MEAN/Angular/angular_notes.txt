@@ -190,7 +190,7 @@ Data-binding is an automatic way of updating the view whenever the model changes
 updating the model whenever the view changes.
 
     * 'ng-show' : Shows or hides the given HTML element based on the expression provided to ngShow attribute
-    
+
             <!-- when $scope.myValue is truthy (element is visible) -->
             <div ng-show="myValue"></div>
 
@@ -201,3 +201,86 @@ updating the model whenever the view changes.
         the expression assigned to 'ng-if' evaluates to a false value then the element is removed
         from the DOM, otherwise a clone of the element is reinserted into the DOM.
         - Differs from ngShow and ngHide; ngIf completely removes/recreates, not changing CSS 'display'
+
+=============
+| Factories |
+=============
+
+In Angular, controllers are not responsible for obtaining data; they are only expected to pass data to
+the views by managing the $scope object.
+
+In Angular, there are types of objects whose job is to provide data to the controllers, these are
+intuitively named providers, which come in two flavors, factories and services. Factories and services
+both have the same job: provide data/information to controllers, but they do it slightly differently.
+Factories return objects, Services use the keywords “new” and “this” (remember that OOP chapter?)
+to return objects.
+
+Factory example:
+        myAppModule.factory('studentFactory', function(){
+             var factory = {};
+             factory.someKeyName = 'Some Value'
+             factory.someMethodName = function(){ /* Code Here */ }
+             return factory;
+        })
+
+Steps:
+The Factory: To create a factory, build a function that returns an object literal.
+Inject the Factory: Add the factory to the list of injections to the controller function,
+    and give it a name in the parameters!
+
+You can inject many services, and the same service can be injected into many controllers.
+
+** Factories are what’s called a 'singleton'.
+A singleton is an object that can be used in many places, but any time that singleton is called,
+the same object will be referenced in all cases. This means that you can use a factory in as
+many controllers as you want and they will all utilize the same object. **
+
+The callback is a great way to pass data from the factory to the controller
+(this will be very important when we connect the server-side).
+
+This separation of data and data logic (factory) from the controller is important. Modularization
+will keep our apps organized, and the singleton nature of the services will minimize the load times!
+
+Services often are injected into one another, but don’t inject controllers into one another
+($scope will drive you crazy if you do!)!
+
+============
+| Services |
+============
+Commonly used services:
+
+$http : This service allows us to make AJAX calls to different API’s (in our case: our server!).
+    It is extremely useful. Compare $.ajax in jQuery
+
+$location : This service allows us to change the window URL using JavaScript.
+
+$timeout and $interval : These services are akin to window.setTimeout and window.setInterval,
+    so are useful for generating timers.
+
+Add-ons Have Other Good Services:
+* ngRoute has two very useful methods:
+
+    $routeProvider - a provider that will make AJAX calls to load partial views.
+
+    $routeParams - allows us to get parameters from URLs.
+
+* ngCookie: $ngCookie - allows us to set cookies easily.
+
+========================
+| Controllers - Review |
+========================
+1) We create a variable that is equal to an angular module, e.g.
+
+        var app = angular.module('myAwesomeModule',[]);
+
+2) We then use a method of that module to create our controller, e.g.
+
+        app.controller('myCoolController',['$scope', function($scope){}]);
+
+Try to minimize the work the controller does: skinny controllers, fatter factories!
+
+If you want to use the properties you set you can instantiate a controller as follows:
+
+        <div ng-controller = 'myCoolController as mCC'>
+         {{mCC.property}}
+        </div>
