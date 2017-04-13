@@ -11,5 +11,16 @@
     </head>
     <body ng-init=" dojo = 'ninja' ">
         <h1>{{ dojo }}</h1>
+        <h3 ng-bind='49567 * 2243'></h3>
+        <!-- <div ng-init="students=['Mike', 'John', 'Trey', 'India']">
+            <ul>
+                <li ng-repeat="student in students">{{student}}</li>
+            </ul>
+        </div> -->
+        <div ng-init="students=[{name: 'Mike', age: 34}, {name: 'John', age: 24}, {name: 'Trey', age: 24}, {name: 'India', age: 35}]">
+            <ul>
+                <li ng-repeat="student in students">{{student.name}}, {{student.age}}</li>
+            </ul>
+        </div>
     </body>
 </html>

@@ -107,3 +107,44 @@ Directives direct something to happen within your HTML.
 
 Compiling Angular:
 Angular templates get compiled to angular views by the angular compilers.
+
+The 'ng-app' directive takes the form of a custom HTML attribute. Now everything from
+the start of the html tag to the end of the html tag is controlled by an ng-app directive.
+
+Double brackets are a way to execute Angular code that will be rendered into HTML.
+The same effect can be achieved using a 'ng-bind' directive.
+
+There is no advantage to one or the other in terms of speed, but the double curly
+brackets might show up on a slow-loading browser before Angular gets completely
+rendered, whereas ng-bind won’t.
+
+Most directives have a scope: usually from the tag that they are initially bound to,
+through the end of that tag. The $scope object can hold data related to the directives scope.
+
+We can add data to the $scope object using the ng-init directive.
+The ng-init directive allows us to initialize data for angular to use.
+
+'ng-repeat' takes any array available to angular and acts as a loop to iterate through it.
+
+===========
+| Modules |
+===========
+
+How to use the default angular module: ng-app=''
+
+Setting 'ng-app' directive to an empty string indicates we are going to use
+all of the default functionalities and no more.
+
+Using the angular module method (angular.module()), we are able to instantiate our own module.
+The first parameter we pass to the angular.module() method is its name. This is the value you
+will set the ng-app attribute equal to in order to use it! The second parameter we pass is an
+array containing any additional configuration objects. For the projects we do here, we are
+going to use one module per app.
+
+Dependency injection is a top-down inheritance pattern. By passing all necessary resources to
+the object of highest importance upon its creation, there is no confusion when we need to know
+what the object is capable of or what abilities its children may possess.
+
+=============================
+| Controllers, $scope, this |
+=============================
