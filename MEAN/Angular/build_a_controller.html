@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app='app'>
+    <head>
+        <meta charset="utf-8">
+        <title>Favorite Foods</title>
+        <script src='bower_components/angular/angular.js' charset="utf-8"></script>
+        <script>
+            var app = angular.module('app', []);
+            app.controller('divController', function($scope) {
+                $scope.foods = ['Pizza', 'BBQ', 'Fries', 'Salad', 'Steak'];
+                $scope.addFood = function (){
+                    if ($scope.newFood) {
+                        $scope.foods.push($scope.newFood);
+                        $scope.newFood = '';
+                    }
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div ng-controller='divController'>
+            <div class="left-col">
+                <form ng-submit="addFood()">
+                    <p>Favorite Food: <input type='text' ng-model = 'newFood'> <input type="submit" value="Add Food"></p>
+                </form>
+                <div id='model' ng-if = "newFood">
+                    <p>Currently typing: {{ newFood }}</p>
+                </div>
+            </div>
+            <div class="right-col">
+                <input type="text" ng-model = 'food_filter' placeholder="filter...">
+                <ul>
+                    <li ng-repeat="food in foods | filter: food_filter ">
+                        {{ food }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
+
+<style>
+*{
+    padding: 0px;
+    margin: 0px;
+    white-space: nowrap;
+}
+.left-col {
+    white-space: normal;
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    margin-top: 10px;
+    padding-left: 5px;
+}
+.right-col {
+    vertical-align: top;
+    white-space: normal;
+    display: inline-block;
+    width: 50%;
+    margin-top: 10px;
+}
+</style>
