@@ -1,0 +1,21 @@
+{
+  "name": "Angular_routes_example",
+  "homepage": "https://github.com/urianchang/DojoAssignments",
+  "authors": [
+    "Urian Chang <urianchang@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-route": "^1.6.4"
+  }
+}

@@ -1,0 +1,24 @@
+================
+| Introduction |
+================
+Use Angular routes to load partial views by using the prebuilt
+module 'ngRoute':
+
+        angular.module("ourmodulename", ['ngRoute'])
+
+What the ngRoute module contains is a number of providers,
+including $routeProvider which allows us to load our partial views.
+
+==========
+| Routes |
+==========
+Single page applications don't necessarily show just one fixed view.
+Using AJAX, we are able to load different partial views within
+our HTML document. One way that AngularJS does this is by using
+the 'ng-view' directive and the '$routeProvider' service.
+
+*** To use ng-routes with angular, you must be running a server! ***
+
+Note that all the links we will use with angular routing start with #!/.
+This prevents the browser from redirecting to another page and loading
+up all the resources (CSS, img, JS) associated with the new URL.
