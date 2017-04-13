@@ -1,0 +1,32 @@
+'ng-app': like telling the browser, 'Hey, this element and all of its children are now under
+    the purview of Angular!' Usually add it to the HTML tag ('<html ng-app>').
+
+'ng-init': simple directive that lets us declare a variable. Helps us test if everything
+    is working appropriately.
+
+'ng-repeat' takes any array available to angular and acts as a loop to iterate through it.
+
+'ng-click' : specify custom behavior when an element is clicked
+
+'ng-model' : allows data on VIEW side to be available to $scope variable
+    - Binds input, select, textarea (or custom form control) to a property on the scope
+        using NGModelController, which is created and exposed by this directive
+    - Responsible for:
+        + Binding view into model, which other directives like 'input', 'textarea', or 'select' require
+        + Providing validation behavior
+        + Keeping the state of the control
+        + Setting related css classes on the element including animations
+        + Registering control with its parent form
+
+'ng-show' : Shows or hides the given HTML element based on the expression provided to ngShow attribute
+
+        <!-- when $scope.myValue is truthy (element is visible) -->
+        <div ng-show="myValue"></div>
+
+        <!-- when $scope.myValue is falsy (element is hidden) -->
+        <div ng-show="myValue" class="ng-hide"></div>
+
+'ng-if' : Removes or recreates a portion of the DOM tree based on an {expression}. If
+    the expression assigned to 'ng-if' evaluates to a false value then the element is removed
+    from the DOM, otherwise a clone of the element is reinserted into the DOM.
+    - Differs from ngShow and ngHide; ngIf completely removes/recreates, not changing CSS 'display'
