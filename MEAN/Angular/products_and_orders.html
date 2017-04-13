@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = 'myApp'>
+<head>
+  <meta charset="UTF-8">
+  <title>Products and Orders</title>
+  <script src = 'bower_components/angular/angular.js' charset="utf-8">
+  </script>
+  <script type='text/javascript'>
+  //: Create module
+  var myAppModule = angular.module('myApp', []);
+  //: Create factory attached to module
+  myAppModule.factory('productFactory', function() {
+      var products = [
+          {name: 'Keyboard', price: 149.99, quantity: 50 },
+          {name: 'Mouse', price: 59.99, quantity: 50 },
+          {name: 'Basketball', price: 21.99, quantity: 50 }
+      ];
+      var factory = {};
+      //: Index method to return products
+      factory.getAll = function(callback) {
+          callback(products);
+      }
+      //: Add method to add product
+      factory.add = function(product) {
+          product.quantity = 50;
+          products.push(product);
+      }
+      //: Delete method to remove product
+      factory.remove = function(product) {
+          products.splice(products.indexOf(product), 1);
+      }
+      //: Buy method to decrease product quantity by one
+      factory.buy = function(product) {
+          products[products.indexOf(product)].quantity--;
+      }
+      //: Return the object
+      return factory;
+  });
+
+  //: Product Controller
+  myAppModule.controller('productController', ['$scope', 'productFactory', function($scope, productFactory){
+      $scope.sortType = 'price';
+      $scope.sortReverse = true;
+      $scope.products = [];
+      productFactory.getAll(function (data) {
+          $scope.products = data;
+      });
+      $scope.addProduct = function() {
+          if ($scope.newProduct) {
+              productFactory.add($scope.newProduct);
+              $scope.newProduct = {};
+          }
+      };
+      $scope.deleteProduct = function(product) {
+          productFactory.remove(product);
+      };
+  }]);
+
+  //: Order controller
+  myAppModule.controller('orderController', ['$scope', 'productFactory', function($scope, productFactory) {
+      $scope.sortType = 'name';
+      $scope.sortReverse = false;
+      $scope.products = [];
+      productFactory.getAll(function (data) {
+          $scope.products = data;
+      });
+      $scope.buyProduct = function(product) {
+          productFactory.buy(product);
+      };
+  }]);
+  </script>
+</head>
+<body>
+    <div ng-controller = 'productController'>
+        <h1>Products Controller</h1>
+        <form ng-submit="addProduct()">
+            <p>Product name: <input type='text' ng-model='newProduct.name'></p>
+            <p>Product price: <input type='number' step='0.01' ng-model='newProduct.price'> <input type="submit" value="Add Product"></p>
+        </form>
+        <table>
+            <tr>
+                <th ng-click="sortType='name'; sortReverse=!sortReverse">Product Name</th>
+                <th ng-click="sortType='price'; sortReverse=!sortReverse">Product Price</th>
+                <th>Actions</th>
+            </tr>
+            <tr ng-repeat="product in products | orderBy:sortType:sortReverse track by $index">
+                <td>{{ product.name }}</td>
+                <td>{{ product.price | currency }}</td>
+                <td><button class='button' ng-click='deleteProduct(product)'>Delete Product</button></td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div ng-controller = 'orderController'>
+        <h1>Orders Controller</h1>
+        <table>
+            <tr>
+                <th ng-click="sortType='name'; sortReverse=!sortReverse">Product Name</th>
+                <th ng-click="sortType='price'; sortReverse=!sortReverse">Product Price</th>
+                <th ng-click="sortType='quantity'; sortReverse=!sortReverse">Quantity</th>
+                <th>Actions</th>
+            </tr>
+            <tr ng-repeat="product in products | orderBy:sortType:sortReverse track by $index">
+                <td>{{ product.name }}</td>
+                <td>{{ product.price | currency }}</td>
+                <td>{{ product.quantity }}</td>
+                <td><button class='button' ng-click='buyProduct(product)'>BUY</button></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+<style>
+* {
+    padding: 0px;
+    margin: 0px;
+}
+hr {
+    margin: 10px 0px;
+}
+.button{
+    padding: 0px 5px;
+}
+table {
+    margin-top: 10px;
+    border-collapse: collapse;
+    width: 50%;
+    margin-left: 5px;
+}
+table, th, td {
+    border: 2px solid orange;
+}
+th {
+    text-align: center;
+    padding: 10px;
+    background-color: gray;
+    color: white;
+}
+td{
+    vertical-align: middle;
+    padding: 10px;
+    text-align: center;
+}
+</style>
