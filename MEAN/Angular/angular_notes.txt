@@ -148,3 +148,56 @@ what the object is capable of or what abilities its children may possess.
 =============================
 | Controllers, $scope, this |
 =============================
+
+Angular Controllers:
+If module is the head-honcho of Angular, then the controllers are the second-in command.
+Angular controllers are responsible for logic pertaining to the flow of data in a particular
+portion of our view page. In general, each 1 partial or section of HTML has a controller
+attached to it, so we can bind values from JS to that part of HTML.
+
+** The $scope object is the glue between the controller and the view **
+
+Controller Syntax - (Using $scope):
+Using 'ng-controller' directive gives all of the HTML encapsulated by the parent div access
+to the specified controller and its associated scope.
+
+Scope methods and data binding (again):
+Angular boasts two-way data binding: changes in the $scope data will be updated on the view AND
+changes on the view will be updated in the $scope.
+
+    * 'ng-click' : specify custom behavior when an element is clicked
+    * 'ng-model' : allows data on VIEW side to be available to $scope variable
+        - Binds input, select, textarea (or custom form control) to a property on the scope
+            using NGModelController, which is created and exposed by this directive
+        - Responsible for:
+            + Binding view into model, which other directives like 'input', 'textarea', or 'select' require
+            + Providing validation behavior
+            + Keeping the state of the control
+            + Setting related css classes on the element including animations
+            + Registering control with its parent form
+
+** No scope, no data binding! **
+
+Controller Syntax - (Using this):
+'this' and '$scope' act the same in every way. Use 'this' method to avoid mixing controllers
+when we want to test controllers.
+
+================
+| Data Binding |
+================
+
+Data-binding is an automatic way of updating the view whenever the model changes, as well as
+updating the model whenever the view changes.
+
+    * 'ng-show' : Shows or hides the given HTML element based on the expression provided to ngShow attribute
+    
+            <!-- when $scope.myValue is truthy (element is visible) -->
+            <div ng-show="myValue"></div>
+
+            <!-- when $scope.myValue is falsy (element is hidden) -->
+            <div ng-show="myValue" class="ng-hide"></div>
+
+    * 'ng-if' : Removes or recreates a portion of the DOM tree based on an {expression}. If
+        the expression assigned to 'ng-if' evaluates to a false value then the element is removed
+        from the DOM, otherwise a clone of the element is reinserted into the DOM.
+        - Differs from ngShow and ngHide; ngIf completely removes/recreates, not changing CSS 'display'
