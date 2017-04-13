@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = 'app'>
+<head>
+  <meta charset="UTF-8">
+  <title>Users</title>
+  <script src = 'bower_components/angular/angular.js' charset="utf-8">
+  </script>
+  <script type='text/javascript'>
+  var app = angular.module('app', []);
+  app.controller('divController', function($scope){
+      $scope.sortType = ['created_at', 'first_name'];
+      $scope.sortReverse = false;
+      var date = new Date();
+      $scope.people = [
+          {first_name: 'Yukihiro', last_name: 'Matsumoto', fav_lang: 'Ruby', created_at: date},
+          {first_name: 'Ryan', last_name: 'Dahl', fav_lang: 'JavaScript', created_at: date},
+          {first_name: 'Brendan', last_name: 'Eich', fav_lang: 'JavaScript', created_at: date},
+          {first_name: 'Urian', last_name: 'Chang', fav_lang: 'Python', created_at: date}
+      ];
+      $scope.addPerson = function() {
+          if ($scope.newPerson) {
+              date = new Date();
+              $scope.newPerson.created_at = date;
+              $scope.people.push($scope.newPerson);
+              $scope.newPerson = {};
+          }
+      };
+      $scope.deletePerson = function(person) {
+          $scope.people.splice($scope.people.indexOf(person), 1);
+      };
+    });
+  </script>
+</head>
+<body>
+    <div ng-controller = 'divController'>
+        <h1>Users Controller</h1>
+        <form ng-submit="addPerson()">
+            <p>First name: <input type='text' ng-model='newPerson.first_name'></p>
+            <p>Last name: <input type='text' ng-model='newPerson.last_name'></p>
+            <p>Fav Language: <input type='text' ng-model='newPerson.fav_lang'> <input type="submit" value="Create User"></p>
+        </form>
+        <input id='searchbar' type="text" ng-model = 'user_filter' placeholder="search for a user...">
+        <table>
+            <tr>
+                <th ng-click="sortType='first_name'; sortReverse=!sortReverse">First Name</th>
+                <th ng-click="sortType='last_name'; sortReverse=!sortReverse">Last Name</th>
+                <th ng-click="sortType='fav_lang'; sortReverse=!sortReverse">Fav Language</th>
+                <th ng-click="sortType='created_at'; sortReverse=!sortReverse">Created At</th>
+                <th>Actions</th>
+            </tr>
+            <tr ng-repeat="person in people | orderBy:sortType:sortReverse | filter: user_filter track by $index">
+                <td>{{ person.first_name }}</td>
+                <td>{{ person.last_name }}</td>
+                <td>{{ person.fav_lang }}</td>
+                <td>{{ person.created_at | date: 'medium' }}</td>
+                <td><button class='button' ng-click='deletePerson(person)'>Delete User</button></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+<style>
+* {
+    padding: 0px;
+    margin: 0px;
+}
+#searchbar {
+    margin: 10px;
+}
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin-left: 5px;
+}
+table, th, td {
+    border: 2px solid orange;
+}
+th {
+    text-align: center;
+    padding: 10px;
+    background-color: gray;
+    color: white;
+}
+td{
+    vertical-align: middle;
+    padding: 10px;
+    text-align: center;
+}
+</style>
