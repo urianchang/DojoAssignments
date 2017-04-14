@@ -1,0 +1,21 @@
+<h1>Add a new user</h1>
+<form ng-submit="addPerson()">
+    <p>First name: <input type='text' ng-model='newPerson.first_name'></p>
+    <p>Last name: <input type='text' ng-model='newPerson.last_name'></p>
+    <p>Fav Language: <input type='text' ng-model='newPerson.fav_lang'> <input type="submit" value="Create User"></p>
+</form>
+<input id='searchbar' type="text" ng-model = 'user_filter' placeholder="search for a user...">
+<table>
+    <tr>
+        <th ng-click="sortType='first_name'; sortReverse=!sortReverse">First Name</th>
+        <th ng-click="sortType='last_name'; sortReverse=!sortReverse">Last Name</th>
+        <th ng-click="sortType='fav_lang'; sortReverse=!sortReverse">Fav Language</th>
+        <th>Actions</th>
+    </tr>
+    <tr ng-repeat="person in people | orderBy:sortType:sortReverse | filter: user_filter track by $index">
+        <td>{{ person.first_name }}</td>
+        <td>{{ person.last_name }}</td>
+        <td>{{ person.fav_lang }}</td>
+        <td><button class='button' ng-click='delPerson(person)'>Delete User</button></td>
+    </tr>
+</table>

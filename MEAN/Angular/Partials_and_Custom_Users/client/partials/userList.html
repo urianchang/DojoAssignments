@@ -1,0 +1,13 @@
+<h1>All users</h1>
+<table>
+    <tr>
+        <th ng-click="sortType='first_name'; sortReverse=!sortReverse">First Name</th>
+        <th ng-click="sortType='last_name'; sortReverse=!sortReverse">Last Name</th>
+        <th ng-click="sortType='fav_lang'; sortReverse=!sortReverse">Fav Language</th>
+    </tr>
+    <tr ng-repeat="person in people | orderBy:sortType:sortReverse | filter: user_filter track by $index">
+        <td>{{ person.first_name }}</td>
+        <td>{{ person.last_name }}</td>
+        <td>{{ person.fav_lang }}</td>
+    </tr>
+</table>
