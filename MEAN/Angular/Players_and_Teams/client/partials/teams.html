@@ -1,0 +1,13 @@
+<form ng-submit="add()">
+    <p>Name: <input type='text' ng-model='newTeam.team_name'> <input type="submit" value="Add New Team" class="button"></p>
+</form>
+<table>
+    <tr>
+        <th ng-click="sortType='team_name'; sortReverse=!sortReverse">Team Name</th>
+        <th>Actions</th>
+    </tr>
+    <tr ng-repeat="team in teams | orderBy:sortType:sortReverse track by $index">
+        <td><a href="#!/{{team.team_name}}">{{ team.team_name }}</a></td>
+        <td><button class='button' ng-click='remove(team)'>Remove Team</button></td>
+    </tr>
+</table>

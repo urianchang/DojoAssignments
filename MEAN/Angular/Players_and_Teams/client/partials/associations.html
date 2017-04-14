@@ -1,0 +1,23 @@
+<form ng-submit="addAssociation()">
+    <p>
+        <select ng-model='newAssociation.player_name'>
+            <option ng-repeat="player in players | orderBy: 'player_name'" value="{{player.player_name}}">{{ player.player_name }}</option>
+        </select>
+        <select ng-model='newAssociation.team_name'>
+            <option ng-repeat="team in teams | orderBy: 'team_name'" value="{{team.team_name}}">{{ team.team_name }}</option>
+        </select>
+        <input type="submit" value="Add Player to Team" class="button">
+    </p>
+</form>
+<table>
+    <tr>
+        <th ng-click="sortType='player_name'; sortReverse=!sortReverse">Name</th>
+        <th ng-click="sortType='team'; sortReverse=!sortReverse">Team</th>
+        <th>Actions</th>
+    </tr>
+    <tr ng-repeat="player in players | orderBy:sortType:sortReverse track by $index">
+        <td>{{ player.player_name }}</td>
+        <td><a href="#!/{{player.team}}">{{ player.team }}</a></td>
+        <td><button class='button' ng-click='delAssociation(player)'>Clear Assignment</button></td>
+    </tr>
+</table>
