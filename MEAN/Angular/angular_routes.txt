@@ -22,3 +22,21 @@ the 'ng-view' directive and the '$routeProvider' service.
 Note that all the links we will use with angular routing start with #!/.
 This prevents the browser from redirecting to another page and loading
 up all the resources (CSS, img, JS) associated with the new URL.
+
+=============
+| $location |
+=============
+In order to navigate from one partial to another, we have to do 2 things:
+    1. Inject $location into our controller like so:
+
+        angular.controller(UsersController, function(UsersFactory, $scope, $location){
+         console.log($location)
+        })
+
+    2. Use $location
+
+        angular.controller(UsersController, function(UsersFactory, $scope, $location){
+          $scope.createUser = function(){
+          $location.url('/list');
+         }
+        })

@@ -43,7 +43,8 @@ myApp.config(function ($routeProvider) {
 });
 
 //  build the controllers
-myApp.controller('CustomizeUsersController', ['$scope', 'userFactory', function ($scope, userFactory) {
+myApp.controller('CustomizeUsersController', ['$scope', 'userFactory', '$location', function ($scope, userFactory, $location) {
+    // console.log($location);
     $scope.sortType = 'first_name';
     $scope.sortReverse = false;
     $scope.people = [];
@@ -54,6 +55,7 @@ myApp.controller('CustomizeUsersController', ['$scope', 'userFactory', function 
         if($scope.newPerson) {
             userFactory.add($scope.newPerson);
             $scope.newPerson = {};
+            $location.url('/users')
         }
     };
     $scope.delPerson = function(person) {
