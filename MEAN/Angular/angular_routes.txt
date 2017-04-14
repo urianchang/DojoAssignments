@@ -68,3 +68,42 @@ Example:
         myApp.controller('teamController', function(teamsFactory, $routeParams){
             console.log($routeParams)
         })
+
+==============
+| ngMessages |
+==============
+ngMessages works by supplying each input tag with a few validation options.
+
+Example:
+    * Set up: /index.html
+
+        <script src="https://ajax.googleapis.com/aj..."></script>
+        <script src="https://ajax.googleapis.com/aj..."></script>
+        <script src="https://ajax.googleapis.com/aj..."></script>
+        <script type = 'text/javascript'>
+            var myApp = angular.module('myApp', ['ngRoute', 'ngMessages']);
+            # other code here-rainbow">!
+        </script>
+
+    * Use: /partials/players.html
+
+        <div ng-controller='playersController as PC'>
+         <h3>New Player</h3>
+         <form name='playerForm'>
+             Name: <input type='text' name='name' ng-model='PC.newPlayer.name' minlength='4' required>
+             <button ng-click='PC.createPlayer()'>Add Player</button>
+         </form>
+        </div>
+
+    * Displaying: /partials/players.html
+    
+        <div ng-controller='playersController as PC'>
+         <form name='playerForm'>
+             Name: <input name='name' type='text'  ng-model='PC.newPlayer.name' minlength='4' required >
+             <button ng-click='PC.createPlayer()'>Add Player</button>
+         </form>
+         <div ng-messages="playerForm.name.$error">
+             <p ng-message="minlength">The player name is too short.</p>
+             <p ng-message="required">The player name is required.</p>
+         </div>
+        </div>

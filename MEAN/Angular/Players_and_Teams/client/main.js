@@ -1,5 +1,5 @@
 //  inject the ngRoute dependency in the module.
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMessages']);
 
 //: Create player factory
 myApp.factory('playerFactory', function() {
