@@ -1,0 +1,134 @@
+Full MEAN notes:
+
+========================
+| Callbacks / Promises |
+========================
+
+In JavaScript callbacks and/or promises are used to control the timing of code.
+Normally JavaScript will run block by block, a callback/promise moves a piece
+of code outside of that normal run order.
+
+Example Callback:
+
+        /* Failed Example */
+        function buyDonut(){
+          orderDonut();
+          console.log('pay');
+          console.log('walk out door');
+        }
+        /* function that gets a donut */
+        function orderDonut(){
+          var x = setTimeout(function () {
+            console.log('donut on counter');
+          }, 10);
+        }
+        buyDonut();
+        /* Callback Example */
+        function buyDonut2(){
+          orderDonut2(function whatToDoAfterDonutOnCounter(){
+            console.log('pay');
+            console.log('walk out door');
+          });
+        }
+        /* function that gets a donut */
+        function orderDonut2(){
+          var x = setTimeout(function () {
+            console.log('donut is on counter');
+            callback();
+          }, 10);
+        }
+        buyDonut2();
+
+Example Promise:
+
+        var beginDonutTransaction = new Promise(
+          function(resolve,reject){
+            var x = setTimeout(function () {
+              console.log('donut is on counter');
+              resolve();
+            }, 10);
+          }
+        );
+        beginDonutTransaction
+        .then(function(){
+          //this is the resolve
+          console.log('pay');
+          console.log('walk out door');
+        })
+        .catch(function(){
+          //this is the reject
+          console.log("give me my donut!");
+        });
+
+===========================
+| MVC in NodeJS / Express |
+===========================
+
+Key Pieces of the Express MVC:
+    1. Routes File. In Express the routes file functions in a dual capacity:
+        * They route to different Mongoose Controller methods.
+        * They can also function directly as a Controller.
+        * Our preference is to route them through a file in the ‘Controllers’ folder
+            and call methods from the object that is exported by that file, rather
+            than the latter, thus keeping the routes file, truly, just a routes file.
+
+    2. The Controllers Files. These function as a typical Controller file.
+        They dictate which data get returned using the response object (e.g. res.json()),
+        often after communicating with a models file. Controllers rely heavily on
+        promises/callbacks to determine when data can be returned to the views.
+
+    3. The Models Files. These are the blueprints for communication with the database.
+        In addition, the models files can be used to do logic (e.g. validation) prior to
+        saving information, and filtering when returning information. We have intentionally
+        kept the models we have demonstrated lean in our examples but know that the MVC's
+        ideal of Thin Controllers and Fat Models remains intact in the Express.
+
+    4. The Mongoose Connection File. As written, this file allows us to connect to the
+        database and loads all of the files with a .js extension that is found in the models folder.
+
+**Hint: Put console.log of the file type on the top of each of your files to make sure that they load in the right order!
+
+Key Pieces of the Angular Front End Framework
+    1. The Angular Module File(s) (app.js?). The Angular module file creates a module that we can use in our views.
+        * This generally includes providers, such as ‘ngRoute’, ‘ngCookies’, etc.
+        * In addition, this file often includes the .config specifications, including the routeProvider
+            which will generate routes that load partial views into the ng-view directive.
+
+    2. Angular Factories. The factories files are singleton services that generate an object that can be injected
+        into other directives. We primarily use the factories to inject into the Angular controllers. In this
+        use case: the Factory can be used to store local data as well as communicate with the server via
+        $http requests that are caught by the Routes file and generally return JSON information to the factory
+        which is handled by a promise.
+
+    3. Angular Controllers. The controllers integrate with the Factories and the HTML view (generally a partial view)
+        that they are controlling, enabling data to be handled by Angular. Data are not passed from controller to
+        controller directly, in most cases, but rather through an Angular Factory that is injected into each of the
+        communicating controllers.
+
+Each of the following pieces can be built separately:
+    1) A simple server.
+        This just needs to require import the right files.
+            – Integration with MVC: routes.js
+
+    2) The routes, controllers, models and mongoose connection.
+        These files work as a team to listen for data to the server depending on requests caught by routes.js.
+            – Integration through routes (HTTP requests) from factories (for JSON) (and routeProvider for partial views)
+
+    3) An angular front end.
+        Factories and routeProvider can be set to be the only piece of angular that communicates with the server.
+        The remaining Angular code can be written independently of a server.
+
+========================
+| RESTful Architecture |
+========================
+
+Consistent naming keeps big projects organized.
+
+Some common functionalities:
+    * Returns all friends from db, and often loads a view showing these data
+    * Returns one friend that has an __id that matches req(uest).body
+    * Creates a new friend in the db, from info in req(uest).body
+    * Updates the friend that has an __id from req(uest).params.id with data passed in from req(uest).body
+    * Deletes a friend that has an __id from req(uest).params.id
+    * Creates a form that can be filled out to make a new friend, and passed to the create method
+    * Creates a form that can be filled out to update a specific friend with an id (might pre-populate form with a show, using the :id)
