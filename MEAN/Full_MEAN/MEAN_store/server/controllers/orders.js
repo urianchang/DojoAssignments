@@ -1,20 +1,20 @@
 //: Require mongoose
 var mongoose = require('mongoose');
 //: Retrieve schema from models
-var Friend = mongoose.model('Friend');
+var Order = mongoose.model('Order');
 
 module.exports = {
     index: function(req, res) {
-        Friend.find({}, function(err, friends) {
+        Order.find({}, function(err, orders) {
             if (err) {
                 res.json(err);
             } else {
-                res.json(friends);
+                res.json(orders);
             }
         });
     },
     create: function(req, res) {
-        var friend = new Friend({
+        var order = new Order({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             birthday: req.body.birthday
@@ -23,7 +23,7 @@ module.exports = {
             if (err) {
                 res.json(err);
             } else {
-                res.json({success: 'User successfully created!'});
+                res.json({success: true});
             }
         });
     },
@@ -39,7 +39,7 @@ module.exports = {
                 if (err) {
                     res.json(err);
                 } else {
-                    res.json({success: 'User successfully updated!'});
+                    res.json({success: true});
                 }
             }
         );
@@ -49,7 +49,7 @@ module.exports = {
             if (err) {
                 res.json(err);
             } else {
-                res.json({success: 'User successfully deleted!'});
+                res.json({success: true});
             }
         });
     },

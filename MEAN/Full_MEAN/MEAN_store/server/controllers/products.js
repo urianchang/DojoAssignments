@@ -23,7 +23,7 @@ module.exports = {
             if (err) {
                 res.json(err);
             } else {
-                res.json({success: 'User successfully created!'});
+                res.json({success: true});
             }
         });
     },
@@ -39,7 +39,7 @@ module.exports = {
                 if (err) {
                     res.json(err);
                 } else {
-                    res.json({success: 'User successfully updated!'});
+                    res.json({success: true});
                 }
             }
         );
@@ -49,7 +49,7 @@ module.exports = {
             if (err) {
                 res.json(err);
             } else {
-                res.json({success: 'User successfully deleted!'});
+                res.json({success: true});
             }
         });
     },

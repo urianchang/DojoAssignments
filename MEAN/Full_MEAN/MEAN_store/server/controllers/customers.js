@@ -1,64 +1,59 @@
 //: Require mongoose
 var mongoose = require('mongoose');
 //: Retrieve schema from models
-var Friend = mongoose.model('Friend');
+var Customer = mongoose.model('Customer');
 
 module.exports = {
     index: function(req, res) {
-        Friend.find({}, function(err, friends) {
+        Customer.find({}, function(err, customers) {
             if (err) {
                 res.json(err);
             } else {
-                res.json(friends);
+                res.json(customers);
             }
         });
     },
     create: function(req, res) {
-        var friend = new Friend({
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            birthday: req.body.birthday
+        var customer = new Customer({
+            customer_name: req.body.customer_name
         });
-        friend.save(function(err) {
+        customer.save(function(err) {
             if (err) {
                 res.json(err);
             } else {
-                res.json({success: 'User successfully created!'});
+                res.json({success: true});
             }
         });
     },
     update: function(req,res){
         // console.log(req.body);
-        Friend.update({_id: req.body._id},
-            {$set: {first_name: req.body.first_name,
-                    last_name: req.body.last_name,
-                    birthday: req.body.birthday}
-            },
+        Customer.update({_id: req.body._id},
+            {$set: {customer_name: req.body.customer_name}},
             { runValidators: true },
             function(err) {
                 if (err) {
                     res.json(err);
                 } else {
-                    res.json({success: 'User successfully updated!'});
+                    res.json({success: true});
                 }
             }
         );
     },
     delete: function(req,res){
-        Friend.remove({_id: req.params.id}, function(err) {
+        Customer.remove({_id: req.params.id}, function(err) {
             if (err) {
                 res.json(err);
             } else {
-                res.json({success: 'User successfully deleted!'});
+                res.json({success: true});
             }
         });
     },
     show: function(req,res){
-        Friend.findOne({_id: req.params.id}, function(err, friend) {
+        Customer.findOne({_id: req.params.id}, function(err, customer) {
             if (err) {
                 res.json(err);
             } else {
-                res.json(friend);
+                res.json(customer);
             }
         });
     }

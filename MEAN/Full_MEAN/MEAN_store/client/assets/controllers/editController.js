@@ -20,7 +20,6 @@ myApp.controller('editController', ['$scope', 'friendsFactory', '$routeParams', 
                     $scope.error = true;
                     $scope.validationErrors = returnedData.errors;
                 } else {
-                    // console.log('from edit controller', returnedData);
                     $location.url('/');
                 }
             });
