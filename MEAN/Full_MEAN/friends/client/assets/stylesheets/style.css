@@ -8,6 +8,9 @@ body {
 form {
     margin-top: 5px;
 }
+form p {
+    margin: 5px 0px;
+}
 table {
     border-collapse: collapse;
     width: 50%;
@@ -28,8 +31,17 @@ td{
     text-align: center;
 }
 .button {
+    margin: 5px 0px;
     padding: 0px 5px;
 }
 .nav-bar {
     margin-bottom: 20px;
+}
+.searchbar {
+    margin: 10px;
+}
+.error-messages {
+    margin: 15px 15px;
+    color: red;
+    font-style: italic;
 }

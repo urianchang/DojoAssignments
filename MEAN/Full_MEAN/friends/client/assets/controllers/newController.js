@@ -1,6 +1,9 @@
 //: New Friends Controller
 myApp.controller('newController', ['$scope', 'friendsFactory', '$location', function ($scope, friendsFactory, $location) {
     // $scope.friends = [];
+    $scope.error = false;
+    $scope.sortType = 'first_name';
+    $scope.sortReverse = false;
     var index = function() {
         friendsFactory.index(function(data) {
             // console.log(data);
@@ -12,7 +15,12 @@ myApp.controller('newController', ['$scope', 'friendsFactory', '$location', func
         // console.log($scope.newFriend);
         friendsFactory.create($scope.newFriend, function(data) {
             // console.log('newcontroller:', data);
-            $location.url('/');
+            if (data.name === "ValidationError") {
+                $scope.error = true;
+                $scope.validationErrors = data.errors;
+            } else {
+                $location.url('/');
+            }
         });
     };
     $scope.delete = function(friendObj) {

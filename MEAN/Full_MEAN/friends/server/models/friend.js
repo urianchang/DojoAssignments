@@ -2,9 +2,9 @@
 var mongoose = require('mongoose');
 //: Create Schema
 var FriendSchema = new mongoose.Schema({
-    first_name : { type: String },
-    last_name : { type: String },
-    birthday : { type: Date },
+    first_name : { type: String, required: true, minlength: 4 },
+    last_name : { type: String, required: true, minlength: 4 },
+    birthday : { type: Date, required: true },
     created_at : { type: Date, default: Date.now }
 })
 //: Register schema as a model

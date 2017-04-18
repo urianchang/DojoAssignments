@@ -6,6 +6,8 @@ var mongoose = require('mongoose');
 var fs = require('fs');
 // require path for getting the models path
 var path = require('path');
+//: Use native promises (gets rid of deprecation warning)
+mongoose.Promise = global.Promise;
 // connect to mongoose!
 mongoose.connect('mongodb://localhost/friendsDB');
 // create a variable that points to the path where all of the models live

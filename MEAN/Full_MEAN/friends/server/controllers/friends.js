@@ -28,14 +28,21 @@ module.exports = {
         });
     },
     update: function(req,res){
-        console.log(req.body);
-        Friend.update({_id: req.body._id}, {$set: {first_name: req.body.first_name, last_name: req.body.last_name, birthday: req.body.birthday}}, function(err) {
-            if (err) {
-                res.json(err);
-            } else {
-                res.json({success: true});
+        // console.log(req.body);
+        Friend.update({_id: req.body._id},
+            {$set: {first_name: req.body.first_name,
+                    last_name: req.body.last_name,
+                    birthday: req.body.birthday}
+            },
+            { runValidators: true },
+            function(err) {
+                if (err) {
+                    res.json(err);
+                } else {
+                    res.json({success: true});
+                }
             }
-        });
+        );
     },
     delete: function(req,res){
         Friend.remove({_id: req.params.id}, function(err) {
