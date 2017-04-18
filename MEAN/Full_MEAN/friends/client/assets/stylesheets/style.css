@@ -1,0 +1,35 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+body {
+    padding-left: 10px;
+}
+form {
+    margin-top: 5px;
+}
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin-top: 5px;
+}
+table, th, td {
+    border: 2px solid orange;
+}
+th {
+    text-align: center;
+    padding: 10px;
+    background-color: gray;
+    color: white;
+}
+td{
+    vertical-align: middle;
+    padding: 10px;
+    text-align: center;
+}
+.button {
+    padding: 0px 5px;
+}
+.nav-bar {
+    margin-bottom: 20px;
+}

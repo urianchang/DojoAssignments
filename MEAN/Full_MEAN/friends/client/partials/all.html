@@ -1,0 +1,14 @@
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Show</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    <tr ng-repeat="friend in friends track by $index">
+        <td>{{ friend.first_name }} {{ friend.last_name }}</td>
+        <td><a href="#!/show/{{friend._id}}">Show</a></td>
+        <td><a href="#!/edit/{{friend._id}}">Update</a></td>
+        <td><a href ng-click='delete(friend)'>Delete</a></td>
+    </tr>
+</table>
