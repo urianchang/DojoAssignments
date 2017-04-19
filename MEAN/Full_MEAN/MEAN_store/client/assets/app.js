@@ -4,20 +4,24 @@ var myApp = angular.module('myApp', ['ngRoute']);
 myApp.config(function ($routeProvider) {
   $routeProvider
     .when('/', {
-        templateUrl: 'partials/all.html',
-        controller: 'newController'
+        templateUrl: 'partials/dashboard.html',
+        controller: 'dashboardController'
     })
-    .when('/new', {
-        templateUrl: 'partials/new.html',
-        controller: 'newController'
+    .when('/products', {
+        templateUrl: 'partials/products.html',
+        controller: 'productsController'
     })
-    .when('/edit/:id', {
-        templateUrl: 'partials/edit.html',
-        controller: 'editController'
+    .when('/orders', {
+        templateUrl: 'partials/orders.html',
+        controller: 'ordersController'
     })
-    .when('/show/:id', {
-        templateUrl: 'partials/show.html',
-        controller: 'editController'
+    .when('/customers', {
+        templateUrl: 'partials/customers.html',
+        controller: 'customersController'
+    })
+    .when('/settings', {
+        templateUrl: 'partials/settings.html',
+        controller: 'settingsController'
     })
     .otherwise({
       redirectTo: '/'

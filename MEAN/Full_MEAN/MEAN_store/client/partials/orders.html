@@ -1,0 +1,37 @@
+<h2 style="text-decoration:underline">Add a new order</h2>
+<form name="orderForm" ng-submit="create()">
+    <p>Customer: <input type='text' name="customer_name" ng-model='newCustomer.customer_name'></p>
+    <p>
+        Order:
+        <select>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=3>3</option>
+            <option value=4>4</option>
+            <option value=5>5</option>
+        </select>
+        <select>
+            <option value="test1">test1</option>
+            <option value="test2">test2</option>
+            <option value="test3">test3</option>
+            <option value="test4">test4</option>
+            <option value="test5">test5</option>
+        </select>
+    </p>
+    <input type="submit" value="Order" class="button">
+</form>
+<input class='searchbar' type="text" ng-model = 'order_filter' placeholder="Search for an order...">
+<table>
+    <tr>
+        <th ng-click="sortType='customer_name'; sortReverse=!sortReverse">Customer Name</th>
+        <th ng-click="sortType='created_at'; sortReverse=!sortReverse">Product</th>
+        <th ng-click="sortType='created_at'; sortReverse=!sortReverse">Quantity</th>
+        <th ng-click="sortType='created_at'; sortReverse=!sortReverse">Date</th>
+    </tr>
+    <tr ng-repeat="order in orders | orderBy:sortType:sortReverse | filter: order_filter track by $index">
+        <td>{{ order.customer_name }}</td>
+        <td>{{ order.product_name }}</td>
+        <td>{{ order.quantity }}</td>
+        <td>{{ order.created_at }}</td>
+    </tr>
+</table>

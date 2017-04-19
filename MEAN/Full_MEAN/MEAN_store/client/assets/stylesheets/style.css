@@ -45,3 +45,23 @@ td{
     color: red;
     font-style: italic;
 }
+.left-col {
+    display: inline-block;
+    width: 20%;
+    vertical-align: top;
+}
+.left-col .searchbar {
+    margin: 10px 0px;
+}
+.right-col {
+    display: inline-block;
+    vertical-align: top;
+}
+.right-col div {
+    margin: 10px;
+}
+.product-block {
+    display: inline-block;
+    padding: 10px;
+    text-align: center;
+}

@@ -1,0 +1,48 @@
+<div class="left-col">
+    <input class='searchbar' type="text" ng-model = 'product_filter' placeholder="Filter...">
+    <form name="productForm" ng-submit="create()">
+        <h3 style="text-decoration: underline">Add a new product</h3>
+        <p>Name:</p>
+        <input type='text' name="product_name" ng-model='newProduct.product_name'>
+        <p>Image (url):</p>
+        <input type='text' name="product_image" ng-model='newProduct.product_image'>
+        <p>Description:</p>
+        <textarea rows="4" cols="22" name="product_description" ng-model='newProduct.product_description'></textarea>
+        <p>Inital Quantity:</p>
+        <select name="product_quantity" ng-model='newProduct.product_quantity'>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=3>3</option>
+            <option value=4>4</option>
+            <option value=5>5</option>
+        </select>
+        <p><input type="submit" value="Create" class="button"></p>
+    </form>
+</div>
+<div class="right-col">
+    <div class="product-block" style="border: 1px solid black">
+        <p>img</p>
+        <p>product name</p>
+        <p>product quantity</p>
+    </div>
+    <div class="product-block" style="border: 1px solid black">
+        <p>img</p>
+        <p>product name</p>
+        <p>product quantity</p>
+    </div>
+    <div class="product-block" style="border: 1px solid black">
+        <p>img</p>
+        <p>product name</p>
+        <p>product quantity</p>
+    </div>
+    <div class="product-block" style="border: 1px solid black">
+        <p>img</p>
+        <p>product name</p>
+        <p>product quantity</p>
+    </div>
+    <div class="product-block" style="border: 1px solid black">
+        <p>img</p>
+        <p>product name</p>
+        <p>product quantity</p>
+    </div>
+</div>

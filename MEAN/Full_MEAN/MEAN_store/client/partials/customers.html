@@ -1,0 +1,17 @@
+<h2 style="text-decoration:underline">Add a new customer</h2>
+<form name="customerForm" ng-submit="create()">
+    <p>Customer name: <input type='text' name="customer_name" ng-model='newCustomer.customer_name'> <input type="submit" value="Add" class="button"></p>
+</form>
+<input class='searchbar' type="text" ng-model = 'customer_filter' placeholder="Search for a customer...">
+<table>
+    <tr>
+        <th ng-click="sortType='customer_name'; sortReverse=!sortReverse">Name</th>
+        <th ng-click="sortType='created_at'; sortReverse=!sortReverse">Created At</th>
+        <th>Actions</th>
+    </tr>
+    <tr ng-repeat="customer in customers | orderBy:sortType:sortReverse | filter: customer_filter track by $index">
+        <td>{{ customer.customer_name }}</td>
+        <td>{{ customer.created_at }}</td>
+        <td><a href ng-click='delete(customer)'>Remove</a></td>
+    </tr>
+</table>
