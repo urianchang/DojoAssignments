@@ -19,6 +19,7 @@ myApp.controller('customersController', ['$scope', 'customersFactory', '$locatio
                 $scope.error = true;
                 $scope.validationErrors = data.errors;
             } else {
+                $scope.newCustomer = {};
                 index();
                 // $location.url('/');
             }

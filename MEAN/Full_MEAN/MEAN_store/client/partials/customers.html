@@ -11,7 +11,7 @@
     </tr>
     <tr ng-repeat="customer in customers | orderBy:sortType:sortReverse | filter: customer_filter track by $index">
         <td>{{ customer.customer_name }}</td>
-        <td>{{ customer.created_at }}</td>
+        <td>{{ customer.created_at | date: 'MMMM d, yyyy' }}</td>
         <td><a href ng-click='delete(customer)'>Remove</a></td>
     </tr>
 </table>
