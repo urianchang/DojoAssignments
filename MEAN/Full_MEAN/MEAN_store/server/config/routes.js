@@ -1,4 +1,7 @@
-var friends = require('../controllers/friends.js');
+var customers = require('../controllers/customers.js');
+var orders = require('../controllers/orders.js');
+var products = require('../controllers/products.js');
+
 module.exports = function(app){
         //: Show all friends
     app.get('/friends', function(req, res) {

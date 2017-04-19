@@ -25,20 +25,20 @@ module.exports = {
             }
         });
     },
-    update: function(req,res){
-        // console.log(req.body);
-        Customer.update({_id: req.body._id},
-            {$set: {customer_name: req.body.customer_name}},
-            { runValidators: true },
-            function(err) {
-                if (err) {
-                    res.json(err);
-                } else {
-                    res.json({success: true});
-                }
-            }
-        );
-    },
+    // update: function(req,res){
+    //     // console.log(req.body);
+    //     Customer.update({_id: req.body._id},
+    //         {$set: {customer_name: req.body.customer_name}},
+    //         { runValidators: true },
+    //         function(err) {
+    //             if (err) {
+    //                 res.json(err);
+    //             } else {
+    //                 res.json({success: true});
+    //             }
+    //         }
+    //     );
+    // },
     delete: function(req,res){
         Customer.remove({_id: req.params.id}, function(err) {
             if (err) {
@@ -48,13 +48,13 @@ module.exports = {
             }
         });
     },
-    show: function(req,res){
-        Customer.findOne({_id: req.params.id}, function(err, customer) {
-            if (err) {
-                res.json(err);
-            } else {
-                res.json(customer);
-            }
-        });
-    }
+    // show: function(req,res){
+    //     Customer.findOne({_id: req.params.id}, function(err, customer) {
+    //         if (err) {
+    //             res.json(err);
+    //         } else {
+    //             res.json(customer);
+    //         }
+    //     });
+    // }
 }
