@@ -13,12 +13,13 @@ myApp.controller('productsController', ['$scope', 'productsFactory', '$location'
     index();
     $scope.create = function() {
         // console.log($scope.newFriend);
-        productsFactory.create($scope.newCustomer, function(data) {
+        productsFactory.create($scope.newProduct, function(data) {
             // console.log('newcontroller:', data);
             if (data.name === "ValidationError") {
                 $scope.error = true;
                 $scope.validationErrors = data.errors;
             } else {
+                $scope.newProduct = {};
                 index();
                 // $location.url('/');
             }

@@ -20,29 +20,9 @@
     </form>
 </div>
 <div class="right-col">
-    <div class="product-block" style="border: 1px solid black">
-        <p>img</p>
-        <p>product name</p>
-        <p>product quantity</p>
-    </div>
-    <div class="product-block" style="border: 1px solid black">
-        <p>img</p>
-        <p>product name</p>
-        <p>product quantity</p>
-    </div>
-    <div class="product-block" style="border: 1px solid black">
-        <p>img</p>
-        <p>product name</p>
-        <p>product quantity</p>
-    </div>
-    <div class="product-block" style="border: 1px solid black">
-        <p>img</p>
-        <p>product name</p>
-        <p>product quantity</p>
-    </div>
-    <div class="product-block" style="border: 1px solid black">
-        <p>img</p>
-        <p>product name</p>
-        <p>product quantity</p>
+    <div class="product-block" ng-repeat="product in products | orderBy:sortType:sortReverse | filter: product_filter track by $index">
+        <img src="{{ product.product_image }}" height="100" width="100">
+        <p>{{ product.product_name }}</p>
+        <p>({{ product.product_quantity }} left)</p>
     </div>
 </div>
