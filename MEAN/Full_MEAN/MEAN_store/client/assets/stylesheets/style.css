@@ -56,6 +56,7 @@ td{
 .right-col {
     display: inline-block;
     vertical-align: top;
+    width: 75%;
 }
 .right-col div {
     margin: 10px;

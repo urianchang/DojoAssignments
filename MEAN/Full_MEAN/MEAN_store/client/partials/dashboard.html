@@ -3,15 +3,28 @@
 </div>
 <div class="right-col">
     <div>
-        <p>products</p>
-        <a href="">Show more...</a>
+        <h3 style="text-decoration: underline">Products</h3>
+        <div class="product-block" ng-repeat="product in products | filter: product_filter | limitTo: 5">
+            <img src="{{ product.product_image }}" height="100" width="100">
+            <p>{{ product.product_name }}</p>
+            <p>({{ product.product_quantity }} left)</p>
+        </div>
+        <div style="margin-top: -5px; text-align: center"><a href="#!/products">Show more products...</a></div>
     </div>
+    <hr>
     <div>
         <h3 style="text-decoration: underline">Recent Orders</h3>
-        <a href="">Show all orders...</a>
+        <p style="margin: 15px 40px; font-style: italic" ng-repeat="order in orders | orderBy: '-created_at' | limitTo: 5">
+            {{order._customer.customer_name}} bought {{order.item_quantity}} {{order._product.product_name}}... ({{order.created_at | date: "short" }})
+        </p>
+        <div style="text-align: center"><a href="#!/orders">Show all orders...</a></div>
     </div>
+    <hr>
     <div>
         <h3 style="text-decoration: underline">New Customers</h3>
-        <a href="">Show all customers...</a>
+        <p style="margin: 15px 40px; font-style: italic" ng-repeat="customer in customers | orderBy: '-created_at' | limitTo: 5">
+            {{customer.customer_name}} became one of us. ({{customer.created_at | date: "short" }})
+        </p>
+        <div style="text-align: center"><a href="#!/customers">Show all customers...</a></div>
     </div>
 </div>

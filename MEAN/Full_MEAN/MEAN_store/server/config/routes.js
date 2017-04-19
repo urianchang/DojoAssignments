@@ -24,11 +24,11 @@ module.exports = function(app){
       products.create(req, res);
     });
     //: Show all orders
-    app.get('/customers', function(req, res) {
+    app.get('/orders', function(req, res) {
         orders.index(req, res);
     });
     //: Add order
-    app.post('/customers', function(req, res) {
+    app.post('/orders', function(req, res) {
         orders.create(req, res);
     });
     //     //: Show specific friend
