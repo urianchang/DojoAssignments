@@ -28,6 +28,14 @@ myApp.factory('topicsFactory', ['$http', function($http) {
             }
         });
     }
+    //: Create comment method
+    factory.createComment = function(newcomment, callback) {
+        $http.post('/comment', newcomment).then(function(returned_data) {
+            if (typeof(callback) == 'function') {
+                callback(returned_data.data);
+            }
+        });
+    }
     // //: Update method
     // factory.update = function(friend, callback) {
     //     $http.put('/friends/' + friend._id, friend).then(function(returned_data) {

@@ -3,27 +3,13 @@ var mongoose = require('mongoose');
 //: Retrieve schema from models
 var Topic = mongoose.model('Topic');
 var User = mongoose.model('User');
+var Post = mongoose.model('Post');
+var Comment = mongoose.model('Comment');
 
 module.exports = {
     index: function(req, res) {
         Topic.find({})
             .populate('_user')
-            .populate({
-                path: 'posts',
-                model: 'Post',
-                populate: {
-                    path: 'comments',
-                    model: 'Comment',
-                    populate: {
-                        path: '_user',
-                        model: 'User'
-                    }
-                },
-                populate: {
-                    path: '_user',
-                    model: 'User'
-                }
-            })
             .exec(function(err, topics) {
                 if (err) {
                     res.json(err);
@@ -84,23 +70,31 @@ module.exports = {
     // },
     show: function(req,res){
         Topic.findOne({_id: req.params.id})
-            .populate('_user')
-            .populate({
-                path: 'posts',
-                model: 'Post',
-                populate: {
-                    path: 'comments',
-                    model: 'Comment',
-                    populate: {
-                        path: '_user',
-                        model: 'User'
-                    }
+            // .populate('_user')
+            .populate([
+                {
+                    path: 'posts',
+                    model: 'Post',
+                    populate: [
+                        {
+                            path: '_user',
+                            model: 'User'
+                        },
+                        {
+                            path: 'comments',
+                            model: 'Comment',
+                            populate: {
+                                path: '_user',
+                                model: 'User'
+                            }
+                        }
+                    ]
                 },
-                populate: {
+                {
                     path: '_user',
                     model: 'User'
                 }
-            })
+            ])
             .exec(function(err, topic) {
                 if (err) {
                     res.json(err);

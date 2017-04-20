@@ -28,4 +28,8 @@ module.exports = function(app){
     app.post('/post', function(req, res) {
         posts.create(req, res);
     });
+        //: Add comment
+    app.post('/comment', function(req, res) {
+        comments.create(req, res);
+    });
 }
