@@ -73,13 +73,13 @@ module.exports = {
     //         }
     //     });
     // },
-    // show: function(req,res){
-    //     User.findOne({_id: req.body.user_name}, function(err, user) {
-    //         if (err) {
-    //             res.json(err);
-    //         } else {
-    //             res.json(user);
-    //         }
-    //     });
-    // }
+    show: function(req,res){
+        User.findOne({_id: req.params.id}, function(err, user) {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(user);
+            }
+        });
+    }
 }

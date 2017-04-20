@@ -3,33 +3,33 @@ myApp.factory('usersFactory', ['$http', function($http) {
     factory.user = {};
     factory.userstatus = false;
     //: Login / Registration method
-        factory.login = function(name, callback) {
-            $http.post('/user', name).then(function(returned_data) {
-                // console.log(returned_data.data);
-                if (returned_data.data.name === "ValidationError") {
-                    callback(returned_data.data)
-                } else {
-                    factory.user = returned_data.data;
-                    factory.userstatus = true;
-                    if (typeof(callback) == 'function') {
-                        callback({success : true});
-                    }
+    factory.login = function(name, callback) {
+        $http.post('/user', name).then(function(returned_data) {
+            // console.log(returned_data.data);
+            if (returned_data.data.name === "ValidationError") {
+                callback(returned_data.data)
+            } else {
+                factory.user = returned_data.data;
+                factory.userstatus = true;
+                if (typeof(callback) == 'function') {
+                    callback({success : true});
                 }
-            });
-        }
-    //: Index method
+            }
+        });
+    }
+    // //: Index method
     // factory.index = function(callback) {
     //     $http.get('/customers').then(function(returned_data) {
     //         customers = returned_data.data;
     //         callback(customers);
     //     });
     // }
-    // //: Show method
-    // factory.show = function(id, callback) {
-    //     $http.get('/friends/' + id).then(function(returned_data) {
-    //         callback(returned_data.data);
-    //     });
-    // }
+    //: Show method
+    factory.show = function(id, callback) {
+        $http.get('/user/' + id).then(function(returned_data) {
+            callback(returned_data.data);
+        });
+    }
     //: Create method
     // factory.create = function(newcustomer, callback) {
     //     $http.post('/customers', newcustomer).then(function(returned_data) {

@@ -8,6 +8,10 @@ module.exports = function(app){
     app.post('/user', function(req, res) {
         users.login(req, res);
     });
+        //: Show specific user
+    app.get('/user/:id', function(req, res) {
+        users.show(req, res);
+    });
         //: Show all topics
     app.get('/topics', function(req, res) {
         topics.index(req, res);
@@ -35,10 +39,6 @@ module.exports = function(app){
     // //: Add order
     // app.post('/orders', function(req, res) {
     //     orders.create(req, res);
-    // });
-    //     //: Show specific friend
-    // app.get('/friends/:id', function(req, res) {
-    //   friends.show(req, res);
     // });
     //     //: Add friend
     // app.post('/customers', function(req, res) {
