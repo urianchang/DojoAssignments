@@ -6,15 +6,23 @@ myApp.factory('topicsFactory', ['$http', function($http) {
             callback(returned_data.data);
         });
     }
-    // //: Show method
-    // factory.show = function(id, callback) {
-    //     $http.get('/friends/' + id).then(function(returned_data) {
-    //         callback(returned_data.data);
-    //     });
-    // }
-    //: Create method
+    //: Show method
+    factory.show = function(id, callback) {
+        $http.get('/topic/' + id).then(function(returned_data) {
+            callback(returned_data.data);
+        });
+    }
+    //: Create topic method
     factory.create = function(newtopic, callback) {
         $http.post('/topics', newtopic).then(function(returned_data) {
+            if (typeof(callback) == 'function') {
+                callback(returned_data.data);
+            }
+        });
+    }
+    //: Create post method
+    factory.createPost = function(newpost, callback) {
+        $http.post('/post', newpost).then(function(returned_data) {
             if (typeof(callback) == 'function') {
                 callback(returned_data.data);
             }

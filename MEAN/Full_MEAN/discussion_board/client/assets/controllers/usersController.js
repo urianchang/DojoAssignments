@@ -3,6 +3,7 @@ myApp.controller('usersController', ['$scope', 'usersFactory', '$location', '$ro
     if (usersFactory.userstatus === false) {
         $location.url('/');
     } else {
+        $scope.user = usersFactory.user;
         var show = function() {
             usersFactory.show($routeParams.id, function(data) {
                 // console.log(data);

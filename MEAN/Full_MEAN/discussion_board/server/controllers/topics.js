@@ -82,13 +82,31 @@ module.exports = {
     //         }
     //     });
     // },
-    // show: function(req,res){
-    //     Friend.findOne({_id: req.params.id}, function(err, friend) {
-    //         if (err) {
-    //             res.json(err);
-    //         } else {
-    //             res.json(friend);
-    //         }
-    //     });
-    // }
+    show: function(req,res){
+        Topic.findOne({_id: req.params.id})
+            .populate('_user')
+            .populate({
+                path: 'posts',
+                model: 'Post',
+                populate: {
+                    path: 'comments',
+                    model: 'Comment',
+                    populate: {
+                        path: '_user',
+                        model: 'User'
+                    }
+                },
+                populate: {
+                    path: '_user',
+                    model: 'User'
+                }
+            })
+            .exec(function(err, topic) {
+                if (err) {
+                    res.json(err);
+                } else {
+                    res.json(topic);
+                }
+            })
+    }
 }

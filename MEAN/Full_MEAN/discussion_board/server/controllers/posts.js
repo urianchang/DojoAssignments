@@ -22,24 +22,23 @@ module.exports = {
     //     );
     // },
     create: function(req, res) {
-        // console.log(req.body);
-        Customer.findOne({_id: req.body.customer_id}, function(err, customer) {
-            Product.findOne({_id: req.body.product_id}, function(err, product) {
-                var order = new Order({item_quantity: req.body.item_quantity});
-                order._customer = customer._id;
-                order._product = product._id;
-                product.product_quantity -= req.body.item_quantity;
-                product.orders.push(order._id);
-                customer.orders.push(order._id);
-                order.save(function(err) {
+        console.log(req.body);
+        Topic.findOne({_id: req.body.topic_id}, function(err, topic) {
+            User.findOne({_id: req.body.user_id}, function(err, user) {
+                var newpost = new Post({text_body: req.body.text_body});
+                newpost._user = user._id;
+                newpost._topic = topic._id;
+                topic.posts.push(newpost._id);
+                user.posts.push(newpost._id);
+                newpost.save(function(err) {
                     if (err) {
                         res.json(err);
                     } else {
-                        product.save(function(err) {
+                        user.save(function(err) {
                             if (err) {
                                 res.json(err);
                             } else {
-                                customer.save(function(err) {
+                                topic.save(function(err) {
                                     if (err) {
                                         res.json(err);
                                     } else {

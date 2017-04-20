@@ -1,1 +1,30 @@
-<h1>topic</h1>
+<div style="width:100%; text-align:right" class='nav-bar'>
+    <a href="#!/dashboard">Dashboard</a> | <a href="/">Logout</a>
+</div>
+<div>
+    <h4><a href="#!/user/{{boardpost._user._id}}">{{boardpost._user.user_name}}</a> posted a topic:</h4>
+    <p style="margin-left: 15px; font-weight: bold">{{boardpost.title}}</p>
+    <p style="margin-left: 15px">Description: {{boardpost.text_body}}</p>
+    <form name="postForm" ng-submit="createPost(boardpost._id)">
+        <h4>Post your answer here...</h4>
+        <textarea style="margin-left: 15px" rows="4" cols="50" name="text_body" ng-model='newPost'></textarea>
+        <p><input type="submit" value="Post" class="button"></p>
+    </form>
+</div>
+<hr style="margin: 20px 0px;">
+<div style="margin-left: 15px" ng-repeat="post in boardpost.posts">
+    <div>
+        <div class="left-col">
+            <p><a href="#!/user/{{post._user._id}}">{{post._user.user_name}}:</a> {{post.text_body}}</p>
+        </div>
+        <div class="right-col">
+            <p><span style="color:green">{{post.upvote}}</span> | <span style="color:red">{{post.downvote}}</span></p>
+        </div>
+    </div>
+    <p style="margin-left:15px" ng-repeat="comment in post.comments"><a href="#!/user/{{comment._user._id}}">{{comment._user.user_name}}:</a> {{comment.text_body}}</p>
+    <form name="commentForm" ng-submit="createComment(post._id)">
+        <textarea style="margin-left: 15px" rows="4" cols="50" name="text_body" ng-model='newComment'></textarea>
+        <p><input type="submit" value="Comment" class="button"></p>
+    </form>
+    <hr style="margin: 20px 0px;">
+</div>
