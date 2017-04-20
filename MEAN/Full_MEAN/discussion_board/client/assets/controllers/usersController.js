@@ -1,4 +1,4 @@
-//: Products Controller
+//: Users Controller
 myApp.controller('productsController', ['$scope', 'productsFactory', '$location', function ($scope, productsFactory, $location) {
     // $scope.friends = [];
     // $scope.error = false;

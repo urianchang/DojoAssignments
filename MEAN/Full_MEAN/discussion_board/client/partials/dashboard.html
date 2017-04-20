@@ -14,8 +14,8 @@
     </tr>
     <tr ng-repeat="topic in topics | orderBy:sortType:sortReverse | filter: topic_filter track by $index">
         <td>{{ topic.category }}</td>
-        <td>{{ topic.title }}</td>
-        <td>{{ topic._user.user_name }}</td>
+        <td><a href="#!/topic/{{topic._id}}">{{ topic.title }}</a></td>
+        <td><a href="#!/user/{{topic._user._id}}">{{ topic._user.user_name }}</a></td>
         <td>{{ topic.posts.length }}</td>
     </tr>
 </table>

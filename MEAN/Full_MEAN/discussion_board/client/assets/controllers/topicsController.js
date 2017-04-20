@@ -1,4 +1,4 @@
-//: Orders Controller
+//: Topics Controller
 myApp.controller('ordersController', ['$scope', 'ordersFactory', 'customersFactory', 'productsFactory', '$location', function ($scope, ordersFactory, customersFactory, productsFactory, $location) {
     // $scope.friends = [];
     // $scope.error = false;
