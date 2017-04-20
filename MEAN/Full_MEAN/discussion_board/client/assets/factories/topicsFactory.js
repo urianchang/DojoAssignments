@@ -1,11 +1,9 @@
-myApp.factory('productsFactory', ['$http', function($http) {
-    var products = [];
+myApp.factory('topicsFactory', ['$http', function($http) {
     var factory = {};
     //: Index method
     factory.index = function(callback) {
         $http.get('/products').then(function(returned_data) {
-            products = returned_data.data;
-            callback(products);
+            callback(returned_data.data);
         });
     }
     // //: Show method

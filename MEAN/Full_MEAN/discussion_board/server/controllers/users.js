@@ -2,11 +2,33 @@
 var mongoose = require('mongoose');
 //: Retrieve schema from models
 var User = mongoose.model('User');
-// var Post = mongoose.model('Post');
-// var Comment = mongoose.model('Comment');
-// var Topic = mongoose.model('Topic');
 
 module.exports = {
+    login: function(req, res) {
+        // console.log(req.body);
+        User.findOne({user_name : req.body.user_name}, function(err, user) {
+            if (err) {
+                res.json(err);  //: Unable to reach database?
+            } else {
+                if (user === null) {
+                    // console.log('create new user');
+                    var newUser = new User({
+                        user_name: req.body.user_name
+                    });
+                    newUser.save(function(err) {
+                        if (err) {
+                            res.json(err);
+                        } else {
+                            res.json(newUser);
+                        }
+                    });
+                } else {
+                    // console.log('user exists');
+                    res.json(user);
+                }
+            }
+        });
+    },
     // index: function(req, res) {
     //     Customer.find({}, function(err, customers) {
     //         if (err) {
@@ -16,18 +38,18 @@ module.exports = {
     //         }
     //     });
     // },
-    create: function(req, res) {
-        var user = new User({
-            user_name: req.body.user_name
-        });
-        customer.save(function(err) {
-            if (err) {
-                res.json(err);
-            } else {
-                res.json({success: true});
-            }
-        });
-    },
+    // create: function(req, res) {
+    //     var user = new User({
+    //         user_name: req.body.user_name
+    //     });
+    //     customer.save(function(err) {
+    //         if (err) {
+    //             res.json(err);
+    //         } else {
+    //             res.json({success: true});
+    //         }
+    //     });
+    // },
     // update: function(req,res){
     //     // console.log(req.body);
     //     Customer.update({_id: req.body._id},
@@ -51,13 +73,13 @@ module.exports = {
     //         }
     //     });
     // },
-    show: function(req,res){
-        User.findOne({_id: req.body.user_name}, function(err, user) {
-            if (err) {
-                res.json(err);
-            } else {
-                res.json(user);
-            }
-        });
-    }
+    // show: function(req,res){
+    //     User.findOne({_id: req.body.user_name}, function(err, user) {
+    //         if (err) {
+    //             res.json(err);
+    //         } else {
+    //             res.json(user);
+    //         }
+    //     });
+    // }
 }

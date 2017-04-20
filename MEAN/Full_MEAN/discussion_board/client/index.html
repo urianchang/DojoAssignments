@@ -7,21 +7,15 @@
     <script src="assets/app.js" charset="utf-8"></script>
     <script src="assets/factories/usersFactory.js" charset="utf-8"></script>
     <script src="assets/factories/topicsFactory.js" charset="utf-8"></script>
+    <script src="assets/controllers/loginController.js" charset="utf-8"></script>
     <script src="assets/controllers/dashboardController.js" charset="utf-8"></script>
-    <script src="assets/controllers/productsController.js" charset="utf-8"></script>
+    <!-- <script src="assets/controllers/productsController.js" charset="utf-8"></script>
     <script src="assets/controllers/ordersController.js" charset="utf-8"></script>
     <script src="assets/controllers/customersController.js" charset="utf-8"></script>
-    <script src="assets/controllers/settingsController.js" charset="utf-8"></script>
+    <script src="assets/controllers/settingsController.js" charset="utf-8"></script> -->
     <link rel="stylesheet" type="text/css" href="assets/stylesheets/style.css">
   </head>
-  <body>
-    <div>
-        <div class='nav-bar'>
-            <a href="#!/dashboard">Dashboard</a> | <a href="/logout">Logout</a>
-        </div>
-        <div ng-view="">
-            <!-- partials should load here -->
-        </div>
-    </div>
+  <body ng-view="">
+      <!-- partials should load here -->
   </body>
 </html>
