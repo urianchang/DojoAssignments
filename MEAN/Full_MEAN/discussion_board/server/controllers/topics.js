@@ -2,30 +2,58 @@
 var mongoose = require('mongoose');
 //: Retrieve schema from models
 var Topic = mongoose.model('Topic');
+var User = mongoose.model('User');
 
 module.exports = {
     index: function(req, res) {
-        Product.find({}, function(err, products) {
-            if (err) {
-                res.json(err);
-            } else {
-                res.json(products);
-            }
-        });
+        Topic.find({})
+            .populate('_user')
+            .populate({
+                path: 'posts',
+                model: 'Post',
+                populate: {
+                    path: 'comments',
+                    model: 'Comment',
+                    populate: {
+                        path: '_user',
+                        model: 'User'
+                    }
+                },
+                populate: {
+                    path: '_user',
+                    model: 'User'
+                }
+            })
+            .exec(function(err, topics) {
+                if (err) {
+                    res.json(err);
+                } else {
+                    res.json(topics);
+                }
+            })
     },
     create: function(req, res) {
-        var product = new Product({
-            product_name: req.body.product_name,
-            product_description: req.body.product_description,
-            product_quantity: req.body.product_quantity,
-            product_image: req.body.product_image
-        });
-        product.save(function(err) {
-            if (err) {
-                res.json(err);
-            } else {
-                res.json({success: true});
-            }
+        User.findOne({_id: req.body.user_id}, function(err, user) {
+            var topic = new Topic({
+                title: req.body.title,
+                text_body: req.body.text_body,
+                category: req.body.category,
+                _user: req.body.user_id
+            });
+            user.topics.push(topic._id);
+            topic.save(function(err) {
+                if (err) {
+                    res.json(err);
+                } else {
+                    user.save(function(err) {
+                        if (err) {
+                            res.json(err);
+                        } else {
+                            res.json({success: true});
+                        }
+                    });
+                }
+            });
         });
     },
     // update: function(req,res){

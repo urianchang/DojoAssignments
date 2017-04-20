@@ -2,7 +2,7 @@ myApp.factory('topicsFactory', ['$http', function($http) {
     var factory = {};
     //: Index method
     factory.index = function(callback) {
-        $http.get('/products').then(function(returned_data) {
+        $http.get('/topics').then(function(returned_data) {
             callback(returned_data.data);
         });
     }
@@ -13,8 +13,8 @@ myApp.factory('topicsFactory', ['$http', function($http) {
     //     });
     // }
     //: Create method
-    factory.create = function(newproduct, callback) {
-        $http.post('/products', newproduct).then(function(returned_data) {
+    factory.create = function(newtopic, callback) {
+        $http.post('/topics', newtopic).then(function(returned_data) {
             if (typeof(callback) == 'function') {
                 callback(returned_data.data);
             }

@@ -1,25 +1,33 @@
 //: Dashboard Controller
-myApp.controller('dashboardController', ['$scope', '$location', function ($scope, $location) {
-    // $scope.friends = [];
-    // $scope.error = false;
-    // $scope.sortType = 'created_at';
-    // $scope.sortReverse = false;
-    // $scope.formData = {};
-    // var index = function() {
-    //     ordersFactory.index(function(data) {
-    //         // console.log(data);
-    //         $scope.orders = data;
-    //     });
-    //     customersFactory.index(function(data) {
-    //         // console.log(data);
-    //         $scope.customers = data;
-    //         // $scope.formData.customer = $scope.customers[0];
-    //     });
-    //     productsFactory.index(function(data) {
-    //         // console.log(data);
-    //         $scope.products = data;
-    //         // $scope.formData.product = $scope.products[0];
-    //     });
-    // }
-    // index();
+myApp.controller('dashboardController', ['$scope', 'usersFactory', 'topicsFactory', '$location', function ($scope, usersFactory, topicsFactory, $location) {
+    if (usersFactory.userstatus === false) {
+        $location.url('/');
+    } else {
+        // console.log('good to go');
+        $scope.error = false;
+        $scope.sortType = 'created_at';
+        $scope.sortReverse = false;
+        $scope.user = usersFactory.user;
+        var index = function() {
+            topicsFactory.index(function(data) {
+                // console.log(data);
+                $scope.topics = data;
+            });
+        }
+        index();
+        $scope.create = function() {
+            var newTopic = $scope.newTopic;
+            newTopic.user_id = $scope.user._id;
+            // console.log(newTopic);
+            topicsFactory.create(newTopic, function(data) {
+                if (data.name === "ValidationError") {
+                    $scope.error = true;
+                    $scope.validationErrors = data.errors;
+                } else {
+                    $scope.newTopic = {};
+                    index();
+                }
+            });
+        }
+    }
 }]);

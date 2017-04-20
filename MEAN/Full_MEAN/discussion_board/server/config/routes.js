@@ -8,14 +8,14 @@ module.exports = function(app){
     app.post('/user', function(req, res) {
         users.login(req, res);
     });
-    //     //: Show all customers
-    // app.get('/customers', function(req, res) {
-    //   customers.index(req, res);
-    // });
-    //     //: Add customer
-    // app.post('/customers', function(req, res) {
-    //   customers.create(req, res);
-    // });
+        //: Show all topics
+    app.get('/topics', function(req, res) {
+        topics.index(req, res);
+    });
+        //: Add topic
+    app.post('/topics', function(req, res) {
+        topics.create(req, res);
+    });
     //     //: Delete customer
     // app.delete('/customers/:id', function(req, res) {
     //   customers.delete(req, res);

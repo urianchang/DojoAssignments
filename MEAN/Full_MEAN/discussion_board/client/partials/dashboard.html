@@ -1,1 +1,40 @@
-<h1>DASHBOARDING</h1>
+<h1 style="display: inline-block; width: 50%">Welcome, {{user.user_name}}!</h1>
+<div style="display: inline-block; width: 47%; text-align: right;">
+    <a href='/'>Logout</a>
+</div>
+<div style="text-align: right">
+    <input class='searchbar' type="text" ng-model = 'topic_filter' placeholder="Search for a topic...">
+</div>
+<table>
+    <tr>
+        <th ng-click="sortType='category'; sortReverse=!sortReverse">Category</th>
+        <th ng-click="sortType='title'; sortReverse=!sortReverse">Topic</th>
+        <th ng-click="sortType='_user.user_name'; sortReverse=!sortReverse">User Name</th>
+        <th ng-click="sortType='posts.length'; sortReverse=!sortReverse">Posts</th>
+    </tr>
+    <tr ng-repeat="topic in topics | orderBy:sortType:sortReverse | filter: topic_filter track by $index">
+        <td>{{ topic.category }}</td>
+        <td>{{ topic.title }}</td>
+        <td>{{ topic._user.user_name }}</td>
+        <td>{{ topic.posts.length }}</td>
+    </tr>
+</table>
+<hr style="margin: 20px 0px;">
+<ul class="error-messages" ng-if="error">
+    <li ng-repeat="errorObj in validationErrors">{{ errorObj.message }}</li>
+</ul>
+<form name="topicForm" ng-submit="create()">
+    <h3>Add a new topic</h3>
+    <p>Topic: <input type="text" name="title" ng-model='newTopic.title'></p>
+    <p>Description: <textarea rows="4" cols="22" name="text_body" ng-model='newTopic.text_body'></textarea></p>
+    <p>Category:
+        <select ng-model="newTopic.category">
+            <option value="HTML">HTML</option>
+            <option value="Ruby">Ruby</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Python">Python</option>
+            <option value="Swift">Swift</option>
+        </select>
+    </p>
+    <input type="submit" value="Submit" class="button">
+</form>
