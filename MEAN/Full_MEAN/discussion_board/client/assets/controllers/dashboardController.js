@@ -6,7 +6,7 @@ myApp.controller('dashboardController', ['$scope', 'usersFactory', 'topicsFactor
         // console.log('good to go');
         $scope.error = false;
         $scope.sortType = 'created_at';
-        $scope.sortReverse = false;
+        $scope.sortReverse = true;
         $scope.user = usersFactory.user;
         var index = function() {
             topicsFactory.index(function(data) {
@@ -16,18 +16,24 @@ myApp.controller('dashboardController', ['$scope', 'usersFactory', 'topicsFactor
         }
         index();
         $scope.create = function() {
-            var newTopic = $scope.newTopic;
-            newTopic.user_id = $scope.user._id;
-            // console.log(newTopic);
-            topicsFactory.create(newTopic, function(data) {
-                if (data.name === "ValidationError") {
-                    $scope.error = true;
-                    $scope.validationErrors = data.errors;
-                } else {
-                    $scope.newTopic = {};
-                    index();
-                }
-            });
+            console.log($scope.newTopic);
+            if ($scope.newTopic === undefined) {
+                $scope.error = true;
+                $scope.validationErrors = [{message: "Please submit valid inputs"}];
+            } else {
+                var newTopic = $scope.newTopic;
+                newTopic.user_id = $scope.user._id;
+                topicsFactory.create(newTopic, function(data) {
+                    console.log(data)
+                    if (data.name === "ValidationError") {
+                        $scope.error = true;
+                        $scope.validationErrors = data.errors;
+                    } else {
+                        $scope.newTopic = {};
+                        index();
+                    }
+                });
+            }
         }
     }
 }]);

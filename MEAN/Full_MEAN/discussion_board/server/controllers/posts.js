@@ -22,7 +22,7 @@ module.exports = {
     //     );
     // },
     create: function(req, res) {
-        console.log(req.body);
+        // console.log(req.body);
         Topic.findOne({_id: req.body.topic_id}, function(err, topic) {
             User.findOne({_id: req.body.user_id}, function(err, user) {
                 var newpost = new Post({text_body: req.body.text_body});
@@ -51,6 +51,33 @@ module.exports = {
                 });
             });
         });
+    },
+    upvote: function(req, res) {
+        // console.log('upvote');
+        Post.update({_id: req.params.id},
+            {$inc: {upvote: 1}},
+            function(err) {
+                if (err) {
+                    res.json(err);
+                } else {
+                    res.json({success : true});
+                }
+            }
+        );
+    },
+    downvote: function(req, res) {
+        // console.log(req.params.id);
+        Post.update({_id: req.params.id},
+            {$inc: {downvote: 1}},
+            function(err) {
+                if (err) {
+                    // console.log(err);
+                    res.json(err);
+                } else {
+                    res.json({success : true});
+                }
+            }
+        );
     },
     // update: function(req,res){
     //     // console.log(req.body);

@@ -12,18 +12,21 @@
     </form>
 </div>
 <hr style="margin: 20px 0px;">
+<ul class="error-messages" ng-if="error">
+    <li ng-repeat="errorObj in validationErrors">{{ errorObj.message }}</li>
+</ul>
 <div style="margin-left: 15px" ng-repeat="post in boardpost.posts | orderBy: '-created_at'">
     <div>
         <div class="left-col">
             <p><a href="#!/user/{{post._user._id}}">{{post._user.user_name}}:</a> {{post.text_body}}</p>
         </div>
         <div class="right-col">
-            <p><span style="color:green">{{post.upvote}}</span> | <span style="color:red">{{post.downvote}}</span></p>
+            <p><span style="color:green">{{post.upvote}}</span>  <button ng-if="user._id != post._user._id" class="button" ng-click="upvote(post._id)">UP</button>  |  <span style="color:red">{{post.downvote}}</span>  <button ng-if="user._id != post._user._id" class="button" ng-click="downvote(post._id)">DOWN</button></p>
         </div>
     </div>
-    <p style="margin-left:15px" ng-repeat="comment in post.comments | orderBy: '-created_at'"><a href="#!/user/{{comment._user._id}}">{{comment._user.user_name}}:</a> {{comment.text_body}}</p>
+    <p style="margin-left:15px" ng-repeat="comment in post.comments | orderBy: 'created_at'"><a href="#!/user/{{comment._user._id}}">{{comment._user.user_name}}:</a> {{comment.text_body}}</p>
     <form name="commentForm" ng-submit="createComment(post._id)">
-        <textarea style="margin-left: 15px" rows="4" cols="50" name="text_body" ng-model='newComment.text_body'></textarea>
+        <textarea style="margin-left: 15px" rows="4" cols="50" name="text_body" ng-model='newComment[post._id].text_body'"></textarea>
         <p><input type="submit" value="Comment" class="button"></p>
     </form>
     <hr style="margin: 20px 0px;">

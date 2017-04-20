@@ -36,6 +36,18 @@ myApp.factory('topicsFactory', ['$http', function($http) {
             }
         });
     }
+    //: Upvote post
+    factory.upvotePost = function(postID, callback) {
+        $http.put('/upvote/' + postID).then(function(returned_data) {
+            callback(returned_data.data);
+        });
+    }
+    //: Downvote post
+    factory.downvotePost = function(postID, callback) {
+        $http.put('/downvote/' + postID).then(function(returned_data) {
+            callback(returned_data.data);
+        });
+    }
     // //: Update method
     // factory.update = function(friend, callback) {
     //     $http.put('/friends/' + friend._id, friend).then(function(returned_data) {

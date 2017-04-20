@@ -32,4 +32,12 @@ module.exports = function(app){
     app.post('/comment', function(req, res) {
         comments.create(req, res);
     });
+        //: Upvote post
+    app.put('/upvote/:id', function(req, res) {
+        posts.upvote(req, res);
+    });
+        //: Downvote post
+    app.put('/downvote/:id', function(req, res) {
+        posts.downvote(req, res);
+    });
 }
