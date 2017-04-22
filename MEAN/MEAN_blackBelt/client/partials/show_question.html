@@ -1,0 +1,22 @@
+<div class='nav-bar'>
+    <a href="#!/dashboard">Home</a> | <a href="#!/question/{{question._id}}/new_answer">Answer this Question</a> | <a href="/">Logout</a>
+</div>
+<h1 style="font-weight: bold;">{{ question.question }}</h1>
+<h3>{{ question.description }}</h3>
+<hr style="margin: 20px 0px;">
+<h2>Answers:</h2>
+<div class="success-messages" ng-if="success">
+    <p>{{ success }}</p>
+</div>
+<table style="border:0; width: 30%">
+    <tr ng-repeat="answer in question.answers | orderBy: '-likes'">
+        <td style="text-align: left; border:0;">
+            <h3>{{ answer.user }}:</h3>
+            <p style="font-weight: bold;">{{ answer.answer }}</p>
+            <p style="font-style: italic;">{{ answer.details }}</p>
+        </td>
+        <td style="border:0;">
+            <p>{{ answer.likes }} likes  <button ng-click="like(answer)" class="button">Like!</button></p>
+        </td>
+    </tr>
+</table>
