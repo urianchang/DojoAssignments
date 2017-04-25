@@ -1,65 +1,57 @@
 //: Require mongoose
 var mongoose = require('mongoose');
+//: Require bcrypt
+var bcrypt = require('bcrypt');
 //: Retrieve schema from models
 var User = mongoose.model('User');
 
 module.exports = {
-    index: function(req, res) {
-        Friend.find({}, function(err, friends) {
-            if (err) {
-                res.json(err);
-            } else {
-                res.json(friends);
-            }
-        });
-    },
-    create: function(req, res) {
-        var friend = new Friend({
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            birthday: req.body.birthday
-        });
-        friend.save(function(err) {
-            if (err) {
-                res.json(err);
-            } else {
-                res.json({success: 'User successfully created!'});
-            }
-        });
-    },
-    update: function(req,res){
-        // console.log(req.body);
-        Friend.update({_id: req.body._id},
-            {$set: {first_name: req.body.first_name,
-                    last_name: req.body.last_name,
-                    birthday: req.body.birthday}
-            },
-            { runValidators: true },
-            function(err) {
+    login: function(req, res) {
+        if (!req.body.password) {
+            res.json({name: "ValidationError", errors: [{message: "Need password to log in!"}]})
+        } else {
+            // console.log('searching');
+            User.findOne({email: req.body.email}, function(err, user) {
                 if (err) {
+                    // console.log(err);
                     res.json(err);
                 } else {
-                    res.json({success: 'User successfully updated!'});
+                    if (!user) {
+                        res.json({name: "ValidationError", errors: [{message: "User not found!"}]});
+                    } else {
+                        if (bcrypt.compareSync(req.body.password, user.password)) {
+                            res.json(user);
+                        } else {
+                            res.json({name: "ValidationError", errors: [{message: "Incorrect password!"}]})
+                        }
+                    }
                 }
-            }
-        );
+            });
+        }
     },
-    delete: function(req,res){
-        Friend.remove({_id: req.params.id}, function(err) {
-            if (err) {
-                res.json(err);
+    register: function(req, res) {
+        // console.log(req.body);
+        if (req.body.password != req.body.confirm_password) {
+            res.json({name: "ValidationError", errors: [{message: "Passwords do not match!"}]});
+        } else {
+            if (req.body.password.length < 4) {
+                res.json({name: "ValidationError", errors: [{message: "Password has to be at least 4 characters!"}]})
             } else {
-                res.json({success: 'User successfully deleted!'});
+                var user = new User({
+                    first_name: req.body.first_name,
+                    last_name: req.body.last_name,
+                    birthday: req.body.birthday,
+                    email: req.body.email,
+                    password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(8)),
+                });
+                user.save(function(err) {
+                    if (err) {
+                        res.json(err);
+                    } else {
+                        res.json({success: 'Thank you for registering. Please log in!'});
+                    }
+                });
             }
-        });
+        }
     },
-    show: function(req,res){
-        Friend.findOne({_id: req.params.id}, function(err, friend) {
-            if (err) {
-                res.json(err);
-            } else {
-                res.json(friend);
-            }
-        });
-    }
 }

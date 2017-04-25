@@ -1,4 +1,6 @@
-<h2>Welcome!</h2>
+<div style="margin: 20px 100px;">
+    <h2>Hello, friend!</h2>
+</div>
 <div class="left-col">
     <h3>Please login:</h3>
     <ul class="error-messages" ng-if="error">
@@ -12,6 +14,9 @@
 </div>
 <div class="right-col">
     <h3>Please register:</h3>
+    <div class="success-messages" ng-if="success">
+        <p>{{ success }}</p>
+    </div>
     <ul class="error-messages" ng-if="error">
         <li ng-repeat="errorObj in registrationErrors">{{ errorObj.message }}</li>
     </ul>
