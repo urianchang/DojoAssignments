@@ -1,5 +1,5 @@
 //: Login Controller
-myApp.controller('loginController', ['$scope', 'usersFactory', '$location', '$route', function ($scope, usersFactory, $location, $route) {
+myApp.controller('loginController', ['$scope', 'usersFactory', '$location', '$route', '$cookies', function ($scope, usersFactory, $location, $route, $cookies) {
     $scope.error = false;
     $scope.success;
     $scope.newUser = {};
@@ -14,7 +14,8 @@ myApp.controller('loginController', ['$scope', 'usersFactory', '$location', '$ro
                 $scope.error = true;
                 $scope.loginErrors = data.errors;
             } else {
-                // console.log('from new controller: ', data);
+                // console.log('from login controller: ', data.email);
+                $cookies.put('user', data.email);
                 $location.url('/welcome');
             }
         });

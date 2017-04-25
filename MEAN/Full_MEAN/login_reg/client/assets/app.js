@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngCookies']);
 
 //  use the config method to set up routing:
 myApp.config(function ($routeProvider) {
