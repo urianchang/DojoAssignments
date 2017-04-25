@@ -1,0 +1,27 @@
+<h2>Welcome!</h2>
+<div class="left-col">
+    <h3>Please login:</h3>
+    <ul class="error-messages" ng-if="error">
+        <li ng-repeat="errorObj in loginErrors">{{ errorObj.message }}</li>
+    </ul>
+    <form name="loginForm" ng-submit="login()">
+        <p>Email: <input type='text' name="email" ng-model='loginUser.email'></p>
+        <p>Password: <input type='password' name="password" ng-model='loginUser.password'></p>
+        <input type="submit" value="Login" class="button">
+    </form>
+</div>
+<div class="right-col">
+    <h3>Please register:</h3>
+    <ul class="error-messages" ng-if="error">
+        <li ng-repeat="errorObj in registrationErrors">{{ errorObj.message }}</li>
+    </ul>
+    <form name="registerForm" ng-submit="register()">
+        <p>First name: <input type='text' name="first_name" ng-model='newUser.first_name'></p>
+        <p>Last name: <input type='text' name="last_name" ng-model='newUser.last_name'></p>
+        <p>Birthday: <input type='date' name="birthday" ng-model='newUser.birthday'></p>
+        <p>Email: <input type='text' name="email" ng-model='newUser.email'></p>
+        <p>Password: <input type='password' name="password" ng-model='newUser.password'></p>
+        <p>Confirm Password: <input type='password' name="confirm_password" ng-model='newUser.confirm_password'></p>
+        <input type="submit" value="Register" class="button">
+    </form>
+</div>

@@ -1,0 +1,62 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+body {
+    padding-left: 10px;
+}
+form {
+    margin-top: 5px;
+}
+form p {
+    margin: 5px 0px;
+}
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin-top: 5px;
+}
+table, th, td {
+    border: 2px solid orange;
+}
+th {
+    text-align: center;
+    padding: 10px;
+    background-color: gray;
+    color: white;
+}
+td{
+    vertical-align: middle;
+    padding: 10px;
+    text-align: center;
+}
+.button {
+    margin: 5px 0px;
+    padding: 0px 5px;
+}
+.nav-bar {
+    margin-bottom: 20px;
+}
+.searchbar {
+    margin: 10px;
+}
+.error-messages {
+    margin: 15px 15px;
+    color: red;
+    font-style: italic;
+}
+.success-messages {
+    color: green;
+    margin: 15px 15px;
+    font-style: italic;
+}
+.left-col {
+    display: inline-block;
+    width: 48%;
+    vertical-align: top;
+}
+.right-col {
+    display: inline-block;
+    vertical-align: top;
+    width: 48%;
+}
