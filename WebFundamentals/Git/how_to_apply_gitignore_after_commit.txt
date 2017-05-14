@@ -1,0 +1,11 @@
+After creating .gitignore file, run:
+
+	git ls-files -ci --exclude-standard
+
+to see the files that are included in the exclude list.
+
+Run:
+
+	git ls-files -ci --exclude-standard -z | xargs -0 git rm --cached
+
+to remove them from git repo (but not locally).
